@@ -5,4 +5,8 @@ import java.util.List;
 
 public class EMCValues {
 	public List<String> arrayList = new ArrayList<String>();
+	
+	public EMCValues(){
+				
+	}
 }
