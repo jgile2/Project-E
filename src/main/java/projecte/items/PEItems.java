@@ -1,19 +1,23 @@
-package jgile2.mods.projecte.items;
+package projecte.items;
 
-import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.item.Item;
+import cpw.mods.fml.common.registry.GameRegistry;
 
 public class PEItems {
 	
-	public static Item philosophersStone,alchemicalCoal;
+	public static Item philosophersStone;
+	public static Item alchemicalCoal;
+	public static Item KleinStarEin;
 	
-	public void RegisterItems(){
-		philosophersStone = new philosophersStone();
+	public static void registerItems(){
+		philosophersStone = new ItemPhilosopherStone();
 		GameRegistry.registerItem(philosophersStone, "Philosophers Stone");
 		
-		alchemicalCoal = new alchemicalCoal();
-		
+		alchemicalCoal = new ItemAlchemicalCoal();
 		GameRegistry.registerItem(alchemicalCoal, "Alchemical Coal");
+		
+		KleinStarEin = new ItemKleinStar();
+		GameRegistry.registerItem(KleinStarEin, "KleinStarEin");
 	}
 
 }

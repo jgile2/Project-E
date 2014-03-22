@@ -1,4 +1,13 @@
-itemGroup.Project E=Project E
-item.testTool.name=Test Tool
-item.philosophersStone.name=Philosophers Stone
-item.alchemicalCoal.name=Alchemical Coal
+itemGroup.projecte=Project E
+item.projecte.philosophersStone.name=Philosophers Stone
+item.projecte.alchemicalCoal.name=Alchemical Coal
+item.projecte.kleinStarEin.name=Klein Star Ein
+
+tile.projecte.relayMK1.name=Anti-Matter Relay MK1
+tile.projecte.energyCollectorMK1.name=Energy Collector MK1
+
+projecte.tooltip.pressShift=Press shift to see the EMC value
+projecte.tooltip.stackValue=Stack EMC value
+projecte.tooltip.itemValue=Item EMC value
+projecte.tooltip.novalue=This item hasn't got an EMC value
+projecte.tooltip.type=Type of item

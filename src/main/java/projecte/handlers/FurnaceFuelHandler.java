@@ -1,9 +1,8 @@
-package jgile2.mods.projecte.handlers;
+package projecte.handlers;
 
-import jgile2.mods.projecte.items.PEItems;
-import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import projecte.items.PEItems;
 import cpw.mods.fml.common.IFuelHandler;
 
 public class FurnaceFuelHandler implements IFuelHandler

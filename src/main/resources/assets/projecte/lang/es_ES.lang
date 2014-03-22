@@ -1,0 +1,13 @@
+itemGroup.projecte=Project E
+item.projecte.philosophersStone.name=Piedra Filosofal
+item.projecte.alchemicalCoal.name=Carbón Alquémico
+item.projecte.kleinStarEin.name=Estrella de Klein Ein
+
+tile.projecte.RelayMK1.name=Relé de Anti-Materia MK1
+tile.projecte.energyCollectorMK1.name=Colector de Energía MK1
+
+projecte.tooltip.pressShift=Pulsa shift para ver el valor EMC
+projecte.tooltip.stackValue=Valor EMC del stack
+projecte.tooltip.itemValue=Valor EMC del item
+projecte.tooltip.novalue=Este item no tiene un valor EMC
+projecte.tooltip.type=Tipo de item
