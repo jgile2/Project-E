@@ -3,6 +3,8 @@ package jgile2.mods.projecte;
 import java.util.ArrayList;
 import java.util.List;
 
+import jgile2.mods.projecte.handlers.FurnaceFuelHandler;
+import jgile2.mods.projecte.items.PEItems;
 import jgile2.mods.projecte.items.testTool;
 import net.minecraft.client.Minecraft;
 import net.minecraft.creativetab.CreativeTabs;
@@ -34,20 +36,23 @@ public class ProjectE {
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event){
 		testItem = new testTool();
-
+		PEItems peItems = new PEItems();
+		peItems.RegisterItems();
 		GameRegistry.registerItem(testItem, "Test Item");
-		ItemStack emc = new ItemStack(Items.diamond);
-		List<String> emcList = new ArrayList<String>();
-		emcList.add("test tool tip");
 		//AddEMC emcAdd =new AddEMC(emc,Minecraft.getMinecraft().thePlayer,emcList,true);
 
 		
 		MinecraftForge.EVENT_BUS.register(new AddEMC());
+		MinecraftForge.EVENT_BUS.register(new CraftingEvent());
+		FMLCommonHandler.instance().bus().register(new CraftingEvent());
 	}
 	
 	@EventHandler 
 	public void init(FMLInitializationEvent event){
-		
+		GameRegistry.registerFuelHandler(new FurnaceFuelHandler());
+		Recipes r = new Recipes();
+		r.AddShaped();
+		r.AddShapeless();
 		
 	}
 	

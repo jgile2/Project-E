@@ -48,14 +48,7 @@ public class AddEMC {
 				String[] emcValu = emcVal.split(":");
 				itemName = emcValu[0];
 				
-				switch (event.itemStack.getItem().getUnlocalizedName()) {
-
-				// String name = ((Item)
-				// Item.itemRegistry.getObject("diamond")).getUnlocalizedName();
-				
-				case itemName:
-					event.toolTip.add("EMC (Item): " + String.format("%s", emcValu[1]));
-				}
+			
 			}
 		}
 
