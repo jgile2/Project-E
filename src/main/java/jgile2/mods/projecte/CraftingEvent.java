@@ -10,22 +10,20 @@ import cpw.mods.fml.common.gameevent.PlayerEvent;
 import cpw.mods.fml.common.gameevent.PlayerEvent.ItemCraftedEvent;
 
 public class CraftingEvent {
-	int slot;
-
-	public CraftingEvent() {
-		System.out.println("calling here");
-
-	}
-
-	@SubscribeEvent(priority = EventPriority.LOWEST)
-	public void ItemCraft(ItemCraftedEvent event) {
+	@SubscribeEvent(priority = EventPriority.HIGHEST)
+	public void SomethingCrafted(ItemCraftedEvent event) {
+	
 		IInventory inv = event.craftMatrix;
 		for (int i = 0; i < inv.getSizeInventory(); i++) {
 			if (inv.getStackInSlot(i) != null) {
 				ItemStack j = inv.getStackInSlot(i);
 				if (j.getItem() != null && j.getItem() == PEItems.philosophersStone) {
-					ItemStack k = new ItemStack(PEItems.philosophersStone);
+					ItemStack k = new ItemStack(PEItems.philosophersStone, 2);
+					
 					inv.setInventorySlotContents(i, k);
+					//event.player.inventory.addItemStackToInventory(k);
+					System.out.println("SOME CODE");
+					
 				}
 			}
 		}

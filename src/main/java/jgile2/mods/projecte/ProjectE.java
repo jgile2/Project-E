@@ -43,7 +43,7 @@ public class ProjectE {
 
 		
 		MinecraftForge.EVENT_BUS.register(new AddEMC());
-		MinecraftForge.EVENT_BUS.register(new CraftingEvent());
+		//MinecraftForge.EVENT_BUS.register(new CraftingEvent());
 		FMLCommonHandler.instance().bus().register(new CraftingEvent());
 	}
 	

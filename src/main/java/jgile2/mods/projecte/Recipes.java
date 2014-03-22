@@ -10,7 +10,7 @@ public class Recipes {
 
 	public void AddShapeless() {
 		GameRegistry.addShapelessRecipe(new ItemStack(PEItems.alchemicalCoal),PEItems.philosophersStone,Items.coal,Items.coal,Items.coal,Items.coal);
-		GameRegistry.addShapelessRecipe(new ItemStack(Items.coal),PEItems.philosophersStone,PEItems.alchemicalCoal);
+		GameRegistry.addShapelessRecipe(new ItemStack(Items.coal,4),PEItems.philosophersStone,PEItems.alchemicalCoal);
 
 	}
 
