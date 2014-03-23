@@ -11,3 +11,5 @@ projecte.tooltip.stackValue=Valor EMC del stack
 projecte.tooltip.itemValue=Valor EMC del item
 projecte.tooltip.novalue=Este item no tiene un valor EMC
 projecte.tooltip.type=Tipo de item
+projecte.tooltip.stored=EMC almacenado
+projecte.tooltip.maxStored=Máximo EMC almacenado

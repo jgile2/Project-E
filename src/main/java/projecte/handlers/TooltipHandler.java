@@ -11,6 +11,7 @@ import org.lwjgl.input.Keyboard;
 import projecte.ModInfo;
 import projecte.api.emc.EmcValue;
 import projecte.api.emc.EmcValues;
+import projecte.api.tile.IItemEmcBuffer;
 import projecte.util.Color;
 import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
@@ -42,6 +43,17 @@ public class TooltipHandler {
 				tip.add("");
 				tip.add(Color.WHITE + StatCollector.translateToLocal(ModInfo.MOD_ID + ".tooltip.type") + ": "
 						+ val.getType().toString());
+			}
+			
+			if(event.itemStack.getItem() instanceof IItemEmcBuffer){
+				IItemEmcBuffer b = (IItemEmcBuffer) event.itemStack.getItem();
+				
+				tip.add(Color.GOLD + StatCollector.translateToLocal(ModInfo.MOD_ID + ".tooltip.stored")
+						+ ": " + Color.GREEN + b.getStoredEmc(event.itemStack));
+				tip.add(Color.GOLD + StatCollector.translateToLocal(ModInfo.MOD_ID + ".tooltip.maxStored")
+						+ ": "
+						+ Color.GREEN
+						+ b.getMaxStoredEmc(event.itemStack));
 			}
 		} else {
 			tip.add(Color.ITALIC + "<" + StatCollector.translateToLocal(ModInfo.MOD_ID + ".tooltip.pressShift")

@@ -1,23 +1,20 @@
 package projecte.tile;
 
-import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.network.Packet;
-import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.World;
-import projecte.api.tile.ITileEmcBuffer;
 
-public class TileEnergyCollectorMK1 extends TileEntity implements ISidedInventory, ITileEmcBuffer {
+public class TileCondenser extends TileEntity implements ISidedInventory {
 
-	private ItemStack[] items = new ItemStack[11];
-	public EntityPlayer entity;
+	private ItemStack[] items = new ItemStack[92];
+
+	public int playersCurrentlyUsingChest;
+	
+	public float lidAngle = 0;
+	public float prevLidAngle = 0;
 
 	@Override
 	public int getSizeInventory() {
@@ -57,14 +54,7 @@ public class TileEnergyCollectorMK1 extends TileEntity implements ISidedInventor
 	@Override
 	public ItemStack getStackInSlotOnClosing(int i) {
 
-		if (this.items[i] != null) {
-			ItemStack itemstack = this.items[i];
-			this.items[i] = null;
-			return itemstack;
-		} else {
-		}
-
-		return null;
+		return getStackInSlot(i);
 
 	}
 
@@ -94,7 +84,6 @@ public class TileEnergyCollectorMK1 extends TileEntity implements ISidedInventor
 
 		nbt.setTag("Items", nbttaglist);
 
-		nbt.setInteger("emc", stored);
 	}
 
 	public void readFromNBT(NBTTagCompound nbt) {
@@ -110,8 +99,6 @@ public class TileEnergyCollectorMK1 extends TileEntity implements ISidedInventor
 				this.items[var1] = ItemStack.loadItemStackFromNBT(nbtSlot);
 			}
 		}
-
-		stored = nbt.getInteger("emc");
 	}
 
 	@Override
@@ -121,8 +108,34 @@ public class TileEnergyCollectorMK1 extends TileEntity implements ISidedInventor
 
 	@Override
 	public boolean isUseableByPlayer(EntityPlayer entityplayer) {
-		entity = entityplayer;
 		return true;
+	}
+
+	@Override
+	public void openInventory() {
+		if (this.playersCurrentlyUsingChest < 0) {
+			this.playersCurrentlyUsingChest = 0;
+		}
+
+		this.playersCurrentlyUsingChest++;
+		this.worldObj.addBlockEvent(this.xCoord, this.yCoord, this.zCoord, this.getBlockType(), 1, this.playersCurrentlyUsingChest);
+		this.worldObj.notifyBlocksOfNeighborChange(this.xCoord, this.yCoord, this.zCoord, this.getBlockType());
+		this.worldObj.notifyBlocksOfNeighborChange(this.xCoord, this.yCoord - 1, this.zCoord, this.getBlockType());
+
+	}
+
+	@Override
+	public void closeInventory() {
+
+	}
+
+	public boolean receiveClientEvent(int par1, int par2) {
+		if (par1 == 1) {
+			this.playersCurrentlyUsingChest = par2;
+			return true;
+		} else {
+			return super.receiveClientEvent(par1, par2);
+		}
 	}
 
 	public void invalidate() {
@@ -154,107 +167,11 @@ public class TileEnergyCollectorMK1 extends TileEntity implements ISidedInventor
 
 	@Override
 	public String getInventoryName() {
-
-		return "";
+		return null;
 	}
 
 	@Override
 	public boolean hasCustomInventoryName() {
 		return false;
 	}
-
-	@Override
-	public void openInventory() {
-	}
-
-	@Override
-	public void closeInventory() {
-	}
-
-	@Override
-	public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt) {
-		readFromNBT(pkt.func_148857_g());
-	}
-
-	@Override
-	public Packet getDescriptionPacket() {
-		NBTTagCompound tag = new NBTTagCompound();
-
-		writeToNBT(tag);
-
-		return new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 0, tag);
-	}
-
-	public boolean checkSun() {
-		World w = this.worldObj;
-
-		if (w.getBlock(xCoord, yCoord + 1, zCoord) == Blocks.glowstone)
-			return true;
-
-		for (int y = yCoord + 1; y < w.getHeight(); y++) {
-			Block b = w.getBlock(xCoord, y, zCoord);
-			if (b.getLightOpacity(w, xCoord, y, zCoord) > 0)// 0 - 255
-				return false;
-		}
-		return true;
-	}
-
-	public double getSunStrength() {
-		if (!checkSun())
-			return 0;
-
-		World w = this.worldObj;
-
-		if (w.getBlock(xCoord, yCoord + 1, zCoord) == Blocks.glowstone)
-			return 1;
-
-		return w.getSunBrightness(0);
-	}
-
-	/* Functionality */
-
-	protected int maxEMCPerSecond = 4;
-	private long tick = 0;
-	private double added = 0;
-
-	@Override
-	public void updateEntity() {
-		double a = maxEMCPerSecond;
-		a /= 20;
-		a *= getSunStrength();
-
-		added += a;
-
-		if (added >= 1) {
-			add(1);
-			added -= 1;
-		}
-
-		tick = tick + 1;
-	}
-
-	/* EMC storage */
-
-	private int stored = 0;
-
-	@Override
-	public int getStoredEmc() {
-		return stored;
-	}
-
-	@Override
-	public int getMaxStoredEmc() {
-		return 10000;
-	}
-
-	@Override
-	public void drain(int amt) {
-		stored -= Math.max(Math.min(amt, stored), 0);
-	}
-
-	@Override
-	public void add(int amt) {
-		stored += Math.max(Math.min(amt, getMaxStoredEmc() - stored), 0);
-	}
-
 }

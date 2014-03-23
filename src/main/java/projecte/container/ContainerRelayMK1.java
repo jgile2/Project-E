@@ -5,6 +5,8 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
+import projecte.container.slot.SlotEmc;
+import projecte.container.slot.SlotEmcStorage;
 import projecte.tile.TileRelayMK1;
 
 public class ContainerRelayMK1 extends Container {
@@ -19,6 +21,10 @@ public class ContainerRelayMK1 extends Container {
 				this.addSlotToContainer(new SlotEmc(tileentity, j + i * 2, 27 + j * 18, 17 + i * 18));
 			}
 		}
+		
+		this.addSlotToContainer(new SlotEmc(tileentity,6,67,43));
+		this.addSlotToContainer(new SlotEmcStorage(tileentity,7,127,43));
+
 		
 		for (int i = 0; i < 3; i++) {
 			for (int j = 0; j < 9; j++) {

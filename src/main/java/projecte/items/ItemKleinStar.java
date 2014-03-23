@@ -1,27 +1,23 @@
 package projecte.items;
 
-import net.minecraft.client.renderer.texture.IIconRegister;
+import java.util.List;
+
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import projecte.ProjectE;
-import projecte.ModInfo;
 import projecte.api.tile.IItemEmcBuffer;
 
 public class ItemKleinStar extends Item implements IItemEmcBuffer {
 	public ItemKleinStar() {
-		this.setUnlocalizedName(ModInfo.MOD_ID + ".kleinStarEin");
 		this.setCreativeTab(ProjectE.tab);
-		this.setMaxDamage(10000);
-	}
-
-	public void registerIcons(IIconRegister iconRegister) {
-		itemIcon = iconRegister.registerIcon(ModInfo.MOD_ID + ":kleinStarEin");
 	}
 
 	@Override
 	public int getStoredEmc(ItemStack is) {
 		
-		return 0;
+		return is.getItemDamage();
 	}
 
 	@Override
@@ -41,7 +37,19 @@ public class ItemKleinStar extends Item implements IItemEmcBuffer {
 	
 	@Override
 	public int getDisplayDamage(ItemStack is) {
-		return ((int)(((double)(getMaxStoredEmc(is) - getStoredEmc(is)))/((double)(getMaxStoredEmc(is))) * getMaxDamage()));
+		return getMaxStoredEmc(is) - getStoredEmc(is);
+	}
+	
+	@Override
+	public int getMaxDamage(ItemStack stack) {
+		return getMaxStoredEmc(stack);
+	}
+	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@Override
+	public void getSubItems(Item i, CreativeTabs t, List l) {
+		l.add(new ItemStack(this, 1, 0));
+		l.add(new ItemStack(this, 1, getMaxStoredEmc(new ItemStack(this, 1, 0))));
 	}
 	
 }

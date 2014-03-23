@@ -25,11 +25,13 @@ public class GuiEnergyCollectorMK1 extends GuiContainer {
 	}
 
 	@Override
-	public void drawGuiContainerForegroundLayer(int par1, int par2) {
+	public void drawGuiContainerForegroundLayer(int x, int y) {
 		/*
 		 * String name = StatCollector
 		 * .translateToLocal("container.EnergyCollectMK1");
 		 */
+		
+		fontRendererObj.drawString(tile.getStoredEmc() + "EMC", 65, 32, 4210752);
 
 		// this.fontRendererObj.drawString(name, this.xSize / 2 -
 		// this.fontRendererObj.getStringWidth(name) / 2, 6, 4210752);
@@ -44,6 +46,11 @@ public class GuiEnergyCollectorMK1 extends GuiContainer {
 
 		Minecraft.getMinecraft().getTextureManager().bindTexture(texture);
 		drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
+		
+		double w = 48;
+		w *= tile.getStoredEmc();
+		w /= tile.getMaxStoredEmc();
+		drawTexturedModalRect(guiLeft + 64, guiTop + 18, 0, 166, (int) w, 10);
 
 		/*
 		 * if (this.moneyMaker.isBurning()) { int k =
@@ -52,8 +59,12 @@ public class GuiEnergyCollectorMK1 extends GuiContainer {
 		 * k, 14, k + 2); } int k = this.moneyMaker.getCookProgessScaled(24);
 		 * drawTexturedModalRect(guiLeft + 79, guiTop + 35, 176, 14, k + 1, 16);
 		 */
-		if (this.tile.checkSun()) {
-			drawTexturedModalRect(guiLeft + 126, guiTop + 37, 177, 0, 14, 12);
+		if (tile.checkSun()) {
+			if(tile.getSunStrength() > 0.3){
+				drawTexturedModalRect(guiLeft + 126, guiTop + 36, 177, 0, 14, 14);
+			}else{
+				drawTexturedModalRect(guiLeft + 126, guiTop + 36, 177 + 14, 0, 14, 14);
+			}
 		}
 	}
 

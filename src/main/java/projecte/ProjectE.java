@@ -5,21 +5,20 @@ import java.util.EnumMap;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraftforge.common.MinecraftForge;
 import projecte.api.emc.EmcValues;
-import projecte.blocks.PEBlocks;
 import projecte.crafting.PhilosopherStoneCraftingHandler;
-import projecte.crafting.Recipes;
 import projecte.event.CraftingEvent;
 import projecte.gui.GuiHandler;
 import projecte.handlers.FurnaceFuelHandler;
 import projecte.handlers.TooltipHandler;
-import projecte.items.PEItems;
 import projecte.packet.ChannelHandler;
+import projecte.proxy.CommonProxy;
 import projecte.util.CreativeTab;
 import projecte.util.OredictUtil;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
+import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLLoadCompleteEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
@@ -37,6 +36,9 @@ public class ProjectE {
 	@Instance(ModInfo.MOD_ID)
 	public static ProjectE inst;
 
+	@SidedProxy(clientSide = "projecte.proxy.ClientProxy", serverSide = "projecte.proxy.CommonProxy", modId = ModInfo.MOD_ID)
+	public static CommonProxy proxy;
+
 	public EnumMap<Side, FMLEmbeddedChannel> channels;
 
 	@EventHandler
@@ -45,8 +47,8 @@ public class ProjectE {
 		OredictUtil.registerVanillaOredict();
 
 		/* Register items and blocks */
-		PEItems.registerItems();
-		PEBlocks.registerBlocks();
+		proxy.registerBlocks();
+		proxy.registerItems();
 
 		/* Register default EMC values */
 		EmcValues.registerDefault();
@@ -68,8 +70,7 @@ public class ProjectE {
 		GameRegistry.addRecipe(PhilosopherStoneCraftingHandler.inst);
 
 		/* Register recipes */
-		Recipes.registerShapedRecipes();
-		Recipes.registerShapelessRecipes();
+		proxy.addRecipes();
 
 		/* Register GUI handler */
 		NetworkRegistry.INSTANCE.registerGuiHandler(inst, new GuiHandler());

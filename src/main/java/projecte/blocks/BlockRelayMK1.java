@@ -22,10 +22,10 @@ import cpw.mods.fml.common.network.internal.FMLNetworkHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class RelayMK1 extends BlockContainer {
+public class BlockRelayMK1 extends BlockContainer {
 	private Random rand = new Random();
 
-	protected RelayMK1() {
+	protected BlockRelayMK1() {
 		super(Material.iron);
 		this.setBlockName(ModInfo.MOD_ID + ".relayMK1");
 		this.setCreativeTab(ProjectE.tab);
@@ -121,38 +121,28 @@ public class RelayMK1 extends BlockContainer {
 	@Override
 	public void breakBlock(World world, int x, int y, int z, Block block, int oldMetadata) {
 
-		TileRelayMK1 tileentity = (TileRelayMK1) world.getTileEntity(x, y, z);
+		TileRelayMK1 te = (TileRelayMK1) world.getTileEntity(x, y, z);
 
-		if (tileentity != null) {
-			for (int i = 0; i < tileentity.getSizeInventory(); i++) {
-				ItemStack itemstack = tileentity.getStackInSlot(i);
+		if (te != null) {
+			for (int i = 0; i < te.getSizeInventory(); i++) {
+				ItemStack stack = te.getStackInSlot(i);
 
-				if (itemstack != null) {
-					float f = this.rand.nextFloat() * 0.8F + 0.1F;
-					float f1 = this.rand.nextFloat() * 0.8F + 0.1F;
+				if (stack != null) {
+					float x1 = this.rand.nextFloat() * 0.8F + 0.1F;
+					float y1 = this.rand.nextFloat() * 0.8F + 0.1F;
 					float f2 = this.rand.nextFloat() * 0.8F + 0.1F;
 
-					while (itemstack.stackSize > 0) {
-						int j = this.rand.nextInt(21) + 10;
-
-						if (j > itemstack.stackSize) {
-							j = itemstack.stackSize;
-						}
-
-						itemstack.stackSize -= j;
-
-						EntityItem item = new EntityItem(world, (double) ((float) x + f), (double) ((float) y + f1), (double) ((float) z + f2), new ItemStack(itemstack.getItem(), j, itemstack.getItemDamage()));
-						System.out.println("Item is "+ itemstack.getDisplayName());
-						if (itemstack.hasTagCompound()) {
-							item.getEntityItem().setTagCompound((NBTTagCompound) itemstack.getTagCompound().copy());
-						}
-
-						float f4;
+					EntityItem item = new EntityItem(world, (double) ((float) x + x1), (double) ((float) y + y1), (double) ((float) z + f2), new ItemStack(stack.getItem(), stack.stackSize, stack.getItemDamage()));
+					if (stack.hasTagCompound()) {
+						item.getEntityItem().setTagCompound((NBTTagCompound) stack.getTagCompound().copy());
 					}
 
+					world.spawnEntityInWorld(item);
 				}
 			}
 		}
+		
+		super.breakBlock(world, x, y, z, block, oldMetadata);
 	}
 
 	@Override

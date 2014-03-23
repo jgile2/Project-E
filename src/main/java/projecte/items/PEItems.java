@@ -8,6 +8,13 @@ public class PEItems {
 	public static Item philosophersStone;
 	public static Item alchemicalCoal;
 	public static Item KleinStarEin;
+	public static Item KleinStarZwei;
+	public static Item KleinStarDrei;
+	public static Item KleinStarVier;
+	public static Item KleinStarSphere;
+	public static Item KleinStarOmega;
+
+
 	
 	public static void registerItems(){
 		philosophersStone = new ItemPhilosopherStone();
@@ -16,8 +23,23 @@ public class PEItems {
 		alchemicalCoal = new ItemAlchemicalCoal();
 		GameRegistry.registerItem(alchemicalCoal, "Alchemical Coal");
 		
-		KleinStarEin = new ItemKleinStar();
-		GameRegistry.registerItem(KleinStarEin, "KleinStarEin");
+		KleinStarEin = new ItemKleinStarEin();
+		GameRegistry.registerItem(KleinStarEin, KleinStarEin.getUnlocalizedName());
+		
+		KleinStarZwei = new ItemKleinStarZwei();
+		GameRegistry.registerItem(KleinStarZwei, KleinStarZwei.getUnlocalizedName());
+		
+		KleinStarDrei = new ItemKleinStarDrei();
+		GameRegistry.registerItem(KleinStarDrei, KleinStarDrei.getUnlocalizedName());
+		
+		KleinStarVier = new ItemKleinStarVier();
+		GameRegistry.registerItem(KleinStarVier, KleinStarVier.getUnlocalizedName());
+		
+		KleinStarSphere = new ItemKleinStarSphere();
+		GameRegistry.registerItem(KleinStarSphere, KleinStarSphere.getUnlocalizedName());
+		
+		KleinStarOmega = new ItemKleinStarOmega();
+		GameRegistry.registerItem(KleinStarOmega, KleinStarOmega.getUnlocalizedName());
 	}
 
 }
