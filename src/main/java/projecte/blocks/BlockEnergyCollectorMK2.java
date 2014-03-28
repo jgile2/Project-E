@@ -17,17 +17,17 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import projecte.ModInfo;
 import projecte.ProjectE;
-import projecte.tile.TileEnergyCollectorMK1;
+import projecte.tile.TileEnergyCollectorMK2;
 import cpw.mods.fml.common.network.internal.FMLNetworkHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class BlockEnergyCollectorMK1 extends BlockContainer {
+public class BlockEnergyCollectorMK2 extends BlockContainer {
 	private Random rand = new Random();
 
-	protected BlockEnergyCollectorMK1() {
+	protected BlockEnergyCollectorMK2() {
 		super(Material.iron);
-		this.setBlockName(ModInfo.MOD_ID + ".energyCollectorMK1");
+		this.setBlockName(ModInfo.MOD_ID + ".energyCollectorMK2");
 		this.setCreativeTab(ProjectE.tab);
 		this.setHardness(2F);
 		this.setStepSound(Block.soundTypeStone);
@@ -40,7 +40,7 @@ public class BlockEnergyCollectorMK1 extends BlockContainer {
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister icon) {
 		this.blockIcon = icon.registerIcon(ModInfo.MOD_ID + ":energyCollector_side");
-		topIcon = icon.registerIcon(ModInfo.MOD_ID + ":energyCollectorMK1_top");
+		topIcon = icon.registerIcon(ModInfo.MOD_ID + ":energyCollectorMK2_top");
 		sideIcon = icon.registerIcon(ModInfo.MOD_ID + ":energyCollector_side");
 		frontIcon = icon.registerIcon(ModInfo.MOD_ID + ":energyCollector_front");
 	}
@@ -120,13 +120,13 @@ public class BlockEnergyCollectorMK1 extends BlockContainer {
 
 	@Override
 	public TileEntity createNewTileEntity(World var1, int var2) {
-		return new TileEnergyCollectorMK1();
+		return new TileEnergyCollectorMK2();
 	}
 
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer entity, int side, float hitX, float hitY, float hitZ) {
 		if (!world.isRemote) {
-			FMLNetworkHandler.openGui(entity, ProjectE.inst, 1, world, x, y, z);
+			FMLNetworkHandler.openGui(entity, ProjectE.inst, 2, world, x, y, z);
 
 		}
 
@@ -136,7 +136,7 @@ public class BlockEnergyCollectorMK1 extends BlockContainer {
 	@Override
 	public void breakBlock(World world, int x, int y, int z, Block block, int oldMetadata) {
 
-		TileEnergyCollectorMK1 te = (TileEnergyCollectorMK1) world.getTileEntity(x, y, z);
+		TileEnergyCollectorMK2 te = (TileEnergyCollectorMK2) world.getTileEntity(x, y, z);
 
 		if (te != null) {
 			for (int i = 0; i < te.getSizeInventory(); i++) {

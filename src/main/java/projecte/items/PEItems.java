@@ -13,6 +13,7 @@ public class PEItems {
 	public static Item KleinStarVier;
 	public static Item KleinStarSphere;
 	public static Item KleinStarOmega;
+	public static Item BucketLiquidEMC;
 
 
 	
@@ -40,6 +41,9 @@ public class PEItems {
 		
 		KleinStarOmega = new ItemKleinStarOmega();
 		GameRegistry.registerItem(KleinStarOmega, KleinStarOmega.getUnlocalizedName());
+		
+		BucketLiquidEMC = new ItemBucketLiquidEMC();
+		GameRegistry.registerItem(BucketLiquidEMC, BucketLiquidEMC.getUnlocalizedName());
 	}
 
 }

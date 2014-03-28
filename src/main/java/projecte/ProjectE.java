@@ -3,13 +3,22 @@ package projecte;
 import java.util.EnumMap;
 
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fluids.FluidContainerRegistry;
+import net.minecraftforge.fluids.FluidContainerRegistry.FluidContainerData;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidRegistry.FluidRegisterEvent;
 import projecte.api.emc.EmcValues;
 import projecte.crafting.PhilosopherStoneCraftingHandler;
+import projecte.event.BucketFillEvent;
 import projecte.event.CraftingEvent;
+import projecte.fluid.PEFluids;
 import projecte.gui.GuiHandler;
 import projecte.handlers.FurnaceFuelHandler;
 import projecte.handlers.TooltipHandler;
+import projecte.items.PEItems;
 import projecte.packet.ChannelHandler;
 import projecte.proxy.CommonProxy;
 import projecte.util.CreativeTab;
@@ -46,10 +55,10 @@ public class ProjectE {
 		/* Register vanilla oredict names */
 		OredictUtil.registerVanillaOredict();
 
-		/* Register items and blocks */
+		/* Register items and blocks and fluids */
+		proxy.registerFluids();
 		proxy.registerBlocks();
 		proxy.registerItems();
-
 		/* Register default EMC values */
 		EmcValues.registerDefault();
 
@@ -66,6 +75,7 @@ public class ProjectE {
 		/* Register handlers */
 		if (FMLCommonHandler.instance().getEffectiveSide().isClient())
 			MinecraftForge.EVENT_BUS.register(new TooltipHandler());
+		MinecraftForge.EVENT_BUS.register(new BucketFillEvent());
 		GameRegistry.registerFuelHandler(new FurnaceFuelHandler());
 		GameRegistry.addRecipe(PhilosopherStoneCraftingHandler.inst);
 
@@ -78,7 +88,7 @@ public class ProjectE {
 
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event) {
-
+		FluidContainerRegistry.registerFluidContainer(new FluidContainerData(FluidRegistry.getFluidStack(PEFluids.liquidEMC.getName(), FluidContainerRegistry.BUCKET_VOLUME),new ItemStack(PEItems.BucketLiquidEMC), new ItemStack(Items.bucket)));
 	}
 
 	@EventHandler

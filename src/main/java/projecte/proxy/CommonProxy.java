@@ -2,6 +2,7 @@ package projecte.proxy;
 
 import projecte.blocks.PEBlocks;
 import projecte.crafting.Recipes;
+import projecte.fluid.PEFluids;
 import projecte.items.PEItems;
 
 public class CommonProxy {
@@ -20,6 +21,10 @@ public class CommonProxy {
 		Recipes.registerShapedRecipes();
 		Recipes.registerShapelessRecipes();
 
+	}
+	
+	public void registerFluids(){
+		PEFluids.registerFluids();
 	}
 
 	public void registerRenders() {

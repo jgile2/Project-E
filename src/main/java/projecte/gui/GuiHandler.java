@@ -4,8 +4,10 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import projecte.container.ContainerEnergyCollectorMK1;
+import projecte.container.ContainerEnergyCollectorMK2;
+import projecte.container.ContainerEnergyCollectorMK3;
 import projecte.container.ContainerRelayMK1;
-import projecte.tile.TileEnergyCollectorMK1;
+import projecte.tile.*;
 import projecte.tile.TileRelayMK1;
 import cpw.mods.fml.common.network.IGuiHandler;
 
@@ -17,6 +19,14 @@ public class GuiHandler implements IGuiHandler {
 
 		if (entity instanceof TileEnergyCollectorMK1) {
 			return new ContainerEnergyCollectorMK1(player.inventory, (TileEnergyCollectorMK1) entity);
+		}
+
+		if (entity instanceof TileEnergyCollectorMK2) {
+			return new ContainerEnergyCollectorMK2(player.inventory, (TileEnergyCollectorMK2) entity);
+		}
+
+		if (entity instanceof TileEnergyCollectorMK3) {
+			return new ContainerEnergyCollectorMK3(player.inventory, (TileEnergyCollectorMK3) entity);
 		}
 
 		if (entity instanceof TileRelayMK1) {
@@ -33,7 +43,12 @@ public class GuiHandler implements IGuiHandler {
 		if (entity instanceof TileEnergyCollectorMK1) {
 			return new GuiEnergyCollectorMK1(player.inventory, (TileEnergyCollectorMK1) entity);
 		}
-
+		if (entity instanceof TileEnergyCollectorMK2) {
+			return new GuiEnergyCollectorMK2(player.inventory, (TileEnergyCollectorMK2) entity);
+		}
+		if (entity instanceof TileEnergyCollectorMK3) {
+			return new GuiEnergyCollectorMK3(player.inventory, (TileEnergyCollectorMK3) entity);
+		}
 		if (entity instanceof TileRelayMK1) {
 			return new GuiRelayMK1(player.inventory, (TileRelayMK1) entity);
 		}
