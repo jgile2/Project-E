@@ -3,6 +3,7 @@ package projecte.blocks;
 import java.util.Random;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
@@ -19,10 +20,11 @@ import net.minecraft.world.World;
 import projecte.ModInfo;
 import projecte.ProjectE;
 import projecte.tile.TileCondenser;
+import cpw.mods.fml.common.network.internal.FMLNetworkHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class BlockEnergyCondenser extends Block {
+public class BlockEnergyCondenser extends BlockContainer {
 	private Random rand = new Random();
 
 	protected BlockEnergyCondenser() {
@@ -67,34 +69,15 @@ public class BlockEnergyCondenser extends Block {
 	/**
 	 * Called whenever the block is added into the world. Args: world, x, y, z
 	 */
-	public void onBlockAdded(World p_149726_1_, int p_149726_2_, int p_149726_3_, int p_149726_4_) {
-		super.onBlockAdded(p_149726_1_, p_149726_2_, p_149726_3_, p_149726_4_);
-		this.func_149954_e(p_149726_1_, p_149726_2_, p_149726_3_, p_149726_4_);
-		Block block = p_149726_1_.getBlock(p_149726_2_, p_149726_3_, p_149726_4_ - 1);
-		Block block1 = p_149726_1_.getBlock(p_149726_2_, p_149726_3_, p_149726_4_ + 1);
-		Block block2 = p_149726_1_.getBlock(p_149726_2_ - 1, p_149726_3_, p_149726_4_);
-		Block block3 = p_149726_1_.getBlock(p_149726_2_ + 1, p_149726_3_, p_149726_4_);
-
-		if (block == this) {
-			this.func_149954_e(p_149726_1_, p_149726_2_, p_149726_3_, p_149726_4_ - 1);
-		}
-
-		if (block1 == this) {
-			this.func_149954_e(p_149726_1_, p_149726_2_, p_149726_3_, p_149726_4_ + 1);
-		}
-
-		if (block2 == this) {
-			this.func_149954_e(p_149726_1_, p_149726_2_ - 1, p_149726_3_, p_149726_4_);
-		}
-
-		if (block3 == this) {
-			this.func_149954_e(p_149726_1_, p_149726_2_ + 1, p_149726_3_, p_149726_4_);
-		}
+	public void onBlockAdded(World world, int x, int y, int z) {
+		super.onBlockAdded(world, x, y, z);
+		this.setDefaultDirection(world, x, y, z);
 	}
 
 	/**
 	 * Called when the block is placed in the world.
 	 */
+	@Override
 	public void onBlockPlacedBy(World p_149689_1_, int p_149689_2_, int p_149689_3_, int p_149689_4_, EntityLivingBase p_149689_5_, ItemStack p_149689_6_) {
 		Block block = p_149689_1_.getBlock(p_149689_2_, p_149689_3_, p_149689_4_ - 1);
 		Block block1 = p_149689_1_.getBlock(p_149689_2_, p_149689_3_, p_149689_4_ + 1);
@@ -143,8 +126,8 @@ public class BlockEnergyCondenser extends Block {
 			}
 		}
 	}
-
-	public void func_149954_e(World p_149954_1_, int p_149954_2_, int p_149954_3_, int p_149954_4_) {
+	
+	public void setDefaultDirection(World p_149954_1_, int p_149954_2_, int p_149954_3_, int p_149954_4_) {
 		if (!p_149954_1_.isRemote) {
 			Block block = p_149954_1_.getBlock(p_149954_2_, p_149954_3_, p_149954_4_ - 1);
 			Block block1 = p_149954_1_.getBlock(p_149954_2_, p_149954_3_, p_149954_4_ + 1);
@@ -317,14 +300,13 @@ public class BlockEnergyCondenser extends Block {
 	/**
 	 * Called upon block activation (right click on the block.)
 	 */
-	public boolean onBlockActivated(World p_149727_1_, int p_149727_2_, int p_149727_3_, int p_149727_4_, EntityPlayer p_149727_5_, int p_149727_6_, float p_149727_7_, float p_149727_8_, float p_149727_9_) {
-		if (p_149727_1_.isRemote) {
-			return true;
-		} else {
-			// FIXME add GUI
+	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer entity, int side, float hitX, float hitY, float hitZ) {
+		if (!world.isRemote) {
+			FMLNetworkHandler.openGui(entity, ProjectE.inst, 2, world, x, y, z);
 
-			return true;
 		}
+
+		return true;
 	}
 
 	public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_) {
@@ -354,7 +336,7 @@ public class BlockEnergyCondenser extends Block {
 
 	@Override
 	public int getRenderType() {
-		return 22;
+		return -1;
 	}
 
 }

@@ -12,8 +12,10 @@ item.projecte.BucketLiquidEMC.name=Liquid EMC Bucket
 
 tile.projecte.liquidEmc.name=Liquid EMC
 tile.projecte.relayMK1.name=Anti-Matter Relay MK1
+tile.projecte.energyCondensor.name=Energy Condensor
 tile.projecte.energyCollectorMK1.name=Energy Collector MK1
 tile.projecte.energyCollectorMK2.name=Energy Collector MK2
+tile.projecte.energyCollectorMK3.name=Energy Collector MK3
 
 
 projecte.tooltip.pressShift=Press shift to see the EMC value

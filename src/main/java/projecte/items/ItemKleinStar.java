@@ -12,6 +12,7 @@ import projecte.api.tile.IItemEmcBuffer;
 public class ItemKleinStar extends Item implements IItemEmcBuffer {
 	public ItemKleinStar() {
 		this.setCreativeTab(ProjectE.tab);
+		this.setMaxStackSize(1);
 	}
 
 	@Override

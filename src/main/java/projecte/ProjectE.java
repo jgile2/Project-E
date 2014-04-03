@@ -59,6 +59,7 @@ public class ProjectE {
 		proxy.registerFluids();
 		proxy.registerBlocks();
 		proxy.registerItems();
+		proxy.registerRenders();
 		/* Register default EMC values */
 		EmcValues.registerDefault();
 

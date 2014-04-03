@@ -33,6 +33,7 @@ public class PEBlocks {
 		
 		energyCondenser = new BlockEnergyCondenser();
 		GameRegistry.registerBlock(energyCondenser, "EnergyCondensor");
+		GameRegistry.registerTileEntity(TileCondenser.class, energyCondenser.getUnlocalizedName());
 		
 		blockFluidEMC = new BlockLiquidEMC();
 		GameRegistry.registerBlock(blockFluidEMC, "LiquidEMC");

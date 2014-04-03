@@ -213,7 +213,7 @@ public class TileEnergyCollectorMK3 extends TileEntity implements ISidedInventor
 
 	/* Functionality */
 
-	protected int maxEMCPerSecond = 8;
+	protected int maxEMCPerSecond = 16;
 	private long tick = 0;
 	private double added = 0;
 
@@ -244,7 +244,7 @@ public class TileEnergyCollectorMK3 extends TileEntity implements ISidedInventor
 
 	@Override
 	public int getMaxStoredEmc() {
-		return 30000;
+		return 60000;
 	}
 
 	@Override

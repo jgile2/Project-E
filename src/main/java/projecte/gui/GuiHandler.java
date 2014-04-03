@@ -3,12 +3,12 @@ package projecte.gui;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import projecte.container.ContainerCondensor;
 import projecte.container.ContainerEnergyCollectorMK1;
 import projecte.container.ContainerEnergyCollectorMK2;
 import projecte.container.ContainerEnergyCollectorMK3;
 import projecte.container.ContainerRelayMK1;
 import projecte.tile.*;
-import projecte.tile.TileRelayMK1;
 import cpw.mods.fml.common.network.IGuiHandler;
 
 public class GuiHandler implements IGuiHandler {
@@ -27,6 +27,9 @@ public class GuiHandler implements IGuiHandler {
 
 		if (entity instanceof TileEnergyCollectorMK3) {
 			return new ContainerEnergyCollectorMK3(player.inventory, (TileEnergyCollectorMK3) entity);
+		}
+		if (entity instanceof TileCondenser) {
+			return new ContainerCondensor(player.inventory, (TileCondenser) entity);
 		}
 
 		if (entity instanceof TileRelayMK1) {
@@ -48,6 +51,9 @@ public class GuiHandler implements IGuiHandler {
 		}
 		if (entity instanceof TileEnergyCollectorMK3) {
 			return new GuiEnergyCollectorMK3(player.inventory, (TileEnergyCollectorMK3) entity);
+		}
+		if (entity instanceof TileCondenser) {
+			return new GuiCondensor(player.inventory, (TileCondenser) entity);
 		}
 		if (entity instanceof TileRelayMK1) {
 			return new GuiRelayMK1(player.inventory, (TileRelayMK1) entity);

@@ -68,7 +68,7 @@ public class BlockEnergyCollectorMK3 extends BlockContainer {
 		this.setDefaultDirection(world, x, y, z);
 
 	}
-
+	
 	private void setDefaultDirection(World world, int x, int y, int z) {
 		if (!world.isRemote) {
 			Block l = world.getBlock(x, y, z - 1);

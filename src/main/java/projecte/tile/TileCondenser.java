@@ -1,20 +1,34 @@
 package projecte.tile;
 
+import java.util.Iterator;
+import java.util.List;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.AxisAlignedBB;
+import projecte.api.tile.ITileEmcBuffer;
+import projecte.blocks.PEBlocks;
+import projecte.container.ContainerCondensor;
 
-public class TileCondenser extends TileEntity implements ISidedInventory {
+public class TileCondenser extends TileEntity implements ISidedInventory, ITileEmcBuffer {
 
 	private ItemStack[] items = new ItemStack[92];
 
 	public int playersCurrentlyUsingChest;
-	
+	private int ticksSinceSync = -1;
+
 	public float lidAngle = 0;
 	public float prevLidAngle = 0;
+
+	public TileCondenser() {
+		super();
+
+	}
 
 	@Override
 	public int getSizeInventory() {
@@ -118,24 +132,29 @@ public class TileCondenser extends TileEntity implements ISidedInventory {
 		}
 
 		this.playersCurrentlyUsingChest++;
-		this.worldObj.addBlockEvent(this.xCoord, this.yCoord, this.zCoord, this.getBlockType(), 1, this.playersCurrentlyUsingChest);
-		this.worldObj.notifyBlocksOfNeighborChange(this.xCoord, this.yCoord, this.zCoord, this.getBlockType());
-		this.worldObj.notifyBlocksOfNeighborChange(this.xCoord, this.yCoord - 1, this.zCoord, this.getBlockType());
 
 	}
 
 	@Override
 	public void closeInventory() {
+		boolean close = true;
+		if (this.playersCurrentlyUsingChest == 0) {
+			this.playersCurrentlyUsingChest = 0;
+		} else {
+			this.playersCurrentlyUsingChest--;
+		}
 
 	}
 
+	@Override
 	public boolean receiveClientEvent(int par1, int par2) {
+
 		if (par1 == 1) {
 			this.playersCurrentlyUsingChest = par2;
 			return true;
-		} else {
-			return super.receiveClientEvent(par1, par2);
 		}
+		return true;
+
 	}
 
 	public void invalidate() {
@@ -173,5 +192,99 @@ public class TileCondenser extends TileEntity implements ISidedInventory {
 	@Override
 	public boolean hasCustomInventoryName() {
 		return false;
+	}
+
+	@Override
+	public void updateEntity() {
+		super.updateEntity();
+		// Resynchronize clients with the server state
+		if (worldObj != null && !this.worldObj.isRemote && this.playersCurrentlyUsingChest != 0 && (this.ticksSinceSync + this.xCoord + this.yCoord + this.zCoord) % 200 == 0) {
+			// this.playersCurrentlyUsingChest = 0;
+			float var1 = 5.0F;
+			@SuppressWarnings("unchecked")
+			List<EntityPlayer> var2 = this.worldObj.getEntitiesWithinAABB(EntityPlayer.class, AxisAlignedBB.getAABBPool().getAABB((double) ((float) this.xCoord - var1), (double) ((float) this.yCoord - var1), (double) ((float) this.zCoord - var1), (double) ((float) (this.xCoord + 1) + var1), (double) ((float) (this.yCoord + 1) + var1), (double) ((float) (this.zCoord + 1) + var1)));
+			Iterator<EntityPlayer> var3 = var2.iterator();
+
+			while (var3.hasNext()) {
+				EntityPlayer var4 = var3.next();
+
+				if (var4.openContainer instanceof ContainerCondensor) {
+					++this.playersCurrentlyUsingChest;
+				}
+			}
+		}
+
+		if (worldObj != null && !worldObj.isRemote && ticksSinceSync < 0) {
+			worldObj.addBlockEvent(xCoord, yCoord, zCoord, PEBlocks.energyCondenser, 3, ((playersCurrentlyUsingChest << 3) & 0xF8));
+		}
+
+		this.ticksSinceSync++;
+		prevLidAngle = lidAngle;
+		float f = 0.1F;
+		if (playersCurrentlyUsingChest > 0 && lidAngle == 0.0F) {
+			double d = (double) xCoord + 0.5D;
+			double d1 = (double) zCoord + 0.5D;
+			worldObj.playSoundEffect(d, (double) yCoord + 0.5D, d1, "random.chestopen", 0.5F, worldObj.rand.nextFloat() * 0.1F + 0.9F);
+		}
+		if (playersCurrentlyUsingChest == 0 && lidAngle > 0.0F || playersCurrentlyUsingChest > 0 && lidAngle < 1.0F) {
+			float f1 = lidAngle;
+			if (playersCurrentlyUsingChest > 0) {
+				lidAngle += f;
+			} else {
+				lidAngle -= f;
+			}
+			if (lidAngle > 1.0F) {
+				lidAngle = 1.0F;
+			}
+			float f2 = 0.5F;
+			if (lidAngle < f2 && f1 >= f2) {
+				double d2 = (double) xCoord + 0.5D;
+				double d3 = (double) zCoord + 0.5D;
+				worldObj.playSoundEffect(d2, (double) yCoord + 0.5D, d3, "random.chestclosed", 0.5F, worldObj.rand.nextFloat() * 0.1F + 0.9F);
+			}
+			if (lidAngle < 0.0F) {
+				lidAngle = 0.0F;
+			}
+		}
+		createItem();
+	}
+
+	private int stored = 0;
+
+	@Override
+	public int getStoredEmc() {
+		return stored;
+	}
+
+	@Override
+	public int getMaxStoredEmc() {
+		return 10000;
+	}
+
+	@Override
+	public void drain(int amt) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void add(int amt) {
+		// TODO Auto-generated method stub
+
+	}
+
+	public void createItem() {
+
+		ItemStack itemCreate = items[0];
+		if (items[0] != null) {
+			if (items[1] == null) {
+				items[1] = itemCreate;
+			} else if (items[1] != null) {
+				if (items[1].stackSize < 64) {
+					items[1].stackSize++;
+				}
+
+			}
+		}
 	}
 }
