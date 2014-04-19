@@ -20,6 +20,7 @@ apply plugin: 'forge'
 version = "1.0"
 group= "projecte" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "Project-E"
+def actualVersion = version
 
 minecraft {version = "1.7.2-10.12.0.1057"}
 
