@@ -1,34 +1,30 @@
 package projecte.api.emc;
 
+import java.util.logging.Level;
+
 import net.minecraft.item.ItemStack;
+import projecte.ProjectE;
+import projecte.util.ModUtils;
 
 public class EmcValue {
 
-	protected ItemStack item;
-	protected double value;
-	protected EmcValueType type;
+	protected EmcValueSource source;
+	protected double value = 0;
 
-	protected EmcValue(ItemStack item, double value, EmcValueType type) {
+	public EmcValue(EmcValueSource source, double value) {
+		this.source = source;
+		this.value = Math.max(value, 0);
 
-		this.item = item;
-		this.value = value;
-		this.type = type;
+		if (source == null)
+			ProjectE.log.log(Level.SEVERE, ModUtils.getActiveMod().getName() + " is registering an emc value with no source!");
 	}
 
-	public ItemStack[] getItems() {
-		return new ItemStack[] { item.copy().splitStack(1) };
+	public EmcValueSource getSource() {
+		return source;
 	}
 
-	public double getValue() {
-		return value / (double) (item.stackSize);
+	public double getValue(ItemStack item) {
+		return value;
 	}
-
-	public double getValueForStackSize(int size) {
-		return size * getValue();
-	}
-
-	public EmcValueType getType() {
-		return type;
-	}
-
+	
 }

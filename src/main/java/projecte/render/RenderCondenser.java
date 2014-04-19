@@ -52,9 +52,6 @@ public class RenderCondenser extends TileEntitySpecialRenderer {
 		GL11.glRotatef((float) short1, 0.0F, 1.0F, 0.0F);
 		GL11.glTranslatef(-0.5F, -0.5F, -0.5F);
 		float f1 = te.prevLidAngle+ (te.lidAngle - te.prevLidAngle) * frame;
-		//System.out.println(te.getPrevLid());
-		//f1 = 1.0F - f1;
-		//f1 = 1.0F - f1 * f1 * f1;
 		model.chestLid.rotateAngleX = -(f1 * (float) Math.PI / 2.0F);
 		model.renderAll();
 		model.render((Entity)null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.0625F);

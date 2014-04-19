@@ -8,7 +8,7 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 
 public class TileRelayMK1 extends TileEntity implements ISidedInventory{
-	private ItemStack[] items = new ItemStack[9];
+	private ItemStack[] items = new ItemStack[8];
 	public EntityPlayer entity;
 
 	@Override

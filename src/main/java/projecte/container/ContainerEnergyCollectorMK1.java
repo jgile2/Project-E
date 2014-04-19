@@ -85,7 +85,7 @@ public class ContainerEnergyCollectorMK1 extends Container {
 	public void addCraftingToCrafters(ICrafting par1ICrafting) {
 
 		super.addCraftingToCrafters(par1ICrafting);
-		par1ICrafting.sendProgressBarUpdate(this, 0, this.tile.getStoredEmc());
+		par1ICrafting.sendProgressBarUpdate(this, 0, this.tile.getStored());
 	}
 
 	public void detectAndSendChanges() {
@@ -95,20 +95,19 @@ public class ContainerEnergyCollectorMK1 extends Container {
 		for (int i = 0; i < this.crafters.size(); ++i) {
 			ICrafting icrafting = (ICrafting) this.crafters.get(i);
 
-			if (this.buffer != this.tile.getStoredEmc()) {
-				icrafting.sendProgressBarUpdate(this, 0, this.tile.getStoredEmc());
+			if (this.buffer != this.tile.getStored()) {
+				icrafting.sendProgressBarUpdate(this, 0, this.tile.getStored());
 			}
 		}
 
-		this.buffer = this.tile.getStoredEmc();
+		this.buffer = this.tile.getStored();
 	}
 
 	@SideOnly(Side.CLIENT)
 	public void updateProgressBar(int par1, int par2) {
 
 		if (par1 == 0) {
-			this.tile.drain(this.tile.getMaxStoredEmc());
-			this.tile.add(par2);
+			this.tile.setStored(par2);
 		}
 	}
 

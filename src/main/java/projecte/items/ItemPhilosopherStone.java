@@ -15,7 +15,6 @@ import net.minecraft.world.World;
 import projecte.ModInfo;
 import projecte.ProjectE;
 import projecte.api.emc.EmcValue;
-import projecte.api.emc.EmcValues;
 
 public class ItemPhilosopherStone extends Item {
 

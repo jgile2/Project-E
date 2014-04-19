@@ -9,8 +9,8 @@ import net.minecraftforge.oredict.OreDictionary;
 import org.lwjgl.input.Keyboard;
 
 import projecte.ModInfo;
-import projecte.api.emc.EmcValue;
-import projecte.api.emc.EmcValues;
+import projecte.api.emc.EmcData;
+import projecte.api.emc.EmcRegistry;
 import projecte.api.tile.IItemEmcBuffer;
 import projecte.util.Color;
 import cpw.mods.fml.common.eventhandler.EventPriority;
@@ -24,11 +24,10 @@ public class TooltipHandler {
 	@SubscribeEvent(priority = EventPriority.LOWEST)
 	public void handleItemTooltipEvent(ItemTooltipEvent event) {
 		List<String> tip = event.toolTip;
-
 		if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)
 				|| Keyboard.isKeyDown(Keyboard.KEY_RSHIFT)) {
 
-			EmcValue val = EmcValues.getValueForStack(event.itemStack);
+			EmcData val = EmcRegistry.getValue(event.itemStack);
 
 			if (val == null) {
 				tip.add(Color.RED + StatCollector.translateToLocal(ModInfo.MOD_ID + ".tooltip.novalue"));
@@ -38,11 +37,10 @@ public class TooltipHandler {
 				tip.add(Color.AQUA + StatCollector.translateToLocal(ModInfo.MOD_ID + ".tooltip.stackValue")
 						+ ": "
 						+ Color.GREEN
-						+ ((int) val
-								.getValueForStackSize(event.itemStack.stackSize)));
+						+ ((int) val.getValue(event.itemStack.stackSize)));
 				tip.add("");
 				tip.add(Color.WHITE + StatCollector.translateToLocal(ModInfo.MOD_ID + ".tooltip.type") + ": "
-						+ val.getType().toString());
+						+ val.getType());
 			}
 			
 			if(event.itemStack.getItem() instanceof IItemEmcBuffer){

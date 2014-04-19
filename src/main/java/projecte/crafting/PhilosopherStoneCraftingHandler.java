@@ -4,9 +4,9 @@ import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.ShapelessRecipes;
 import net.minecraft.world.World;
-import projecte.api.emc.EmcValue;
+import projecte.api.emc.EmcData;
+import projecte.api.emc.EmcRegistry;
 import projecte.api.emc.EmcValueType;
-import projecte.api.emc.EmcValues;
 import projecte.items.ItemPhilosopherStone;
 
 public class PhilosopherStoneCraftingHandler extends ShapelessRecipes {
@@ -54,65 +54,67 @@ public class PhilosopherStoneCraftingHandler extends ShapelessRecipes {
 			double value = 0;
 			
 			boolean allFuel = true;
-			boolean allNormal = true;
-			
+			boolean allMatter = true;
+
 			for (ItemStack i : items) {
 				if (i == null)
 					continue;
 
-				EmcValue val = EmcValues.getValueForStack(i);
+				EmcData val = EmcRegistry.getValue(i);
+				
 				if (val == null)
 					return null;
 
 				if(val.getType() == EmcValueType.FUEL)
-					allNormal = false;
+					allMatter = false;
 				if(val.getType() == EmcValueType.MATTER)
 					allFuel = false;
 
 				value += val.getValue();
 			}
 			
-			if((!allFuel && !allNormal) || (allFuel && allNormal)){
+			if((!allFuel && !allMatter) || (allFuel && allMatter)){
 				return null;
 			}
 
-			ItemStack[] results = EmcValues.getItemsWithValue(value);
-			results = EmcValues.filter(results, allFuel ? EmcValueType.FUEL : (allNormal ? EmcValueType.MATTER : null));
+			EmcData[] results = EmcRegistry.getItemsWithValue(value);
+			results = EmcRegistry.filter(results, allFuel ? EmcValueType.FUEL : (allMatter ? EmcValueType.MATTER : null));
 			if (results.length > 0) {
-				return results[0].copy();
+				return results[0].getItem().copy();
 			}
 		}else{
 
 			double value = 0;
 			
 			boolean allFuel = true;
-			boolean allNormal = true;
+			boolean allMatter = true;
 
 			for (ItemStack i : items) {
 				if (i == null)
 					continue;
 
-				EmcValue val = EmcValues.getValueForStack(i);
+				EmcData val = EmcRegistry.getValue(i);
+				
 				if (val == null)
 					return null;
 
 				if(val.getType() == EmcValueType.FUEL)
-					allNormal = false;
+					allMatter = false;
 				if(val.getType() == EmcValueType.MATTER)
 					allFuel = false;
 
 				value += val.getValue();
 			}
 			
-			if((!allFuel && !allNormal) || (allFuel && allNormal)){
+			if((!allFuel && !allMatter) || (allFuel && allMatter)){
 				return null;
 			}
 
-			ItemStack[] results = EmcValues.getExactDividersForValue(value);
-			results = EmcValues.filter(results, allFuel ? EmcValueType.FUEL : (allNormal ? EmcValueType.MATTER : null));
+			EmcData[] results = EmcRegistry.getDividersForValue(value);
+			results = EmcRegistry.filter(results, allFuel ? EmcValueType.FUEL : (allMatter ? EmcValueType.MATTER : null));
 			if (results.length > 0) {
-				ItemStack is = results[0].copy();
-				is.stackSize = (int)((double)(value / EmcValues.getValueForStack(is).getValue()));
+				ItemStack is = results[0].getItem().copy();
+				is.stackSize = (int)((double)(value / EmcRegistry.getValue(is).getValue()));
 				
 				return is;
 			}

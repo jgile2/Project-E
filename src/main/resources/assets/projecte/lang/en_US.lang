@@ -1,4 +1,4 @@
-itemGroup.projecte=Project E
+itemGroup.projecte=Project-E
 item.projecte.philosophersStone.name=Philosophers Stone
 item.projecte.alchemicalCoal.name=Alchemical Coal
 item.projecte.kleinStarEin.name=Klein Star Ein
@@ -12,6 +12,8 @@ item.projecte.BucketLiquidEMC.name=Liquid EMC Bucket
 
 tile.projecte.liquidEmc.name=Liquid EMC
 tile.projecte.relayMK1.name=Anti-Matter Relay MK1
+tile.projecte.relayMK2.name=Anti-Matter Relay MK2
+tile.projecte.relayMK3.name=Anti-Matter Relay MK3
 tile.projecte.energyCondensor.name=Energy Condensor
 tile.projecte.energyCollectorMK1.name=Energy Collector MK1
 tile.projecte.energyCollectorMK2.name=Energy Collector MK2
@@ -25,3 +27,5 @@ projecte.tooltip.novalue=This item hasn't got an EMC value
 projecte.tooltip.type=Type of item
 projecte.tooltip.stored=Stored EMC
 projecte.tooltip.maxStored=Max stored EMC
+
+projecte.compat.nei.name=Project-E Transmutation

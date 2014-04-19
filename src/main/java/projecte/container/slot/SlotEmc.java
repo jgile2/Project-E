@@ -2,9 +2,9 @@ package projecte.container.slot;
 
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
-import projecte.api.emc.EmcValue;
+import projecte.api.emc.EmcData;
+import projecte.api.emc.EmcRegistry;
 import projecte.api.emc.EmcValueType;
-import projecte.api.emc.EmcValues;
 
 public class SlotEmc extends SlotCustom {
 
@@ -18,10 +18,11 @@ public class SlotEmc extends SlotCustom {
 		if(!super.isItemValid(is))
 			return false;
 		
-		EmcValue v = EmcValues.getValueForStack(is);
-		if (v == null)
-			return false;
+		EmcData v = EmcRegistry.getValue(is);
 
+		if(v == null)
+			return false;
+		
 		if (getRequiredType() != null && v.getType() != getRequiredType())
 			return false;
 

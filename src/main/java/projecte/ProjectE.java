@@ -1,6 +1,7 @@
 package projecte;
 
 import java.util.EnumMap;
+import java.util.logging.Logger;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Items;
@@ -9,8 +10,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidContainerRegistry.FluidContainerData;
 import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fluids.FluidRegistry.FluidRegisterEvent;
-import projecte.api.emc.EmcValues;
+import projecte.api.emc.EmcRegistry;
 import projecte.crafting.PhilosopherStoneCraftingHandler;
 import projecte.event.BucketFillEvent;
 import projecte.event.CraftingEvent;
@@ -37,7 +37,7 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 
-@Mod(modid = ModInfo.MOD_ID, name = ModInfo.MOD_NAME, version = "0.0.1", useMetadata = false)
+@Mod(modid = ModInfo.MOD_ID, name = ModInfo.MOD_NAME, version = ModInfo.MOD_VERSION, useMetadata = false)
 public class ProjectE {
 
 	public static CreativeTabs tab = new CreativeTab(ModInfo.MOD_ID);
@@ -49,6 +49,8 @@ public class ProjectE {
 	public static CommonProxy proxy;
 
 	public EnumMap<Side, FMLEmbeddedChannel> channels;
+	
+	public static Logger log = Logger.getLogger(ModInfo.MOD_NAME);
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
@@ -61,7 +63,7 @@ public class ProjectE {
 		proxy.registerItems();
 		proxy.registerRenders();
 		/* Register default EMC values */
-		EmcValues.registerDefault();
+		EmcRegistry.registerDefault();
 
 		/* Register channels */
 		channels = NetworkRegistry.INSTANCE.newChannel(ModInfo.MOD_ID, new ChannelHandler());
@@ -79,7 +81,7 @@ public class ProjectE {
 		MinecraftForge.EVENT_BUS.register(new BucketFillEvent());
 		GameRegistry.registerFuelHandler(new FurnaceFuelHandler());
 		GameRegistry.addRecipe(PhilosopherStoneCraftingHandler.inst);
-
+		
 		/* Register recipes */
 		proxy.addRecipes();
 
@@ -89,7 +91,7 @@ public class ProjectE {
 
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event) {
-		FluidContainerRegistry.registerFluidContainer(new FluidContainerData(FluidRegistry.getFluidStack(PEFluids.liquidEMC.getName(), FluidContainerRegistry.BUCKET_VOLUME),new ItemStack(PEItems.BucketLiquidEMC), new ItemStack(Items.bucket)));
+		EmcRegistry.onReachPostInit();
 	}
 
 	@EventHandler

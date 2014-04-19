@@ -40,7 +40,7 @@ public class BlockRelayMK1 extends BlockContainer {
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister icon) {
 		this.blockIcon = icon.registerIcon(ModInfo.MOD_ID + ":relay_side");
-		topIcon = icon.registerIcon(ModInfo.MOD_ID + ":relay_top");
+		topIcon = icon.registerIcon(ModInfo.MOD_ID + ":relay_topMK1");
 		sideIcon = icon.registerIcon(ModInfo.MOD_ID + ":relay_side");
 		frontIcon = icon.registerIcon(ModInfo.MOD_ID + ":relay_front");
 	}

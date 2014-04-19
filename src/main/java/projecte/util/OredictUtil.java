@@ -61,14 +61,6 @@ public class OredictUtil {
 
 			register(Blocks.stone, "blockStone");
 
-			register(Blocks.diamond_ore, "oreDiamond");
-			register(Blocks.emerald_ore, "oreEmerald");
-			register(Blocks.gold_ore, "oreGold");
-			register(Blocks.iron_ore, "oreIron");
-			register(Blocks.lapis_ore, "oreLapis");
-			register(Blocks.quartz_ore, "oreQuartz");
-			register(Blocks.redstone_ore, "oreRedstone");
-
 			/* Items */
 
 			register(Items.iron_ingot, "ingotIron");
