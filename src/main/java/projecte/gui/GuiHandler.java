@@ -37,6 +37,9 @@ public class GuiHandler implements IGuiHandler {
 		if (entity instanceof TileRelayMK3) {
 			return new ContainerRelayMK3(player.inventory, (TileRelayMK3) entity);
 		}
+		if (ID==100) {
+			return new ContainerAlChest(player.inventory);
+		}
 
 		return null;
 	}
@@ -65,6 +68,9 @@ public class GuiHandler implements IGuiHandler {
 		}
 		if (entity instanceof TileRelayMK3) {
 			return new GuiRelayMK3(player.inventory, (TileRelayMK3) entity);
+		}
+		if (ID==100) {
+			return new GuiAlchemyBag(player.inventory);
 		}
 		return null;
 	}

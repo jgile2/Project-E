@@ -10,10 +10,13 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.IFluidContainerItem;
+import net.minecraftforge.fluids.IFluidTank;
 import projecte.blocks.PEBlocks;
 import projecte.container.ContainerCondensor;
 
-public class TileCondenser extends TileEntity implements ISidedInventory, ITileEmcBuffer {
+public class TileCondenser extends TileEntity implements ISidedInventory, ITileEmcBuffer, IFluidContainerItem {
 
 	private ItemStack[] items = new ItemStack[92];
 
@@ -284,5 +287,29 @@ public class TileCondenser extends TileEntity implements ISidedInventory, ITileE
 
 			}
 		}
+	}
+
+	@Override
+	public FluidStack getFluid(ItemStack container) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int getCapacity(ItemStack container) {
+		
+		return 8000;
+	}
+
+	@Override
+	public int fill(ItemStack container, FluidStack resource, boolean doFill) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public FluidStack drain(ItemStack container, int maxDrain, boolean doDrain) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

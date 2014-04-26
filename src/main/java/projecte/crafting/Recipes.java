@@ -17,5 +17,6 @@ public class Recipes {
 		GameRegistry.addRecipe(new ItemStack(PEItems.philosophersStone), new Object[] { "GRG", "RDR", "GRG", 'R', Blocks.redstone_block, 'G', Items.nether_star, 'D', Blocks.diamond_block });
 		GameRegistry.addRecipe(new ItemStack(PEItems.philosophersStone), new Object[] { "RGR", "GDG", "RGR", 'R', Blocks.redstone_block, 'G', Items.nether_star, 'D', Blocks.diamond_block });
 		GameRegistry.addRecipe(new ItemStack(PEBlocks.energyCollectorMK1), new Object[] { "GgG", "GDG", "GFG", 'G', Blocks.glowstone, 'g', Blocks.glass, 'D', Blocks.diamond_block, 'F', Blocks.furnace });
+		GameRegistry.addRecipe(new ItemStack(PEItems.AlchemyBag), new Object[]{"CCC","   ","   ",'C',Blocks.cobblestone});
 	}
 }
