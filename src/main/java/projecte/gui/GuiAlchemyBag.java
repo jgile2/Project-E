@@ -2,7 +2,7 @@ package projecte.gui;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
@@ -14,9 +14,9 @@ public class GuiAlchemyBag  extends GuiContainer
 {
 	public static final ResourceLocation texture = new ResourceLocation(ModInfo.MOD_ID, "textures/gui/alchest.png");
 
-    public GuiAlchemyBag(InventoryPlayer inventoryPlayer)
+    public GuiAlchemyBag(EntityPlayer player)
     {
-        super(new ContainerAlChest(inventoryPlayer));
+        super(new ContainerAlChest(player));
         xSize = 256;
         ySize = 231;
     }

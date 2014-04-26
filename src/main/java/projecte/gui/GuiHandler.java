@@ -6,6 +6,8 @@ import net.minecraft.world.World;
 import projecte.container.*;
 import projecte.tile.*;
 import cpw.mods.fml.common.network.IGuiHandler;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class GuiHandler implements IGuiHandler {
 
@@ -38,13 +40,14 @@ public class GuiHandler implements IGuiHandler {
 			return new ContainerRelayMK3(player.inventory, (TileRelayMK3) entity);
 		}
 		if (ID==100) {
-			return new ContainerAlChest(player.inventory);
+			return new ContainerAlChest(player);
 		}
 
 		return null;
 	}
 
 	@Override
+	@SideOnly(Side.CLIENT)
 	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
 		TileEntity entity = world.getTileEntity(x, y, z);
 
@@ -70,7 +73,7 @@ public class GuiHandler implements IGuiHandler {
 			return new GuiRelayMK3(player.inventory, (TileRelayMK3) entity);
 		}
 		if (ID==100) {
-			return new GuiAlchemyBag(player.inventory);
+			return new GuiAlchemyBag(player);
 		}
 		return null;
 	}

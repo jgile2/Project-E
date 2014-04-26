@@ -1,6 +1,5 @@
 package projecte.items;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -8,7 +7,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.IIcon;
-import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
 import projecte.ModInfo;
 import projecte.ProjectE;
@@ -33,7 +31,7 @@ public class ItemSwiftwolfRing extends Item {
 	@Override
 	public void onUpdate(ItemStack is, World world, Entity entity, int par4, boolean par5) {
 		// TODO Auto-generated method stub
-		EntityPlayer player = Minecraft.getMinecraft().thePlayer;
+		EntityPlayer player = (EntityPlayer)entity;
 		if (enabled) {
 			player.capabilities.allowFlying=true;
 		} else if (!enabled) {

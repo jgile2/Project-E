@@ -2,6 +2,7 @@ package projecte.items;
 
 import java.util.List;
 
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.network.internal.FMLNetworkHandler;
 
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -55,6 +56,14 @@ public class ItemAlchemyBag extends Item {
 		itemstack.stackTagCompound.setString("owner", player.getDisplayName());
 		itemstack.stackTagCompound.setInteger("code", (int) (Math.random() * Integer.MAX_VALUE));
 	}
+	@Override
+	public boolean onLeftClickEntity(ItemStack stack, EntityPlayer player, Entity entity) {
+		
+		if(stack.getTagCompound()==null){
+			System.out.println("nbt is  null, Side is"+FMLCommonHandler.instance().getSide());
+		}
+		return super.onLeftClickEntity(stack, player, entity);
+	}
 
 	/**
 	 * called when the player releases the use item button. Args: itemstack,
@@ -78,8 +87,6 @@ public class ItemAlchemyBag extends Item {
 			} else {
 				list.add(EnumChatFormatting.RED + "code: " + EnumChatFormatting.OBFUSCATED + code);
 			}
-		}else{
-			list.add("nbt is null");
 		}
 	}
 

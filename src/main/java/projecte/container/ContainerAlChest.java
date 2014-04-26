@@ -1,27 +1,21 @@
 package projecte.container;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
-import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
-import projecte.container.slot.SlotEmc;
-import projecte.container.slot.SlotEmcFuel;
 import projecte.items.DataItemAlchemyBag;
 import projecte.items.PEItems;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class ContainerAlChest extends Container {
-	private EntityPlayer player = Minecraft.getMinecraft().thePlayer;
-	private DataItemAlchemyBag tile = new DataItemAlchemyBag(player,new ItemStack(PEItems.AlchemyBag));
+	private EntityPlayer player;
+	private DataItemAlchemyBag tile;
 
-	public ContainerAlChest(InventoryPlayer inventory) {
+	public ContainerAlChest(EntityPlayer entityplayer) {
+		player=entityplayer;
+		tile = new DataItemAlchemyBag(player,new ItemStack(PEItems.AlchemyBag));
 		tile.openInventory();
 
-		
 
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 13; j++) {
@@ -30,12 +24,12 @@ public class ContainerAlChest extends Container {
 		}
 		for (int i = 0; i < 3; i++) {
 			for (int j = 0; j < 9; j++) {
-				this.addSlotToContainer(new Slot(inventory, j + i * 9 + 9, 48 + j * 18, 152 + i * 18));
+				this.addSlotToContainer(new Slot(player.inventory, j + i * 9 + 9, 48 + j * 18, 152 + i * 18));
 			}
 		}
 
 		for (int i = 0; i < 9; i++) {
-			this.addSlotToContainer(new Slot(inventory, i, 48 + i * 18, 210));
+			this.addSlotToContainer(new Slot(player.inventory, i, 48 + i * 18, 210));
 		}
 	}
 

@@ -6,6 +6,7 @@ import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
+import projecte.container.slot.SlotBag;
 import projecte.container.slot.SlotEmcFuel;
 import projecte.tile.TileEnergyCollectorMK3;
 import cpw.mods.fml.relauncher.Side;
@@ -17,7 +18,7 @@ public class ContainerEnergyCollectorMK3 extends Container {
 
 	public ContainerEnergyCollectorMK3(InventoryPlayer inventory, TileEnergyCollectorMK3 tileentity) {
 		this.tile = tileentity;
-
+		int currentSlot = inventory.currentItem;
 		for (int i = 0; i < 4; i++) {
 			for (int j = 0; j < 4; j++) {
 				this.addSlotToContainer(new SlotEmcFuel(tileentity, j + i * 4, 18 + j * 18, 8 + i * 18));
@@ -25,12 +26,12 @@ public class ContainerEnergyCollectorMK3 extends Container {
 		}
 		for (int i = 0; i < 3; i++) {
 			for (int j = 0; j < 9; j++) {
-				this.addSlotToContainer(new Slot(inventory, j + i * 9 + 9, 30 + j * 18, 84 + i * 18));
+				this.addSlotToContainer(new SlotBag(currentSlot,inventory, j + i * 9 + 9, 30 + j * 18, 84 + i * 18));
 			}
 		}
 
 		for (int i = 0; i < 9; i++) {
-			this.addSlotToContainer(new Slot(inventory, i, 30 + i * 18, 142));
+			this.addSlotToContainer(new SlotBag(currentSlot,inventory, i, 30 + i * 18, 142));
 		}
 	}
 

@@ -14,7 +14,6 @@ import projecte.api.emc.EmcRegistry;
 import projecte.crafting.PhilosopherStoneCraftingHandler;
 import projecte.event.BucketFillEvent;
 import projecte.event.CraftingEvent;
-import projecte.event.EventCloakRenderer;
 import projecte.fluid.PEFluids;
 import projecte.gui.GuiHandler;
 import projecte.handlers.FurnaceFuelHandler;
@@ -22,6 +21,7 @@ import projecte.handlers.KeyHandler;
 import projecte.handlers.TooltipHandler;
 import projecte.items.PEItems;
 import projecte.packet.ChannelHandler;
+import projecte.packet.PacketManager;
 import projecte.proxy.CommonProxy;
 import projecte.util.CreativeTab;
 import projecte.util.OredictUtil;
@@ -41,7 +41,7 @@ import cpw.mods.fml.relauncher.Side;
 
 @Mod(modid = ModInfo.MOD_ID, name = ModInfo.MOD_NAME, version = ModInfo.MOD_VERSION, useMetadata = false)
 public class ProjectE {
-
+	
 	public static CreativeTabs tab = new CreativeTab(ModInfo.MOD_ID);
 
 	@Instance(ModInfo.MOD_ID)
@@ -58,7 +58,7 @@ public class ProjectE {
 	public void preInit(FMLPreInitializationEvent event) {
 		/* Register vanilla oredict names */
 		OredictUtil.registerVanillaOredict();
-
+		PacketManager.init();
 		/* Register items and blocks and fluids */
 		proxy.registerFluids();
 		proxy.registerBlocks();
@@ -78,13 +78,12 @@ public class ProjectE {
 		FMLCommonHandler.instance().bus().register(new CraftingEvent());
 
 		/* Register handlers */
-		if (FMLCommonHandler.instance().getEffectiveSide().isClient())
+		if (FMLCommonHandler.instance().getEffectiveSide().isClient()){
 			MinecraftForge.EVENT_BUS.register(new TooltipHandler());
+
+		}
 		MinecraftForge.EVENT_BUS.register(new BucketFillEvent());
-		MinecraftForge.EVENT_BUS.register(new EventCloakRenderer());
-		EventCloakRenderer.addDevCapes();
 	//	MinecraftForge.EVENT_BUS.register(new KeyHandler());
-		FMLCommonHandler.instance().bus().register(new KeyHandler());
 		GameRegistry.registerFuelHandler(new FurnaceFuelHandler());
 		GameRegistry.addRecipe(PhilosopherStoneCraftingHandler.inst);
 		
