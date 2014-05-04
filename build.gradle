@@ -36,8 +36,8 @@ if (System.getenv("BUILD_NUMBER") != null) {
 }
 else if (new File(projectDir, '.git').exists()) {
 	//def repo = grgit.repo('.')
-    version = "MC${minecraft.version}-$version-${repo.history.log().find().abbreviatedId}"
-    actualVersion += "-${repo.history.log().find().abbreviatedId}"
+    version = "MC${minecraft.version}-$version"
+    actualVersion += "0.0.1"
 } else {
     version = "MC${minecraft.version}-$version-DEV"
     actualVersion += "-DEV"
