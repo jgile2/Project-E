@@ -28,6 +28,7 @@ public class DataItemAlchemyBag extends InventoryBasic {
 
 	// if class is reading from NBT tag
 	protected boolean reading = false;
+	public ItemStack[] inventoryContents = (ItemStack[]) ObfuscationReflectionHelper.getPrivateValue(InventoryBasic.class, this, 2);
 
 	// private ItemStack[] items = new ItemStack[104];
 
@@ -46,10 +47,6 @@ public class DataItemAlchemyBag extends InventoryBasic {
 		originalIS = is.copy();
 
 		// check if inventory exists if not create one
-		if (!hasInventory()) {
-			createInventory();
-			is.setTagCompound(originalIS.getTagCompound());
-		}
 
 		loadInventory();
 	}
@@ -84,25 +81,6 @@ public class DataItemAlchemyBag extends InventoryBasic {
 		return inventoryTitle;
 	}
 
-	// ***** custom methods which are not in IInventory *****
-	/**
-	 * Returns if an Inventory is saved in the NBT.
-	 * 
-	 * @return True when the NBT is not null and the NBT has key "Inventory"
-	 *         otherwise false.
-	 */
-	protected boolean hasInventory() {
-		return NBTUtil.hasTag(originalIS, "Inventory");
-	}
-
-	/**
-	 * Creates the Inventory Tag in the NBT with an empty inventory.
-	 */
-	protected void createInventory() {
-		setInvName(originalIS.getDisplayName());
-		writeToNBT();
-	}
-
 	/**
 	 * Sets the name of the inventory.
 	 * 
@@ -121,6 +99,7 @@ public class DataItemAlchemyBag extends InventoryBasic {
 		reading = true;
 		readFromNBT();
 		reading = false;
+
 	}
 
 	/**
@@ -140,10 +119,12 @@ public class DataItemAlchemyBag extends InventoryBasic {
 
 		// }
 
-		if (FMLCommonHandler.instance().getEffectiveSide().isServer()) {
+		if (FMLCommonHandler.instance().getEffectiveSide().isClient()) {
 			try {
-				PacketAlchemy packet = new PacketAlchemy((ItemStack[]) ObfuscationReflectionHelper.getPrivateValue(InventoryBasic.class, this, 2));
-				PacketManager.sendToPlayer(packet,playerEntity);
+				//PacketAlchemy packet = new PacketAlchemy((ItemStack[]) ObfuscationReflectionHelper.getPrivateValue(InventoryBasic.class, this, 2));
+
+				//PacketManager.toMcPacket(packet);
+				//PacketManager.sendToServer(packet);
 
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
@@ -164,12 +145,13 @@ public class DataItemAlchemyBag extends InventoryBasic {
 		ItemStack currentItem = playerEntity.inventory.getCurrentItem();
 		NBTTagCompound nbt = currentItem.getTagCompound();
 		System.out.println("Pre Itemstack is " + currentItem.toString());
-		System.out.println("Pre Write:" + nbt + " Side is" + FMLCommonHandler.instance().getSide());
+		System.out.println("Pre Write:" + nbt + ", Side is" + FMLCommonHandler.instance().getSide());
 
 		if (nbt == null) {
 			nbt = new NBTTagCompound();
 
 		}
+
 		NBTTagList nbttaglist = new NBTTagList();
 
 		for (int i = 0; i < this.getSizeInventory(); ++i) {
@@ -182,10 +164,12 @@ public class DataItemAlchemyBag extends InventoryBasic {
 		}
 
 		nbt.setTag("Items", nbttaglist);
-		currentItem.writeToNBT(nbt);
+		//currentItem.writeToNBT(nbt);
+		currentItem.setTagCompound(nbt);
+
+		// currentItem.setTagCompound((NBTTagCompound)nbt.copy());
 		System.out.println("Post Itemstack is " + currentItem.toString());
 		System.out.println("Post Write: " + nbt + " Side is" + FMLCommonHandler.instance().getSide());
-
 	}
 
 	/**
@@ -203,17 +187,26 @@ public class DataItemAlchemyBag extends InventoryBasic {
 
 		if (nbt == null) {
 			nbt = new NBTTagCompound();
+			//currentItem.writeToNBT(nbt);
 			return;
 		}
-		NBTTagList nbttaglist = nbt.getTagList("Items", 10);
-		// items = new ItemStack[this.getSizeInventory()];
+		if (nbt != null) {
+			if (nbt.hasKey("Items")) {
+				NBTTagList nbttaglist = nbt.getTagList("Items", 103);
+				// items = new ItemStack[this.getSizeInventory()];
 
-		for (int i = 0; i < nbttaglist.tagCount(); ++i) {
-			NBTTagCompound nbttagcompound1 = nbttaglist.getCompoundTagAt(i);
-			int j = nbttagcompound1.getByte("Slot") & 255;
+				for (int i = 0; i < nbttaglist.tagCount(); ++i) {
+					NBTTagCompound nbttagcompound1 = nbttaglist.getCompoundTagAt(i);
 
-			if (j >= 0 && j < this.getSizeInventory()) {
-				this.setInventorySlotContents(i, ItemStack.loadItemStackFromNBT(nbttagcompound1));
+					byte j = nbttagcompound1.getByte("Slot");
+
+					if (j >= 0 && j < this.getSizeInventory()) {
+						this.setInventorySlotContents(i, ItemStack.loadItemStackFromNBT(nbttagcompound1));
+						inventoryContents[i] = ItemStack.loadItemStackFromNBT(nbttagcompound1);
+					}
+				}
+			} else {
+				System.out.println("NBT has no key");
 			}
 		}
 		System.out.println("Post Itemstack is " + currentItem.toString());

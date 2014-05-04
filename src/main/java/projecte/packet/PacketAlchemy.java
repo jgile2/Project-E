@@ -82,7 +82,6 @@ public class PacketAlchemy extends PacketBase {
 
 		if (nbt == null) {
 			nbt = new NBTTagCompound();
-
 		}
 		NBTTagList nbttaglist = new NBTTagList();
 

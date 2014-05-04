@@ -22,7 +22,7 @@ public class ItemAlchemyBag extends Item {
 		super();
 		this.setUnlocalizedName(ModInfo.MOD_ID + ":alchemyBag");
 		this.setCreativeTab(ProjectE.tab);
-		maxStackSize = 1;
+		this.setMaxStackSize(1);
 	}
 
 	@Override
@@ -83,7 +83,7 @@ public class ItemAlchemyBag extends Item {
 			int code = itemstack.stackTagCompound.getInteger("code");
 			list.add("owner: " + owner);
 			if (owner.equals(player.getDisplayName())) {
-				list.add(EnumChatFormatting.GREEN + "code: " + code);
+				list.add(itemstack.stackTagCompound);
 			} else {
 				list.add(EnumChatFormatting.RED + "code: " + EnumChatFormatting.OBFUSCATED + code);
 			}

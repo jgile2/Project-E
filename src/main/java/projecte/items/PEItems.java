@@ -25,6 +25,7 @@ public class PEItems {
 	public static Item SwiftwolfRing;
 	public static Item Evertide;
 	public static Item Volcanite;
+	public static Item Test;
 
 
 
@@ -68,7 +69,9 @@ public class PEItems {
 		Volcanite = new ItemVolcanite();
 		GameRegistry.registerItem(Volcanite, Volcanite.getUnlocalizedName());
 
-
+		Test = new ItemTest();
+		GameRegistry.registerItem(Test, Test.getUnlocalizedName());
+		
 		BucketLiquidEMC = new ItemBucketLiquidEMC();
 		GameRegistry.registerItem(BucketLiquidEMC, BucketLiquidEMC.getUnlocalizedName());
 		FluidContainerRegistry.registerFluidContainer(new FluidContainerData(FluidRegistry.getFluidStack(PEFluids.liquidEMC.getName(), FluidContainerRegistry.BUCKET_VOLUME), new ItemStack(PEItems.BucketLiquidEMC), new ItemStack(Items.bucket)));

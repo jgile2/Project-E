@@ -1,6 +1,10 @@
 buildscript {
     repositories {
         mavenCentral()
+		maven {
+            name = "chicken bones craftsaddle"
+            url = "http://chickenbones.net/maven/"
+        }
         maven {
             name = "forge"
             url = "http://files.minecraftforge.net/maven"
