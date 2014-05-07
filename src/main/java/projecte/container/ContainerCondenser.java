@@ -7,24 +7,27 @@ import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import projecte.container.slot.SlotEmc;
-import projecte.container.slot.SlotEmcFuel;
+import projecte.container.slot.SlotEmcStorage;
+import projecte.container.slot.SlotPhilosopherStone;
 import projecte.tile.TileCondenser;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ContainerCondensor extends Container {
+public class ContainerCondenser extends Container {
 
 	private TileCondenser tile;
 
-	public ContainerCondensor(InventoryPlayer inventory, TileCondenser tileentity) {
+	public ContainerCondenser(InventoryPlayer inventory, TileCondenser tileentity) {
 		this.tile = tileentity;
 		tile.openInventory();
 
-		this.addSlotToContainer(new SlotEmc(tileentity, 0, 12, 6));
+		this.addSlotToContainer(new SlotEmc(tileentity, tileentity.getSizeInventory() - 2, 30, 6));
+		this.addSlotToContainer(new SlotPhilosopherStone(tileentity, tileentity.getSizeInventory() - 1, 228, 6));
+		this.addSlotToContainer(new SlotEmcStorage(tileentity, tileentity.getSizeInventory() - 3, 206, 6));
 
 		for (int i = 0; i < 7; i++) {
 			for (int j = 0; j < 13; j++) {
-				this.addSlotToContainer(new SlotEmc(tileentity, 1 + j + i * 2, 12 + j * 18, 26 + i * 18));
+				this.addSlotToContainer(new SlotEmc(tileentity, j + i * 13, 12 + j * 18, 26 + i * 18));
 			}
 		}
 		for (int i = 0; i < 3; i++) {
@@ -94,7 +97,7 @@ public class ContainerCondensor extends Container {
 	public void addCraftingToCrafters(ICrafting par1ICrafting) {
 
 		super.addCraftingToCrafters(par1ICrafting);
-		par1ICrafting.sendProgressBarUpdate(this, 0, this.tile.getStoredEmc());
+		par1ICrafting.sendProgressBarUpdate(this, 0, this.tile.getEmcStored());
 	}
 
 	public void detectAndSendChanges() {
@@ -104,20 +107,19 @@ public class ContainerCondensor extends Container {
 		for (int i = 0; i < this.crafters.size(); ++i) {
 			ICrafting icrafting = (ICrafting) this.crafters.get(i);
 
-			if (this.buffer != this.tile.getStoredEmc()) {
-				icrafting.sendProgressBarUpdate(this, 0, this.tile.getStoredEmc());
+			if (this.buffer != this.tile.getEmcStored()) {
+				icrafting.sendProgressBarUpdate(this, 0, this.tile.getEmcStored());
 			}
 		}
 
-		this.buffer = this.tile.getStoredEmc();
+		this.buffer = this.tile.getEmcStored();
 	}
 
 	@SideOnly(Side.CLIENT)
 	public void updateProgressBar(int par1, int par2) {
 
 		if (par1 == 0) {
-			this.tile.drain(this.tile.getMaxStoredEmc());
-			this.tile.add(par2);
+			this.tile.setEmcStored(par2);
 		}
 	}
 

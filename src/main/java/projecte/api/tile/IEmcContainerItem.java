@@ -2,7 +2,7 @@ package projecte.api.tile;
 
 import net.minecraft.item.ItemStack;
 
-public interface IItemEmcBuffer {
+public interface IEmcContainerItem {
 
 	public int getStoredEmc(ItemStack is);
 	public int getMaxStoredEmc(ItemStack is);

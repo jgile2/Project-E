@@ -2,7 +2,7 @@ package projecte.container.slot;
 
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
-import projecte.api.tile.IItemEmcBuffer;
+import projecte.api.tile.IEmcContainerItem;
 
 public class SlotEmcStorage extends SlotCustom {
 
@@ -16,7 +16,7 @@ public class SlotEmcStorage extends SlotCustom {
 		if (!super.isItemValid(is))
 			return false;
 
-		if (!(is.getItem() instanceof IItemEmcBuffer))
+		if (!(is.getItem() instanceof IEmcContainerItem))
 			return false;
 
 		return true;

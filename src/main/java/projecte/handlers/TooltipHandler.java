@@ -11,7 +11,7 @@ import org.lwjgl.input.Keyboard;
 import projecte.ModInfo;
 import projecte.api.emc.EmcData;
 import projecte.api.emc.EmcRegistry;
-import projecte.api.tile.IItemEmcBuffer;
+import projecte.api.tile.IEmcContainerItem;
 import projecte.util.Color;
 import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
@@ -43,8 +43,8 @@ public class TooltipHandler {
 						+ val.getType());
 			}
 			
-			if(event.itemStack.getItem() instanceof IItemEmcBuffer){
-				IItemEmcBuffer b = (IItemEmcBuffer) event.itemStack.getItem();
+			if(event.itemStack.getItem() instanceof IEmcContainerItem){
+				IEmcContainerItem b = (IEmcContainerItem) event.itemStack.getItem();
 				
 				tip.add(Color.GOLD + StatCollector.translateToLocal(ModInfo.MOD_ID + ".tooltip.stored")
 						+ ": " + Color.GREEN + b.getStoredEmc(event.itemStack));

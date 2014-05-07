@@ -1,5 +1,6 @@
 package projecte.tile;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -8,17 +9,25 @@ import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.IFluidContainerItem;
-import net.minecraftforge.fluids.IFluidTank;
+import net.minecraftforge.fluids.FluidTankInfo;
+import projecte.api.emc.EmcData;
+import projecte.api.emc.EmcRegistry;
+import projecte.api.tile.EmcContainerTile;
+import projecte.api.tile.IEmcContainerItem;
 import projecte.blocks.PEBlocks;
-import projecte.container.ContainerCondensor;
+import projecte.container.ContainerCondenser;
+import projecte.fluid.PEFluids;
+import projecte.items.PEItems;
+import cpw.mods.fml.common.FMLCommonHandler;
 
-public class TileCondenser extends TileEntity implements ISidedInventory, ITileEmcBuffer, IFluidContainerItem {
+public class TileCondenser extends EmcContainerTile implements ISidedInventory {
 
-	private ItemStack[] items = new ItemStack[92];
+	private ItemStack[] items = new ItemStack[94];// 91 slots + philosopher
+													// stone + reference item +
+													// EMC storage
 
 	public int playersCurrentlyUsingChest;
 	private int ticksSinceSync = -1;
@@ -29,6 +38,7 @@ public class TileCondenser extends TileEntity implements ISidedInventory, ITileE
 	public TileCondenser() {
 		super();
 
+		setMaxEmcInput(40);
 	}
 
 	@Override
@@ -86,6 +96,8 @@ public class TileCondenser extends TileEntity implements ISidedInventory, ITileE
 
 	public void writeToNBT(NBTTagCompound nbt) {
 		super.writeToNBT(nbt);
+		saveEmcToNBT(nbt);
+
 		NBTTagList nbttaglist = new NBTTagList();
 
 		for (int i = 0; i < this.items.length; i++) {
@@ -103,6 +115,8 @@ public class TileCondenser extends TileEntity implements ISidedInventory, ITileE
 
 	public void readFromNBT(NBTTagCompound nbt) {
 		super.readFromNBT(nbt);
+		readEmcFromNBT(nbt);
+
 		NBTTagList nbttaglist = nbt.getTagList("Items", items.length);
 		this.items = new ItemStack[this.getSizeInventory()];
 
@@ -138,7 +152,6 @@ public class TileCondenser extends TileEntity implements ISidedInventory, ITileE
 
 	@Override
 	public void closeInventory() {
-		boolean close = true;
 		if (this.playersCurrentlyUsingChest == 0) {
 			this.playersCurrentlyUsingChest = 0;
 		} else {
@@ -177,12 +190,19 @@ public class TileCondenser extends TileEntity implements ISidedInventory, ITileE
 	@Override
 	public boolean canInsertItem(int i, ItemStack itemstack, int j) {
 
-		return true;
+		if (i > items.length - 2)
+			return false;
+
+		return false;
 	}
 
 	@Override
 	public boolean canExtractItem(int i, ItemStack itemstack, int j) {
-		return true;
+
+		if (i > items.length - 2)
+			return false;
+
+		return false;
 	}
 
 	@Override
@@ -209,7 +229,7 @@ public class TileCondenser extends TileEntity implements ISidedInventory, ITileE
 			while (var3.hasNext()) {
 				EntityPlayer var4 = var3.next();
 
-				if (var4.openContainer instanceof ContainerCondensor) {
+				if (var4.openContainer instanceof ContainerCondenser) {
 					++this.playersCurrentlyUsingChest;
 				}
 			}
@@ -247,69 +267,186 @@ public class TileCondenser extends TileEntity implements ISidedInventory, ITileE
 				lidAngle = 0.0F;
 			}
 		}
-		createItem();
+
+		if (FMLCommonHandler.instance().getEffectiveSide().isServer()) {
+			if (canConvert())
+				doConversion();
+		}
 	}
 
-	private int stored = 0;
-
-	@Override
-	public int getStoredEmc() {
-		return stored;
+	private boolean canConvert() {
+		return getStackInSlot(items.length - 1) != null && getStackInSlot(items.length - 1).getItem() == PEItems.philosophersStone;
 	}
 
-	@Override
-	public int getMaxStoredEmc() {
-		return 10000;
-	}
+	public void doConversion() {
 
-	@Override
-	public void drain(int amt) {
-		// TODO Auto-generated method stub
+		ItemStack resultItem = getStackInSlot(items.length - 2);
 
-	}
+		if (resultItem == null)
+			return;
 
-	@Override
-	public void add(int amt) {
-		// TODO Auto-generated method stub
+		List<ItemStack> items = new ArrayList<ItemStack>();
+		int resultSlot = -1;
 
-	}
-
-	public void createItem() {
-
-		ItemStack itemCreate = items[0];
-		if (items[0] != null) {
-			if (items[1] == null) {
-				items[1] = itemCreate;
-			} else if (items[1] != null) {
-				if (items[1].stackSize < 64) {
-					items[1].stackSize++;
+		for (int i = 0; i < this.items.length - 3; i++) {
+			ItemStack is = getStackInSlot(i);
+			if (is != null && is.stackSize > 0) {
+				if (!resultItem.isItemEqual(is)) {
+					items.add(is);
+				} else {
+					if (is.stackSize < is.getMaxStackSize())
+						if (resultSlot < 0)
+							resultSlot = i;
 				}
-
+			} else {
+				if (resultSlot < 0)
+					resultSlot = i;
 			}
+		}
+
+		EmcData value = EmcRegistry.getValue(resultItem);
+		if (getEmcStored() >= value.getValue()) {
+			if (resultSlot >= 0) {
+				ItemStack is = getStackInSlot(resultSlot);
+				if (is == null) {
+					is = resultItem.copy();
+					is.stackSize = 1;
+				} else {
+					is.stackSize++;
+				}
+				setInventorySlotContents(resultSlot, is);
+				ItemStack item = getStackInSlot(this.items.length - 3);
+				if (item != null && item.getItem() instanceof IEmcContainerItem) {
+					IEmcContainerItem cont = (IEmcContainerItem) item.getItem();
+					cont.drain((int) value.getValue(), item);
+					items.clear();
+					return;
+				}
+			}
+		}
+
+		int val = 0;
+		for (ItemStack is : items) {
+			if (val < value.getValue()) {
+				EmcData d = EmcRegistry.getValue(is);
+				for (int i = 0; i < is.stackSize; i++)
+					if (val < value.getValue())
+						val += d.getValue();
+			}
+		}
+
+		if (val < value.getValue())
+			return;
+		int val2 = 0;
+		for (ItemStack is : items) {
+			if (val2 < val) {
+				EmcData d = EmcRegistry.getValue(is);
+				for (int i = 0; i < is.stackSize; i++) {
+					if (val2 < val) {
+						val2 += d.getValue();
+						is.stackSize--;
+					}
+				}
+				if (is.stackSize == 0) {
+					for (int i = 0; i < this.items.length; i++) {
+						ItemStack is2 = this.items[i];
+						if (is2 == is) {
+							this.items[i] = null;
+							break;
+						}
+					}
+				}
+			}
+		}
+
+		if (resultSlot >= 0) {
+			ItemStack is = getStackInSlot(resultSlot);
+			if (is == null) {
+				is = resultItem.copy();
+				is.stackSize = 1;
+			} else {
+				is.stackSize++;
+			}
+			setInventorySlotContents(resultSlot, is);
+		}
+		setEmcStored((int) (val - value.getValue()));
+	}
+
+	@Override
+	public void setEmcStored(int amt) {
+		ItemStack item = getStackInSlot(items.length - 3);
+		if (item != null && item.getItem() instanceof IEmcContainerItem) {
+			((IEmcContainerItem) item.getItem()).drain(((IEmcContainerItem) item.getItem()).getStoredEmc(item), item);
+			((IEmcContainerItem) item.getItem()).add(amt, item);
 		}
 	}
 
 	@Override
-	public FluidStack getFluid(ItemStack container) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public int fill(ForgeDirection from, FluidStack resource, boolean doFill) {
+		if (resource.getFluid() != PEFluids.liquidEMC)
+			return 0;
 
-	@Override
-	public int getCapacity(ItemStack container) {
-		
-		return 8000;
-	}
+		ItemStack item = getStackInSlot(items.length - 3);
+		if (item != null && item.getItem() instanceof IEmcContainerItem) {
+			int amt = Math.min(Math.min(resource.amount, maxEmcInput), ((IEmcContainerItem) item.getItem()).getMaxStoredEmc(item) - ((IEmcContainerItem) item.getItem()).getStoredEmc(item));
 
-	@Override
-	public int fill(ItemStack container, FluidStack resource, boolean doFill) {
-		// TODO Auto-generated method stub
+			if (doFill) {
+				((IEmcContainerItem) item.getItem()).add(amt, item);
+			}
+
+			return amt;
+		}
 		return 0;
 	}
 
 	@Override
-	public FluidStack drain(ItemStack container, int maxDrain, boolean doDrain) {
-		// TODO Auto-generated method stub
+	public FluidStack drain(ForgeDirection from, FluidStack resource, boolean doDrain) {
+		if (resource.getFluid() != PEFluids.liquidEMC)
+			return null;
+
+		return drain(from, resource.amount, doDrain);
+	}
+
+	@Override
+	public FluidStack drain(ForgeDirection from, int maxDrain, boolean doDrain) {
+		ItemStack item = getStackInSlot(items.length - 3);
+		if (item != null && item.getItem() instanceof IEmcContainerItem) {
+			int amt = Math.min(Math.min(maxDrain, maxEmcOutput), ((IEmcContainerItem) item.getItem()).getStoredEmc(item));
+
+			if (doDrain) {
+				((IEmcContainerItem) item.getItem()).drain(amt, item);
+			}
+
+			return new FluidStack(PEFluids.liquidEMC, amt);
+		}
+
 		return null;
 	}
+
+	@Override
+	public int getEmcStored() {
+		ItemStack item = getStackInSlot(items.length - 3);
+		if (item != null && item.getItem() instanceof IEmcContainerItem)
+			return ((IEmcContainerItem) item.getItem()).getStoredEmc(item);
+
+		return 0;
+	}
+
+	@Override
+	public int getMaxEmcStored() {
+		ItemStack item = getStackInSlot(items.length - 3);
+		if (item != null && item.getItem() instanceof IEmcContainerItem)
+			return ((IEmcContainerItem) item.getItem()).getMaxStoredEmc(item);
+
+		return 0;
+	}
+
+	@Override
+	public FluidTankInfo[] getTankInfo(ForgeDirection from) {
+		ItemStack item = getStackInSlot(items.length - 3);
+		if (item != null && item.getItem() instanceof IEmcContainerItem)
+			return new FluidTankInfo[] { new FluidTankInfo(new FluidStack(PEFluids.liquidEMC, ((IEmcContainerItem) item.getItem()).getStoredEmc(item)), Math.max(((IEmcContainerItem) item.getItem()).getMaxStoredEmc(item), 1)) };
+		return new FluidTankInfo[] { new FluidTankInfo(new FluidStack(PEFluids.liquidEMC, 0), 0) };
+	}
+
 }

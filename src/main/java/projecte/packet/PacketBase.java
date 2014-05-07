@@ -11,12 +11,12 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public abstract class PacketBase {
-	  public abstract void encode(ByteArrayDataOutput output);
+	public abstract void encode(ByteArrayDataOutput output);
 
-	    public abstract void decode(ByteArrayDataInput input);
+	public abstract void decode(ByteArrayDataInput input);
 
-	    @SideOnly(Side.CLIENT)
-	    public abstract void actionClient(World world, EntityPlayer player);
+	@SideOnly(Side.CLIENT)
+	public abstract void actionClient(World world, EntityPlayer player);
 
-	    public abstract void actionServer(World world, EntityPlayerMP player);
+	public abstract void actionServer(World world, EntityPlayerMP player);
 }

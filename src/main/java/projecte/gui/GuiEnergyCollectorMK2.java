@@ -31,7 +31,7 @@ public class GuiEnergyCollectorMK2 extends GuiContainer {
 		 * .translateToLocal("container.EnergyCollectMK1");
 		 */
 		
-		fontRendererObj.drawString(tile.getStored() + "EMC", 80, 32, 4210752);
+		fontRendererObj.drawString(tile.getEmcStored() + "EMC", 80, 32, 4210752);
 
 		// this.fontRendererObj.drawString(name, this.xSize / 2 -
 		// this.fontRendererObj.getStringWidth(name) / 2, 6, 4210752);
@@ -48,8 +48,8 @@ public class GuiEnergyCollectorMK2 extends GuiContainer {
 		drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
 		
 		double w = 48;
-		w *= tile.getStored();
-		w /= tile.getMaxStored();
+		w *= tile.getEmcStored();
+		w /= tile.getMaxEmcStored();
 		drawTexturedModalRect(guiLeft + 80, guiTop + 18, 0, 166, (int) w, 10);
 
 		/*

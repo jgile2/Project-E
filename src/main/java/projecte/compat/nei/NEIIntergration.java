@@ -19,9 +19,9 @@ public class NEIIntergration implements IConfigureNEI{
 			return;
 		}
 		try {
-			PhilosopherStoneRecipeHandler philosopherStone = new PhilosopherStoneRecipeHandler();
-			API.registerRecipeHandler(philosopherStone);
-			API.registerUsageHandler(philosopherStone);
+			//PhilosopherStoneRecipeHandler philosopherStone = new PhilosopherStoneRecipeHandler();
+			//API.registerRecipeHandler(philosopherStone);
+			//API.registerUsageHandler(philosopherStone);
 		} catch (Exception e) {
 			ProjectE.log.log(Level.INFO, "Could not load NEI compatibility.");
 		}

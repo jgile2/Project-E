@@ -1,26 +1,18 @@
 package projecte;
 
-import java.util.EnumMap;
 import java.util.logging.Logger;
 
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.init.Items;
-import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fluids.FluidContainerRegistry;
-import net.minecraftforge.fluids.FluidContainerRegistry.FluidContainerData;
-import net.minecraftforge.fluids.FluidRegistry;
 import projecte.api.emc.EmcRegistry;
 import projecte.crafting.PhilosopherStoneCraftingHandler;
 import projecte.event.BucketFillEvent;
 import projecte.event.CraftingEvent;
-import projecte.fluid.PEFluids;
+import projecte.event.EventCloakRenderer;
+import projecte.event.VolcaniteTossEvent;
 import projecte.gui.GuiHandler;
 import projecte.handlers.FurnaceFuelHandler;
-import projecte.handlers.KeyHandler;
 import projecte.handlers.TooltipHandler;
-import projecte.items.PEItems;
-import projecte.packet.ChannelHandler;
 import projecte.packet.PacketManager;
 import projecte.proxy.CommonProxy;
 import projecte.util.CreativeTab;
@@ -34,10 +26,8 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLLoadCompleteEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.network.FMLEmbeddedChannel;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.relauncher.Side;
 
 @Mod(modid = ModInfo.MOD_ID, name = ModInfo.MOD_NAME, version = ModInfo.MOD_VERSION, useMetadata = false)
 public class ProjectE {
@@ -49,8 +39,6 @@ public class ProjectE {
 
 	@SidedProxy(clientSide = "projecte.proxy.ClientProxy", serverSide = "projecte.proxy.CommonProxy", modId = ModInfo.MOD_ID)
 	public static CommonProxy proxy;
-
-	public EnumMap<Side, FMLEmbeddedChannel> channels;
 	
 	public static Logger log = Logger.getLogger(ModInfo.MOD_NAME);
 
@@ -68,7 +56,7 @@ public class ProjectE {
 		EmcRegistry.registerDefault();
 
 		/* Register channels */
-		channels = NetworkRegistry.INSTANCE.newChannel(ModInfo.MOD_ID, new ChannelHandler());
+		PacketManager.init();
 	}
 
 	@EventHandler
@@ -80,10 +68,13 @@ public class ProjectE {
 		/* Register handlers */
 		if (FMLCommonHandler.instance().getEffectiveSide().isClient()){
 			MinecraftForge.EVENT_BUS.register(new TooltipHandler());
+			EventCloakRenderer.addDevCapes();
 
 		}
+		MinecraftForge.EVENT_BUS.register(new VolcaniteTossEvent());
 		MinecraftForge.EVENT_BUS.register(new BucketFillEvent());
 	//	MinecraftForge.EVENT_BUS.register(new KeyHandler());
+		
 		GameRegistry.registerFuelHandler(new FurnaceFuelHandler());
 		GameRegistry.addRecipe(PhilosopherStoneCraftingHandler.inst);
 		

@@ -126,7 +126,7 @@ public class BlockEnergyCondenser extends BlockContainer {
 			}
 		}
 	}
-	
+
 	public void setDefaultDirection(World p_149954_1_, int p_149954_2_, int p_149954_3_, int p_149954_4_) {
 		if (!p_149954_1_.isRemote) {
 			Block block = p_149954_1_.getBlock(p_149954_2_, p_149954_3_, p_149954_4_ - 1);
@@ -215,36 +215,6 @@ public class BlockEnergyCondenser extends BlockContainer {
 	}
 
 	/**
-	 * Checks to see if its valid to put this block at the specified
-	 * coordinates. Args: world, x, y, z
-	 */
-	public boolean canPlaceBlockAt(World p_149742_1_, int p_149742_2_, int p_149742_3_, int p_149742_4_) {
-		int l = 0;
-
-		if (p_149742_1_.getBlock(p_149742_2_ - 1, p_149742_3_, p_149742_4_) == this) {
-			++l;
-		}
-
-		if (p_149742_1_.getBlock(p_149742_2_ + 1, p_149742_3_, p_149742_4_) == this) {
-			++l;
-		}
-
-		if (p_149742_1_.getBlock(p_149742_2_, p_149742_3_, p_149742_4_ - 1) == this) {
-			++l;
-		}
-
-		if (p_149742_1_.getBlock(p_149742_2_, p_149742_3_, p_149742_4_ + 1) == this) {
-			++l;
-		}
-
-		return l > 1 ? false : (this.func_149952_n(p_149742_1_, p_149742_2_ - 1, p_149742_3_, p_149742_4_) ? false : (this.func_149952_n(p_149742_1_, p_149742_2_ + 1, p_149742_3_, p_149742_4_) ? false : (this.func_149952_n(p_149742_1_, p_149742_2_, p_149742_3_, p_149742_4_ - 1) ? false : !this.func_149952_n(p_149742_1_, p_149742_2_, p_149742_3_, p_149742_4_ + 1))));
-	}
-
-	private boolean func_149952_n(World p_149952_1_, int p_149952_2_, int p_149952_3_, int p_149952_4_) {
-		return p_149952_1_.getBlock(p_149952_2_, p_149952_3_, p_149952_4_) != this ? false : (p_149952_1_.getBlock(p_149952_2_ - 1, p_149952_3_, p_149952_4_) == this ? true : (p_149952_1_.getBlock(p_149952_2_ + 1, p_149952_3_, p_149952_4_) == this ? true : (p_149952_1_.getBlock(p_149952_2_, p_149952_3_, p_149952_4_ - 1) == this ? true : p_149952_1_.getBlock(p_149952_2_, p_149952_3_, p_149952_4_ + 1) == this)));
-	}
-
-	/**
 	 * Lets the block know when one of its neighbor changes. Doesn't know which
 	 * neighbor changed (coordinates passed are their own) Args: x, y, z,
 	 * neighbor Block
@@ -311,19 +281,6 @@ public class BlockEnergyCondenser extends BlockContainer {
 
 	public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_) {
 		return new TileCondenser();
-	}
-
-	public int isProvidingWeakPower(IBlockAccess p_149709_1_, int p_149709_2_, int p_149709_3_, int p_149709_4_, int p_149709_5_) {
-		if (!this.canProvidePower()) {
-			return 0;
-		} else {
-			int i1 = ((TileCondenser) p_149709_1_.getTileEntity(p_149709_2_, p_149709_3_, p_149709_4_)).playersCurrentlyUsingChest;
-			return MathHelper.clamp_int(i1, 0, 15);
-		}
-	}
-
-	public int isProvidingStrongPower(IBlockAccess p_149748_1_, int p_149748_2_, int p_149748_3_, int p_149748_4_, int p_149748_5_) {
-		return p_149748_5_ == 1 ? this.isProvidingWeakPower(p_149748_1_, p_149748_2_, p_149748_3_, p_149748_4_, p_149748_5_) : 0;
 	}
 
 	public boolean hasComparatorInputOverride() {

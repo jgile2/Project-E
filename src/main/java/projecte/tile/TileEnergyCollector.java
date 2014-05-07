@@ -1,6 +1,5 @@
 package projecte.tile;
 
-import cpw.mods.fml.common.FMLCommonHandler;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -11,23 +10,22 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
-import net.minecraftforge.common.util.ForgeDirection;
-import projecte.api.tile.DefaultEmcStorage;
-import projecte.api.tile.IEmcBuffer;
-import projecte.api.tile.IEmcOutputter;
+import projecte.api.tile.EmcContainerTile;
+import cpw.mods.fml.common.FMLCommonHandler;
 
-public class TileEnergyCollector extends TileEntity implements ISidedInventory, IEmcBuffer, IEmcOutputter {
+public class TileEnergyCollector extends EmcContainerTile implements ISidedInventory {
 
-	private DefaultEmcStorage storage;
 	private ItemStack[] items;
 	public EntityPlayer entity;
-	
+
 	public TileEnergyCollector(int maxCollectedPerSecond, int maxOutput, int maxStored, int inventorySize) {
 		maxEMCPerSecond = maxCollectedPerSecond;
-		storage = new DefaultEmcStorage(0, maxOutput, maxStored);
+
+		setMaxEmcOutput(maxOutput);
+		setMaxEmcStored(maxStored);
+
 		items = new ItemStack[inventorySize];
 	}
 
@@ -93,8 +91,8 @@ public class TileEnergyCollector extends TileEntity implements ISidedInventory, 
 
 	public void writeToNBT(NBTTagCompound nbt) {
 		super.writeToNBT(nbt);
-		storage.writeToNBT(nbt);
-		
+		saveEmcToNBT(nbt);
+
 		NBTTagList nbttaglist = new NBTTagList();
 
 		for (int i = 0; i < this.items.length; i++) {
@@ -111,8 +109,8 @@ public class TileEnergyCollector extends TileEntity implements ISidedInventory, 
 
 	public void readFromNBT(NBTTagCompound nbt) {
 		super.readFromNBT(nbt);
-		storage.readFromNBT(nbt);
-		
+		readEmcFromNBT(nbt);
+
 		NBTTagList nbttaglist = nbt.getTagList("Items", items.length);
 		this.items = new ItemStack[this.getSizeInventory()];
 
@@ -210,25 +208,23 @@ public class TileEnergyCollector extends TileEntity implements ISidedInventory, 
 		}
 		return true;
 	}
-	
-	private double getSunBrightness(World w, float par1){
+
+	private double getSunBrightness(World w, float par1) {
 		float f1 = w.getCelestialAngle(par1);
-        float f2 = 1.0F - (MathHelper.cos(f1 * (float)Math.PI * 2.0F) * 2.0F + 0.2F);
+		float f2 = 1.0F - (MathHelper.cos(f1 * (float) Math.PI * 2.0F) * 2.0F + 0.2F);
 
-        if (f2 < 0.0F)
-        {
-            f2 = 0.0F;
-        }
+		if (f2 < 0.0F) {
+			f2 = 0.0F;
+		}
 
-        if (f2 > 1.0F)
-        {
-            f2 = 1.0F;
-        }
+		if (f2 > 1.0F) {
+			f2 = 1.0F;
+		}
 
-        f2 = 1.0F - f2;
-        f2 = (float)((double)f2 * (1.0D - (double)(w.getRainStrength(par1) * 5.0F) / 16.0D));
-        f2 = (float)((double)f2 * (1.0D - (double)(w.getWeightedThunderStrength(par1) * 5.0F) / 16.0D));
-        return f2 * 0.8F + 0.2F;
+		f2 = 1.0F - f2;
+		f2 = (float) ((double) f2 * (1.0D - (double) (w.getRainStrength(par1) * 5.0F) / 16.0D));
+		f2 = (float) ((double) f2 * (1.0D - (double) (w.getWeightedThunderStrength(par1) * 5.0F) / 16.0D));
+		return f2 * 0.8F + 0.2F;
 	}
 
 	public double getSunStrength() {
@@ -239,7 +235,7 @@ public class TileEnergyCollector extends TileEntity implements ISidedInventory, 
 
 		if (w.getBlock(xCoord, yCoord + 1, zCoord) == Blocks.glowstone)
 			return 1;
-		
+
 		return getSunBrightness(w, 0F);
 	}
 
@@ -251,7 +247,7 @@ public class TileEnergyCollector extends TileEntity implements ISidedInventory, 
 
 	@Override
 	public void updateEntity() {
-		if(FMLCommonHandler.instance().getEffectiveSide().isServer()){
+		if (FMLCommonHandler.instance().getEffectiveSide().isServer()) {
 			double a = maxEMCPerSecond;
 			a /= 20D;
 			a *= getSunStrength();
@@ -259,37 +255,12 @@ public class TileEnergyCollector extends TileEntity implements ISidedInventory, 
 			tempStored += a;
 
 			if (tempStored >= 1) {
-				setStored(getStored() + 1);
+				setEmcStored(getEmcStored() + 1);
 				tempStored -= 1;
 			}
 
 			tick = tick + 1;
 		}
-	}
-
-	@Override
-	public int getMaxOutput(ForgeDirection side) {
-		return storage.getMaxOutput(side);
-	}
-
-	@Override
-	public int output(int amount, ForgeDirection side, boolean doOutput) {
-		return storage.output(amount, side, doOutput);
-	}
-
-	@Override
-	public int getMaxStored() {
-		return storage.getMaxStored();
-	}
-
-	@Override
-	public int getStored() {
-		return storage.getStored();
-	}
-	
-	@Override
-	public void setStored(int amount) {
-		storage.setStored(amount);
 	}
 
 }

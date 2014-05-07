@@ -12,6 +12,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.network.NetHandlerPlayServer;
 import net.minecraft.network.Packet;
+import net.minecraft.world.World;
 
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -46,7 +47,7 @@ public class PacketManager extends FMLIndexedMessageToMessageCodec<PacketBase> {
 		INSTANCE.addDiscriminator(0, PacketAlchemy.class);
 		// INSTANCE.addDiscriminator(0, PacketCamo.class);
 		// INSTANCE.addDiscriminator(1, PacketShowToggle.class);
-		channels.putAll(NetworkRegistry.INSTANCE.newChannel(ModInfo.MOD_ID+1, INSTANCE));
+		channels.putAll(NetworkRegistry.INSTANCE.newChannel(ModInfo.MOD_ID + 1, INSTANCE));
 	}
 
 	// IO METHODS
@@ -105,6 +106,10 @@ public class PacketManager extends FMLIndexedMessageToMessageCodec<PacketBase> {
 		channels.get(Side.SERVER).attr(FMLOutboundHandler.FML_MESSAGETARGET).set(FMLOutboundHandler.OutboundTarget.DIMENSION);
 		channels.get(Side.SERVER).attr(FMLOutboundHandler.FML_MESSAGETARGETARGS).set(dimension);
 		channels.get(Side.SERVER).writeAndFlush(packet);
+	}
+
+	public static void sendToWorld(PacketBase packet, World world) {
+		sendToDimension(packet, world.provider.dimensionId);
 	}
 
 	public static void sendToAll(PacketBase packet) {

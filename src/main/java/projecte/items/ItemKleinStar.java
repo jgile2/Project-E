@@ -5,11 +5,10 @@ import java.util.List;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import projecte.ProjectE;
-import projecte.api.tile.IItemEmcBuffer;
+import projecte.api.tile.IEmcContainerItem;
 
-public class ItemKleinStar extends Item implements IItemEmcBuffer {
+public class ItemKleinStar extends Item implements IEmcContainerItem {
 	public ItemKleinStar() {
 		this.setCreativeTab(ProjectE.tab);
 		this.setMaxStackSize(1);
@@ -28,12 +27,12 @@ public class ItemKleinStar extends Item implements IItemEmcBuffer {
 
 	@Override
 	public void drain(int amt, ItemStack is) {
-		
+		is.setItemDamage(is.getItemDamage() - amt);
 	}
 
 	@Override
 	public void add(int amt, ItemStack is) {
-		
+		is.setItemDamage(is.getItemDamage() + amt);
 	}
 	
 	@Override

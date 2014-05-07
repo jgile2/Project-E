@@ -19,12 +19,13 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class PacketAlchemy extends PacketBase {
 	public ItemStack[] items;
-	
-	public PacketAlchemy(ItemStack[] itemstack){
-		items=itemstack;
+
+	public PacketAlchemy(ItemStack[] itemstack) {
+		items = itemstack;
 	}
-	public PacketAlchemy(){
-		
+
+	public PacketAlchemy() {
+
 	}
 
 	@Override
@@ -46,14 +47,14 @@ public class PacketAlchemy extends PacketBase {
 
 	@Override
 	public void decode(ByteArrayDataInput input) {
-		items =new ItemStack[input.readInt()];
-		
-		for(int i=0; i>items.length;i++){
-			if(input.readBoolean()){
+		items = new ItemStack[input.readInt()];
+
+		for (int i = 0; i > items.length; i++) {
+			if (input.readBoolean()) {
 				continue;
 			}
-			
-			 try {
+
+			try {
 				NBTTagCompound nbt = CompressedStreamTools.read(input);
 				items[i] = ItemStack.loadItemStackFromNBT(nbt);
 			} catch (IOException e) {
@@ -73,12 +74,12 @@ public class PacketAlchemy extends PacketBase {
 	public void actionServer(World world, EntityPlayerMP player) {
 		actionCommon(player);
 	}
-	
-	public void actionCommon(EntityPlayer player){
+
+	public void actionCommon(EntityPlayer player) {
 		ItemStack currentItem = player.inventory.getCurrentItem();
 		NBTTagCompound nbt = currentItem.getTagCompound();
-		System.out.println("Pre Itemstack is "+currentItem.toString());
-		System.out.println("Pre Write:"+nbt+" Side is"+FMLCommonHandler.instance().getSide());
+		System.out.println("Pre Itemstack is " + currentItem.toString());
+		System.out.println("Pre Write:" + nbt + " Side is" + FMLCommonHandler.instance().getSide());
 
 		if (nbt == null) {
 			nbt = new NBTTagCompound();
@@ -96,8 +97,8 @@ public class PacketAlchemy extends PacketBase {
 
 		nbt.setTag("Items", nbttaglist);
 		currentItem.writeToNBT(nbt);
-		System.out.println("Post Itemstack is "+currentItem.toString());
-		System.out.println("Post Write: "+nbt+" Side is"+FMLCommonHandler.instance().getSide());
+		System.out.println("Post Itemstack is " + currentItem.toString());
+		System.out.println("Post Write: " + nbt + " Side is" + FMLCommonHandler.instance().getSide());
 
 	}
 
