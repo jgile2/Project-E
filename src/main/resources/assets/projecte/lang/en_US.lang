@@ -24,6 +24,7 @@ tile.projecte.energyCondensor.name=Energy Condensor
 tile.projecte.energyCollectorMK1.name=Energy Collector MK1
 tile.projecte.energyCollectorMK2.name=Energy Collector MK2
 tile.projecte.energyCollectorMK3.name=Energy Collector MK3
+item.projecte.netherStar.name=Nether Star Block
 
 
 projecte.tooltip.pressShift=Press shift to see the EMC value

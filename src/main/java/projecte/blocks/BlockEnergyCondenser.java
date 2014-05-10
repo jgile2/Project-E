@@ -33,7 +33,7 @@ public class BlockEnergyCondenser extends BlockContainer {
 		this.setCreativeTab(ProjectE.tab);
 		this.setHardness(2F);
 		this.setStepSound(Block.soundTypeStone);
-		this.setBlockBounds(0.0625F, 0.0F, 0.0625F, 0.9375F, 0.875F, 0.9375F);
+		this.setBlockBounds(0.0625F, 0.0F, 0.0625F, 0.9375F, 0.9375F, 0.9375F);
 
 	}
 
@@ -54,15 +54,15 @@ public class BlockEnergyCondenser extends BlockContainer {
 
 	public void setBlockBoundsBasedOnState(IBlockAccess p_149719_1_, int p_149719_2_, int p_149719_3_, int p_149719_4_) {
 		if (p_149719_1_.getBlock(p_149719_2_, p_149719_3_, p_149719_4_ - 1) == this) {
-			this.setBlockBounds(0.0625F, 0.0F, 0.0F, 0.9375F, 0.875F, 0.9375F);
+			this.setBlockBounds(0.0625F, 0.0F, 0.0F, 0.9375F, 0.9375F, 0.9375F);
 		} else if (p_149719_1_.getBlock(p_149719_2_, p_149719_3_, p_149719_4_ + 1) == this) {
-			this.setBlockBounds(0.0625F, 0.0F, 0.0625F, 0.9375F, 0.875F, 1.0F);
+			this.setBlockBounds(0.0625F, 0.0F, 0.0625F, 0.9375F,0.9375F, 1.0F);
 		} else if (p_149719_1_.getBlock(p_149719_2_ - 1, p_149719_3_, p_149719_4_) == this) {
-			this.setBlockBounds(0.0F, 0.0F, 0.0625F, 0.9375F, 0.875F, 0.9375F);
+			this.setBlockBounds(0.0F, 0.0F, 0.0625F, 0.9375F, 0.9375F, 0.9375F);
 		} else if (p_149719_1_.getBlock(p_149719_2_ + 1, p_149719_3_, p_149719_4_) == this) {
-			this.setBlockBounds(0.0625F, 0.0F, 0.0625F, 1.0F, 0.875F, 0.9375F);
+			this.setBlockBounds(0.0625F, 0.0F, 0.0625F, 1.0F, 0.9375F, 0.9375F);
 		} else {
-			this.setBlockBounds(0.0625F, 0.0F, 0.0625F, 0.9375F, 0.875F, 0.9375F);
+			this.setBlockBounds(0.0625F, 0.0F, 0.0625F, 0.9375F, 0.9375F, 0.9375F);
 		}
 	}
 

@@ -13,6 +13,7 @@ public class PEBlocks {
 	public static Block relayMK2;
 	public static Block relayMK3;
 	public static Block energyCondenser;
+	public static Block netherStar;
 	public static Block blockFluidEMC;
 
 	public static void registerBlocks() {
@@ -44,6 +45,9 @@ public class PEBlocks {
 		energyCondenser = new BlockEnergyCondenser();
 		GameRegistry.registerBlock(energyCondenser, "EnergyCondensor");
 		GameRegistry.registerTileEntity(TileCondenser.class, energyCondenser.getUnlocalizedName());
+		
+		netherStar = new BlockNetherStar();
+		GameRegistry.registerBlock(netherStar, netherStar.getUnlocalizedName());
 		
 		blockFluidEMC = new BlockLiquidEMC();
 		GameRegistry.registerBlock(blockFluidEMC, "LiquidEMC");

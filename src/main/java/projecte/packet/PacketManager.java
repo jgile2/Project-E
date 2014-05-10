@@ -45,7 +45,7 @@ public class PacketManager extends FMLIndexedMessageToMessageCodec<PacketBase> {
 			return;
 
 		INSTANCE.addDiscriminator(0, PacketAlchemy.class);
-		// INSTANCE.addDiscriminator(0, PacketCamo.class);
+		INSTANCE.addDiscriminator(0, PacketVolcaniteTossed.class);
 		// INSTANCE.addDiscriminator(1, PacketShowToggle.class);
 		channels.putAll(NetworkRegistry.INSTANCE.newChannel(ModInfo.MOD_ID + 1, INSTANCE));
 	}

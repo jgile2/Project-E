@@ -1,8 +1,5 @@
 package projecte.render;
 
-import net.minecraft.client.model.ModelChest;
-import net.minecraft.client.renderer.tileentity.TileEntityRendererChestHelper;
-import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.IItemRenderer;
@@ -10,14 +7,13 @@ import net.minecraftforge.client.IItemRenderer;
 import org.lwjgl.opengl.GL11;
 
 import projecte.ModInfo;
-import projecte.blocks.PEBlocks;
-import projecte.tile.TileCondenser;
+import projecte.models.ModelCondensor;
 import cpw.mods.fml.client.FMLClientHandler;
 
 public class ItemRenderCondensor implements IItemRenderer {
 
 	private static final ResourceLocation texture = new ResourceLocation(ModInfo.MOD_ID, "textures/blocks/condenser.png");
-	public ModelChest model = new ModelChest();
+	public ModelCondensor model = new ModelCondensor();
 
 
 	@Override
@@ -38,22 +34,22 @@ public class ItemRenderCondensor implements IItemRenderer {
 		switch(type){
         case ENTITY: {
         	//GL11.glRotatef(90, 0, 0, 1);
-        	renderCondensor(-0.5F, 0.0F, -0.5F);
+        	renderCondensor(-0.5F, 1F, -0.5F);
             return;
         }
         case EQUIPPED: {
             //GL11.glRotated(180, 0, 1, 0);
             //GL11.glTranslatef(0.5F, 0.0F, 0.0F);
-        	renderCondensor(1F, 1F, 1F);
+        	renderCondensor(0.5F, 1.5F, 0.5F);
             return;
         }
         case EQUIPPED_FIRST_PERSON: {
             //GL11.glRotated(180, 0, 1, 0);
-        	renderCondensor(1F, 1F, 1F);
+        	renderCondensor(0.5F, 1.5F, 0.4F);
             return;
         }
         case INVENTORY: {
-        	renderCondensor(-0.01F, 0.1F, 0.0F);
+        	renderCondensor(-0.01F, 1F, 0.0F);
             return;
         }
         default:

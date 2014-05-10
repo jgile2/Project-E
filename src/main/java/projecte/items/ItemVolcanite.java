@@ -1,6 +1,7 @@
 package projecte.items;
 
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
@@ -21,6 +22,12 @@ public class ItemVolcanite extends Item {
 		itemIcon = iconRegister.registerIcon(ModInfo.MOD_ID + ":Volcanite");
 	}
 	
+	@Override
+	public void onUpdate(ItemStack itemstack, World world, Entity entity, int par4, boolean par5) {
+		super.onUpdate(itemstack, world, entity, par4, par5);
+		
+		
+	}
 	@Override
 	public boolean onItemUse(ItemStack is, EntityPlayer player, World world, int x, int y, int z, int side, float xOff, float yOff, float zOff) {
 		if(!world.isRemote){
