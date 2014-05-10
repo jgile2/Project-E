@@ -28,7 +28,7 @@ def actualVersion = version
 
 minecraft {
 	version = "1.7.2-10.12.0.1057"
-	replace "@VERSION@", "${project.version}-${System.enc.BUILD_NUMBER}"
+	replace "@VERSION@", "${project.version}-${System.env.BUILD_NUMBER}"
 }
 
 logger.lifecycle "$archivesBaseName-$version"
