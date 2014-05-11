@@ -14,7 +14,7 @@ public class SlotBag extends Slot{
 	}
 	@Override
 	public boolean canTakeStack(EntityPlayer player) {
-		if(player.inventory.getStackInSlot(currentSlot).getItem()==PEItems.AlchemyBag)return false;
+		//if(player.inventory.getStackInSlot(currentSlot).getItem()==PEItems.AlchemyBag)return false;
 		return true;
 	}
 	

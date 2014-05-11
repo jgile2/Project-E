@@ -56,7 +56,7 @@ public class BlockEnergyCondenser extends BlockContainer {
 		if (p_149719_1_.getBlock(p_149719_2_, p_149719_3_, p_149719_4_ - 1) == this) {
 			this.setBlockBounds(0.0625F, 0.0F, 0.0F, 0.9375F, 0.9375F, 0.9375F);
 		} else if (p_149719_1_.getBlock(p_149719_2_, p_149719_3_, p_149719_4_ + 1) == this) {
-			this.setBlockBounds(0.0625F, 0.0F, 0.0625F, 0.9375F,0.9375F, 1.0F);
+			this.setBlockBounds(0.0625F, 0.0F, 0.0625F, 0.9375F, 0.9375F, 1.0F);
 		} else if (p_149719_1_.getBlock(p_149719_2_ - 1, p_149719_3_, p_149719_4_) == this) {
 			this.setBlockBounds(0.0F, 0.0F, 0.0625F, 0.9375F, 0.9375F, 0.9375F);
 		} else if (p_149719_1_.getBlock(p_149719_2_ + 1, p_149719_3_, p_149719_4_) == this) {
@@ -79,10 +79,6 @@ public class BlockEnergyCondenser extends BlockContainer {
 	 */
 	@Override
 	public void onBlockPlacedBy(World p_149689_1_, int p_149689_2_, int p_149689_3_, int p_149689_4_, EntityLivingBase p_149689_5_, ItemStack p_149689_6_) {
-		Block block = p_149689_1_.getBlock(p_149689_2_, p_149689_3_, p_149689_4_ - 1);
-		Block block1 = p_149689_1_.getBlock(p_149689_2_, p_149689_3_, p_149689_4_ + 1);
-		Block block2 = p_149689_1_.getBlock(p_149689_2_ - 1, p_149689_3_, p_149689_4_);
-		Block block3 = p_149689_1_.getBlock(p_149689_2_ + 1, p_149689_3_, p_149689_4_);
 		byte b0 = 0;
 		int l = MathHelper.floor_double((double) (p_149689_5_.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
 
@@ -102,29 +98,7 @@ public class BlockEnergyCondenser extends BlockContainer {
 			b0 = 4;
 		}
 
-		if (block != this && block1 != this && block2 != this && block3 != this) {
-			p_149689_1_.setBlockMetadataWithNotify(p_149689_2_, p_149689_3_, p_149689_4_, b0, 3);
-		} else {
-			if ((block == this || block1 == this) && (b0 == 4 || b0 == 5)) {
-				if (block == this) {
-					p_149689_1_.setBlockMetadataWithNotify(p_149689_2_, p_149689_3_, p_149689_4_ - 1, b0, 3);
-				} else {
-					p_149689_1_.setBlockMetadataWithNotify(p_149689_2_, p_149689_3_, p_149689_4_ + 1, b0, 3);
-				}
-
-				p_149689_1_.setBlockMetadataWithNotify(p_149689_2_, p_149689_3_, p_149689_4_, b0, 3);
-			}
-
-			if ((block2 == this || block3 == this) && (b0 == 2 || b0 == 3)) {
-				if (block2 == this) {
-					p_149689_1_.setBlockMetadataWithNotify(p_149689_2_ - 1, p_149689_3_, p_149689_4_, b0, 3);
-				} else {
-					p_149689_1_.setBlockMetadataWithNotify(p_149689_2_ + 1, p_149689_3_, p_149689_4_, b0, 3);
-				}
-
-				p_149689_1_.setBlockMetadataWithNotify(p_149689_2_, p_149689_3_, p_149689_4_, b0, 3);
-			}
-		}
+		p_149689_1_.setBlockMetadataWithNotify(p_149689_2_, p_149689_3_, p_149689_4_, b0, 3);
 	}
 
 	public void setDefaultDirection(World p_149954_1_, int p_149954_2_, int p_149954_3_, int p_149954_4_) {
@@ -221,11 +195,6 @@ public class BlockEnergyCondenser extends BlockContainer {
 	 */
 	public void onNeighborBlockChange(World p_149695_1_, int p_149695_2_, int p_149695_3_, int p_149695_4_, Block p_149695_5_) {
 		super.onNeighborBlockChange(p_149695_1_, p_149695_2_, p_149695_3_, p_149695_4_, p_149695_5_);
-		TileCondenser TileCondenser = (TileCondenser) p_149695_1_.getTileEntity(p_149695_2_, p_149695_3_, p_149695_4_);
-
-		if (TileCondenser != null) {
-			TileCondenser.updateContainingBlockInfo();
-		}
 	}
 
 	public void breakBlock(World p_149749_1_, int p_149749_2_, int p_149749_3_, int p_149749_4_, Block p_149749_5_, int p_149749_6_) {

@@ -17,7 +17,6 @@ public class Recipes {
 		GameRegistry.addRecipe(new ItemStack(PEItems.philosophersStone), new Object[] { "GRG", "RDR", "GRG", 'R', Blocks.redstone_block, 'G', Items.nether_star, 'D', Blocks.diamond_block });
 		GameRegistry.addRecipe(new ItemStack(PEItems.philosophersStone), new Object[] { "RGR", "GDG", "RGR", 'R', Blocks.redstone_block, 'G', Items.nether_star, 'D', Blocks.diamond_block });
 		GameRegistry.addRecipe(new ItemStack(PEBlocks.energyCollectorMK1), new Object[] { "GgG", "GDG", "GFG", 'G', Blocks.glowstone, 'g', Blocks.glass, 'D', Blocks.diamond_block, 'F', Blocks.furnace });
-		GameRegistry.addRecipe(new ItemStack(PEItems.AlchemyBag), new Object[]{"CCC","   ","   ",'C',Blocks.cobblestone});
 		GameRegistry.addRecipe(new ItemStack(PEBlocks.energyCondenser,1), new Object[]{"ODO","DSD","ODO",'O',Blocks.obsidian,'D',Items.diamond,'S',PEBlocks.netherStar});
 		GameRegistry.addRecipe(new ItemStack(PEBlocks.energyCondenser,1), new Object[]{"SSS","SSS","SSS",'S',Items.nether_star});
 		GameRegistry.addRecipe(new ItemStack(PEBlocks.energyCollectorMK2,1), new Object[]{"GgG","GSG","GFG",'G', Blocks.glowstone, 'g', Blocks.glass, 'S', PEBlocks.netherStar, 'F', Blocks.furnace });

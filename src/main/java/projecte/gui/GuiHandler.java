@@ -4,6 +4,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import projecte.container.*;
+import projecte.items.InventoryPouch;
 import projecte.tile.*;
 import cpw.mods.fml.common.network.IGuiHandler;
 import cpw.mods.fml.relauncher.Side;
@@ -39,8 +40,11 @@ public class GuiHandler implements IGuiHandler {
 		if (entity instanceof TileRelayMK3) {
 			return new ContainerRelayMK3(player.inventory, (TileRelayMK3) entity);
 		}
-		if (ID==100) {
-			return new ContainerAlChest(player);
+        InventoryPouch inv = new InventoryPouch();
+        inv.load(player.inventory);
+        
+		if (ID==5) {
+			return new ContainerPouch(inv,player.inventory);
 		}
 
 		return null;
@@ -72,8 +76,10 @@ public class GuiHandler implements IGuiHandler {
 		if (entity instanceof TileRelayMK3) {
 			return new GuiRelayMK3(player.inventory, (TileRelayMK3) entity);
 		}
-		if (ID==100) {
-			return new GuiAlchemyBag(player);
+        InventoryPouch inv = new InventoryPouch();
+        inv.load(player.inventory);
+		if (ID==5) {
+			return new GuiPouch(inv,player.inventory);
 		}
 		return null;
 	}
