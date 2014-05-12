@@ -1,5 +1,6 @@
 package projecte.container;
 
+import projecte.container.slot.SlotBag;
 import projecte.items.InventoryPouch;
 import projecte.items.ItemPouch;
 import net.minecraft.entity.player.EntityPlayer;
@@ -13,9 +14,11 @@ public class ContainerPouch extends Container
 {
     InventoryPouch itemInv;
     
-    public ContainerPouch(InventoryPouch itemInv, InventoryPlayer playerInv)
+    
+    public ContainerPouch(InventoryPouch itemInv, EntityPlayer player)
     {
         this.itemInv = itemInv;
+        ItemStack item = player.getCurrentEquippedItem();
         
         int i = (ItemPouch.ROWS - 4) * 18;
         int j;
@@ -33,13 +36,13 @@ public class ContainerPouch extends Container
         {
             for (k = 0; k < 9; ++k)
             {
-                this.addSlotToContainer(new Slot(playerInv, k + j * 9 + 9, 8 + k * 18, 103 + j * 18 + i));
+                this.addSlotToContainer(new SlotBag(item,player.inventory, k + j * 9 + 9, 8 + k * 18, 103 + j * 18 + i));
             }
         }
 
         for (j = 0; j < 9; ++j)
         {
-            this.addSlotToContainer(new Slot(playerInv, j, 8 + j * 18, 161 + i));
+            this.addSlotToContainer(new SlotBag(item,player.inventory, j, 8 + j * 18, 161 + i));
         }
     }
     
@@ -90,5 +93,10 @@ public class ContainerPouch extends Container
         }
 
         return itemstack;
+    }
+    
+    @Override
+    protected boolean mergeItemStack(ItemStack par1ItemStack, int par2, int par3, boolean par4) {
+    	return false;
     }
 }

@@ -27,6 +27,7 @@ public class ItemPouch extends Item
 		
 		this.setCreativeTab(ProjectE.tab);
 		this.setUnlocalizedName(ModInfo.MOD_ID+".pouch");
+		this.setMaxStackSize(1);
 	}
 	
 	@Override

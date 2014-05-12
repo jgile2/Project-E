@@ -1,15 +1,11 @@
 package projecte.render;
 
-import net.minecraft.block.Block;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
@@ -84,16 +80,19 @@ public class RenderCondenser extends TileEntitySpecialRenderer {
 		GL11.glPushMatrix();
 		{
 			GL11.glTranslated(x + 0.5, y, z + 0.5);
-			
-			ItemStack is = new ItemStack(PEItems.philosophersStone);
 
-			EntityItem entityitem = new EntityItem(te.getWorldObj(), 0.0D, 0.0D, 0.0D, is);
-            //entityitem.getEntityItem().stackSize = 1;
-            //entityitem.hoverStart = 0.0F;
+			// ItemStack is = new ItemStack(PEItems.philosophersStone);
+			ItemStack is = te.getStackInSlot(92);
 			
-			RenderItem.renderInFrame = true;
-			RenderManager.instance.renderEntityWithPosYaw(entityitem, 0.0D, 0.0D, 0.0D, 0.0F, 0.0F);
-			RenderItem.renderInFrame = false;
+			if (is != null) {
+				EntityItem entityitem = new EntityItem(te.getWorldObj(), 0.0D, 0.0D, 0.0D, is);
+				entityitem.getEntityItem().stackSize = 1;
+				entityitem.hoverStart = 0.0F;
+
+				RenderItem.renderInFrame = true;
+				RenderManager.instance.renderEntityWithPosYaw(entityitem, 0.0D, 1.0D, 0.0D, 1.0F, 0.0F);
+				RenderItem.renderInFrame = false;
+			}
 		}
 		GL11.glPopMatrix();
 	}

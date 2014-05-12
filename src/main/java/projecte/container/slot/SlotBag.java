@@ -1,22 +1,29 @@
 package projecte.container.slot;
 
-import projecte.items.PEItems;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
+import net.minecraft.item.ItemStack;
+import projecte.items.PEItems;
 
-public class SlotBag extends Slot{
-	int currentSlot=0;
-	public SlotBag(int slot,IInventory par1iInventory, int id, int x, int y) {
+public class SlotBag extends Slot {
+	ItemStack item;
+
+	public SlotBag(ItemStack item, IInventory par1iInventory, int id, int x, int y) {
 		super(par1iInventory, id, x, y);
-		currentSlot = slot; 
-		// TODO Auto-generated constructor stub
+		this.item = item;
+		
+		
 	}
+	
+	
 	@Override
-	public boolean canTakeStack(EntityPlayer player) {
-		//if(player.inventory.getStackInSlot(currentSlot).getItem()==PEItems.AlchemyBag)return false;
-		return true;
+	public boolean isItemValid(ItemStack itemstack) {
+		return itemstack.getItem() != PEItems.Pouch;
+
 	}
 	
 	
+	
+
 }

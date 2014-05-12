@@ -44,7 +44,7 @@ public class GuiHandler implements IGuiHandler {
         inv.load(player.inventory);
         
 		if (ID==5) {
-			return new ContainerPouch(inv,player.inventory);
+			return new ContainerPouch(inv,player);
 		}
 
 		return null;
@@ -79,7 +79,7 @@ public class GuiHandler implements IGuiHandler {
         InventoryPouch inv = new InventoryPouch();
         inv.load(player.inventory);
 		if (ID==5) {
-			return new GuiPouch(inv,player.inventory);
+			return new GuiPouch(inv,player);
 		}
 		return null;
 	}
