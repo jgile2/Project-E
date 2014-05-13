@@ -1,9 +1,11 @@
 package projecte.items;
 
+import projecte.ModInfo;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.StatCollector;
 
 
 public class InventoryPouch implements IInventory
@@ -61,7 +63,7 @@ public class InventoryPouch implements IInventory
     @Override
     public String getInventoryName()
     {
-        return "inventory.name";
+        return StatCollector.translateToLocal(ModInfo.MOD_ID + ".pouch.name");
     }
 
     @Override

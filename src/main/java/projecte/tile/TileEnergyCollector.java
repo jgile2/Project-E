@@ -109,9 +109,9 @@ public class TileEnergyCollector extends EmcContainerTile implements ISidedInven
 
 	public void readFromNBT(NBTTagCompound nbt) {
 		super.readFromNBT(nbt);
-		readEmcFromNBT(nbt);
+		//readEmcFromNBT(nbt);
 
-		NBTTagList nbttaglist = nbt.getTagList("Items", items.length);
+		NBTTagList nbttaglist = nbt.getTagList("Items", 10);
 		this.items = new ItemStack[this.getSizeInventory()];
 
 		for (int i = 0; i < nbttaglist.tagCount(); i++) {

@@ -7,7 +7,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 import projecte.ModInfo;
@@ -326,7 +328,45 @@ public class EmcRegistry {
 
 			setValueForOredictName("cobblestone", 1, EmcValueType.MATTER);
 			setValueForOredictName("blockCobble", 1, EmcValueType.MATTER);
+			setValueForStack(new ItemStack(Blocks.deadbush), 1, EmcValueType.MATTER);
+			setValueForStack(new ItemStack(Blocks.tallgrass), 1, EmcValueType.MATTER);
+			setValueForStack(new ItemStack(Blocks.grass), 1, EmcValueType.MATTER);
+			setValueForStack(new ItemStack(Blocks.glass), 1, EmcValueType.MATTER);
+			setValueForStack(new ItemStack(Blocks.glass_pane), 1, EmcValueType.MATTER);
+			setValueForStack(new ItemStack(Blocks.ice), 1, EmcValueType.MATTER);
+			setValueForStack(new ItemStack(Blocks.leaves), 1, EmcValueType.MATTER);
+			setValueForStack(new ItemStack(Blocks.leaves2), 1, EmcValueType.MATTER);
+			setValueForStack(new ItemStack(Blocks.netherrack), 1, EmcValueType.MATTER);
+			setValueForStack(new ItemStack(Blocks.sand), 1, EmcValueType.MATTER);
+			setValueForStack(new ItemStack(Blocks.snow), 1, EmcValueType.MATTER);
+			setValueForStack(new ItemStack(Blocks.stone), 1, EmcValueType.MATTER);
+			setValueForStack(new ItemStack(Blocks.stonebrick), 1, EmcValueType.MATTER);
+			setValueForStack(new ItemStack(Blocks.stone_slab), 1, EmcValueType.MATTER);
+			setValueForStack(new ItemStack(Blocks.stone_brick_stairs), 1, EmcValueType.MATTER);
+			setValueForStack(new ItemStack(Blocks.end_stone), 1, EmcValueType.MATTER);
 
+			setValueForStack(new ItemStack(Blocks.stone_button), 2, EmcValueType.MATTER);
+			setValueForStack(new ItemStack(Blocks.wooden_button), 2, EmcValueType.MATTER);
+			setValueForStack(new ItemStack(Blocks.stone_pressure_plate), 2, EmcValueType.MATTER);
+			setValueForStack(new ItemStack(Blocks.wooden_pressure_plate), 2, EmcValueType.MATTER);
+			setValueForStack(new ItemStack(Items.stick), 2, EmcValueType.MATTER);
+
+			setValueForStack(new ItemStack(Blocks.gravel), 4, EmcValueType.MATTER);
+			setValueForStack(new ItemStack(Blocks.nether_brick), 4, EmcValueType.MATTER);
+			setValueForStack(new ItemStack(Blocks.sandstone), 4, EmcValueType.MATTER);
+			setValueForStack(new ItemStack(Items.flint), 4, EmcValueType.MATTER);
+			
+			setValueForStack(new ItemStack(Blocks.lever), 5, EmcValueType.MATTER);
+			
+			setValueForStack(new ItemStack(Blocks.cactus), 8, EmcValueType.MATTER);
+			setValueForStack(new ItemStack(Blocks.furnace), 8, EmcValueType.MATTER);
+			setValueForStack(new ItemStack(Blocks.vine), 8, EmcValueType.MATTER);
+			setValueForStack(new ItemStack(Items.dye), 8, EmcValueType.MATTER);
+
+			
+			
+
+			
 			setValueForOredictName("blockStone", 1, EmcValueType.MATTER);
 
 			// Items 
@@ -340,6 +380,7 @@ public class EmcRegistry {
 
 			setValueForStack(new ItemStack(Items.coal), 128, EmcValueType.FUEL);
 			setValueForStack(new ItemStack(PEItems.alchemicalCoal), 512, EmcValueType.FUEL);
+			
 		}
 	}
 

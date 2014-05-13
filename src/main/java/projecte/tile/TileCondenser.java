@@ -79,8 +79,15 @@ public class TileCondenser extends EmcContainerTile implements ISidedInventory {
 	@Override
 	public ItemStack getStackInSlotOnClosing(int i) {
 
-		return getStackInSlot(i);
+		 if (this.items[i] != null)
+	        {
+	            ItemStack itemstack = this.items[i];
+	            this.items[i] = null;
+	            return itemstack;
+	        }
+	        else {}
 
+	        return null;
 	}
 
 	@Override
@@ -91,15 +98,13 @@ public class TileCondenser extends EmcContainerTile implements ISidedInventory {
 		if (itemstack != null && itemstack.stackSize > this.getInventoryStackLimit()) {
 			itemstack.stackSize = this.getInventoryStackLimit();
 		}
+		
 
 	}
 
 	public void writeToNBT(NBTTagCompound nbt) {
 		super.writeToNBT(nbt);
-		saveEmcToNBT(nbt);
-
 		NBTTagList nbttaglist = new NBTTagList();
-
 		for (int i = 0; i < this.items.length; i++) {
 			if (this.items[i] != null) {
 				NBTTagCompound tag = new NBTTagCompound();
@@ -115,13 +120,13 @@ public class TileCondenser extends EmcContainerTile implements ISidedInventory {
 
 	public void readFromNBT(NBTTagCompound nbt) {
 		super.readFromNBT(nbt);
-		readEmcFromNBT(nbt);
+		// readEmcFromNBT(nbt);
 
-		NBTTagList nbttaglist = nbt.getTagList("Items", items.length);
+		NBTTagList nbttaglist = nbt.getTagList("Items", 10);
 		this.items = new ItemStack[this.getSizeInventory()];
 
 		for (int i = 0; i < nbttaglist.tagCount(); i++) {
-			NBTTagCompound nbtSlot = (NBTTagCompound) nbttaglist.getCompoundTagAt(i);
+			NBTTagCompound nbtSlot = nbttaglist.getCompoundTagAt(i);
 			int var1 = nbtSlot.getByte("Slot") & 255;
 
 			if (var1 >= 0 && var1 < this.items.length) {
@@ -193,7 +198,7 @@ public class TileCondenser extends EmcContainerTile implements ISidedInventory {
 		if (i > items.length - 2)
 			return false;
 
-		return false;
+		return true;
 	}
 
 	@Override
@@ -202,7 +207,7 @@ public class TileCondenser extends EmcContainerTile implements ISidedInventory {
 		if (i > items.length - 2)
 			return false;
 
-		return false;
+		return true;
 	}
 
 	@Override

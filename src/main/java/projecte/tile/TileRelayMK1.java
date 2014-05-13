@@ -90,7 +90,7 @@ public class TileRelayMK1 extends TileEntity implements ISidedInventory{
 
 	public void readFromNBT(NBTTagCompound nbt) {
 		super.readFromNBT(nbt);
-		NBTTagList nbttaglist = nbt.getTagList("Items", items.length);
+		NBTTagList nbttaglist = nbt.getTagList("Items", 10);
 		this.items = new ItemStack[this.getSizeInventory()];
 
 		for (int i = 0; i < nbttaglist.tagCount(); i++) {

@@ -81,7 +81,7 @@ public class ProjectE {
 		
 		/* Register recipes */
 		proxy.addRecipes();
-
+		proxy.registerTiles();
 		/* Register GUI handler */
 		NetworkRegistry.INSTANCE.registerGuiHandler(inst, new GuiHandler());
 	}

@@ -22,13 +22,17 @@ public class CommonProxy {
 		Recipes.registerShapelessRecipes();
 
 	}
-	
-	public void registerFluids(){
+
+	public void registerFluids() {
 		PEFluids.registerFluids();
 	}
 
 	public void registerRenders() {
 
+	}
+
+	public void registerTiles() {
+		PEBlocks.registerTiles();
 	}
 
 }
