@@ -32,7 +32,7 @@ public class ItemPouch extends Item
 	
 	@Override
 	public void registerIcons(IIconRegister iconRegister) {
-		itemIcon = iconRegister.registerIcon(ModInfo.MOD_ID + ":alchemybag_white");
+		itemIcon = iconRegister.registerIcon(ModInfo.MOD_ID + ":bagAlchemy");
 	}
 	
     @Override
@@ -140,5 +140,6 @@ public class ItemPouch extends Item
         
         LogManager.getLogger().info("Wrote..  side={}  stacks={}", FMLCommonHandler.instance().getEffectiveSide(), stack.stackTagCompound);
     }
+    
 
 }

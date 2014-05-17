@@ -21,11 +21,14 @@ public class PEItems {
 	public static Item KleinStarOmega;
 	public static Item BucketLiquidEMC;
 	public static Item DestructionCatalyst;
-	public static Item SwiftwolfRing;
+	public static Item FlyingRing;
 	public static Item Evertide;
 	public static Item Volcanite;
 	public static Item Test;
 	public static Item Pouch;
+	public static Item DarkMatter;
+	public static Item Ring;
+
 
 
 
@@ -57,8 +60,8 @@ public class PEItems {
 		DestructionCatalyst = new ItemDestructionCatalyst();
 		GameRegistry.registerItem(DestructionCatalyst, DestructionCatalyst.getUnlocalizedName());
 		
-		SwiftwolfRing = new ItemSwiftwolfRing(false);
-		GameRegistry.registerItem(SwiftwolfRing, SwiftwolfRing.getUnlocalizedName());
+		FlyingRing = new ItemSwiftwolfRing(false);
+		GameRegistry.registerItem(FlyingRing, FlyingRing.getUnlocalizedName());
 		
 		Evertide = new ItemEvertide();
 		GameRegistry.registerItem(Evertide, Evertide.getUnlocalizedName());
@@ -68,6 +71,12 @@ public class PEItems {
 		
 		Pouch = new ItemPouch();
 		GameRegistry.registerItem(Pouch, Pouch.getUnlocalizedName());
+		
+		DarkMatter = new ItemDarkMatter();
+		GameRegistry.registerItem(DarkMatter, DarkMatter.getUnlocalizedName());
+		
+		Ring = new ItemRing();
+		GameRegistry.registerItem(Ring, Ring.getUnlocalizedName());
 
 		Test = new ItemTest();
 		GameRegistry.registerItem(Test, Test.getUnlocalizedName());

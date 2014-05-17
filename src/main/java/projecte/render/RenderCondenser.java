@@ -66,9 +66,9 @@ public class RenderCondenser extends TileEntitySpecialRenderer {
 
 		// Test rotation
 		{
-			model.Top_Latch.rotateAngleZ = 5;
+			model.TopLeft.rotateAngleZ = 5;
 			model.Latch.rotateAngleZ = 5;
-			model.Top.rotateAngleZ = -5;
+			model.TopRight.rotateAngleZ = -5;
 		}
 
 		model.renderAll();

@@ -62,7 +62,7 @@ public class TooltipHandler {
 		String n = OreDictionary.getOreName(id);
 
 		if (id != -1) {
-			tip.add(Color.LIGHT_PURPLE + "[DEBUG] Oredict name: " + n);
+			//tip.add(Color.LIGHT_PURPLE + "[DEBUG] Oredict name: " + n);
 		}
 	}
 }

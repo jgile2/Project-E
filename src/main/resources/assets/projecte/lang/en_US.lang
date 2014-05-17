@@ -15,18 +15,19 @@ item.projecte.pouch.name=Pouch
 item.projecte.FlyingRing.name=Flying Ring
 item.projecte.Evertide.name=Evertide Amulet
 item.projecte.Volcanite.name=Volcanite Amulet
-
+item.projecte.darkMatter.name=Dark Matter
+item.projecte.ring.name=Iron Band
 
 
 tile.projecte.liquidEmc.name=Liquid EMC
-tile.projecte.relayMK1.name=Anti-Matter Relay MK1
-tile.projecte.relayMK2.name=Anti-Matter Relay MK2
-tile.projecte.relayMK3.name=Anti-Matter Relay MK3
+tile.projecte.relayMK1.name=Anti-Matter Relay MK1 (WIP)
+tile.projecte.relayMK2.name=Anti-Matter Relay MK2 (WIP)
+tile.projecte.relayMK3.name=Anti-Matter Relay MK3 (WIP)
 tile.projecte.energyCondensor.name=Energy Condensor
 tile.projecte.energyCollectorMK1.name=Energy Collector MK1
 tile.projecte.energyCollectorMK2.name=Energy Collector MK2
 tile.projecte.energyCollectorMK3.name=Energy Collector MK3
-item.projecte.netherStar.name=Nether Star Block
+tile.projecte.netherStar.name=Nether Star Block
 
 
 projecte.tooltip.pressShift=Press shift to see the EMC value

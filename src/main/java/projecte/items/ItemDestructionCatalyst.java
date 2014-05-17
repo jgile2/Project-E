@@ -19,7 +19,7 @@ public class ItemDestructionCatalyst extends Item {
 	public ItemDestructionCatalyst() {
 
 		super();
-		this.setUnlocalizedName(ModInfo.MOD_ID + ":destructionCatalyst");
+		this.setUnlocalizedName(ModInfo.MOD_ID + ".destructionCatalyst");
 		this.setCreativeTab(ProjectE.tab);
 		this.setMaxDamage(5);
 		

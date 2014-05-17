@@ -361,12 +361,67 @@ public class EmcRegistry {
 			setValueForStack(new ItemStack(Blocks.cactus), 8, EmcValueType.MATTER);
 			setValueForStack(new ItemStack(Blocks.furnace), 8, EmcValueType.MATTER);
 			setValueForStack(new ItemStack(Blocks.vine), 8, EmcValueType.MATTER);
-			setValueForStack(new ItemStack(Items.dye), 8, EmcValueType.MATTER);
+			setValueForStack(new ItemStack(Blocks.torch), 8, EmcValueType.MATTER);
 
-			
-			
+			setValueForStack(new ItemStack(Blocks.web), 12, EmcValueType.MATTER);
+			setValueForStack(new ItemStack(Blocks.fence), 12, EmcValueType.MATTER);
+			setValueForStack(new ItemStack(Items.fishing_rod), 12, EmcValueType.MATTER);
+			setValueForStack(new ItemStack(Items.string), 12, EmcValueType.MATTER);
 
+			setValueForStack(new ItemStack(Blocks.ladder), 14, EmcValueType.MATTER);
+			setValueForStack(new ItemStack(Items.arrow), 14, EmcValueType.MATTER);
 			
+			setValueForStack(new ItemStack(Blocks.yellow_flower), 16, EmcValueType.MATTER);
+			setValueForStack(new ItemStack(Blocks.red_flower), 16, EmcValueType.MATTER);
+			setValueForStack(new ItemStack(Blocks.waterlily), 16, EmcValueType.MATTER);
+			
+			setValueForStack(new ItemStack(Items.wheat), 24, EmcValueType.MATTER);
+			setValueForStack(new ItemStack(Items.nether_wart), 24, EmcValueType.MATTER);
+			setValueForStack(new ItemStack(Items.rotten_flesh), 24, EmcValueType.MATTER);
+			setValueForStack(new ItemStack(Items.slime_ball), 24, EmcValueType.MATTER);
+
+			setValueForStack(new ItemStack(Blocks.fence_gate), 32, EmcValueType.MATTER);
+			setValueForStack(new ItemStack(Blocks.reeds), 32, EmcValueType.MATTER);
+			setValueForStack(new ItemStack(Items.paper), 32, EmcValueType.MATTER);
+			setValueForStack(new ItemStack(Items.sugar), 32, EmcValueType.MATTER);
+			setValueForStack(new ItemStack(Items.egg), 32, EmcValueType.MATTER);
+			
+			setValueForStack(new ItemStack(Items.feather), 48, EmcValueType.MATTER);
+			setValueForStack(new ItemStack(Blocks.soul_sand), 48, EmcValueType.MATTER);
+
+			setValueForStack(new ItemStack(Blocks.chest), 64, EmcValueType.MATTER);
+			setValueForStack(new ItemStack(Blocks.obsidian), 64, EmcValueType.MATTER);
+			setValueForStack(new ItemStack(Blocks.redstone_wire), 64, EmcValueType.MATTER);
+			setValueForStack(new ItemStack(Items.porkchop), 64, EmcValueType.MATTER);
+			setValueForStack(new ItemStack(Items.beef), 64, EmcValueType.MATTER);
+			setValueForStack(new ItemStack(Items.fish), 64, EmcValueType.MATTER);
+			setValueForStack(new ItemStack(Items.chicken), 64, EmcValueType.MATTER);
+			setValueForStack(new ItemStack(Items.leather), 64, EmcValueType.MATTER);
+			setValueForStack(new ItemStack(Items.clay_ball), 64, EmcValueType.MATTER);
+
+			setValueForStack(new ItemStack(Items.bread), 72, EmcValueType.MATTER);
+			
+			setValueForStack(new ItemStack(Blocks.iron_bars), 96, EmcValueType.MATTER);
+			setValueForStack(new ItemStack(Blocks.rail), 96, EmcValueType.MATTER);
+			setValueForStack(new ItemStack(Items.book), 96, EmcValueType.MATTER);
+			setValueForStack(new ItemStack(Items.bone), 96, EmcValueType.MATTER);
+
+			setValueForStack(new ItemStack(Blocks.piston), 348, EmcValueType.MATTER);
+
+			setValueForStack(new ItemStack(Items.glowstone_dust), 384, EmcValueType.MATTER);
+
+			setValueForStack(new ItemStack(PEItems.alchemicalCoal), 512, EmcValueType.FUEL);
+
+			setValueForStack(new ItemStack(Blocks.tnt), 964, EmcValueType.FUEL);
+
+			setValueForStack(new ItemStack(Items.ender_pearl), 1024, EmcValueType.FUEL);
+			
+			setValueForStack(new ItemStack(Items.blaze_rod), 1536, EmcValueType.FUEL);
+			
+			setValueForStack(new ItemStack(Items.quartz), 2048, EmcValueType.FUEL);
+
+			setValueForStack(new ItemStack(Blocks.lapis_block), 7776, EmcValueType.FUEL);
+
 			setValueForOredictName("blockStone", 1, EmcValueType.MATTER);
 
 			// Items 
@@ -375,11 +430,17 @@ public class EmcRegistry {
 			setValueForOredictName("ingotGold", 2048, EmcValueType.MATTER);
 			setValueForOredictName("gemDiamond", 8192, EmcValueType.MATTER);
 			setValueForOredictName("gemEmerald", 8192, EmcValueType.MATTER);
+			setValueForOredictName("ingotCopper", 85, EmcValueType.MATTER);
+			setValueForOredictName("ingotTin", 128, EmcValueType.MATTER);
+			setValueForOredictName("ingotBronze", 96, EmcValueType.MATTER);
+			setValueForOredictName("ingotSilver", 512, EmcValueType.MATTER);
+			setValueForOredictName("ingotSilver", 2048, EmcValueType.MATTER);
+			setValueForOredictName("ingotLead", 2048, EmcValueType.MATTER);
+
 
 			setValueForOredictName("cloth", 48, EmcValueType.MATTER);
 
 			setValueForStack(new ItemStack(Items.coal), 128, EmcValueType.FUEL);
-			setValueForStack(new ItemStack(PEItems.alchemicalCoal), 512, EmcValueType.FUEL);
 			
 		}
 	}
