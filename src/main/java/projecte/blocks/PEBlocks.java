@@ -9,6 +9,9 @@ public class PEBlocks {
 	public static Block energyCollectorMK1;
 	public static Block energyCollectorMK2;
 	public static Block energyCollectorMK3;
+	public static Block CollectorMK1;
+
+	public static Block CollectorCore;
 	public static Block relayMK1;
 	public static Block relayMK2;
 	public static Block relayMK3;
@@ -25,6 +28,12 @@ public class PEBlocks {
 		
 		energyCollectorMK3 = new BlockEnergyCollectorMK3();
 		GameRegistry.registerBlock(energyCollectorMK3, energyCollectorMK3.getUnlocalizedName());
+		
+		CollectorCore = new BlockCollectorCore();
+		//GameRegistry.registerBlock(CollectorCore, CollectorCore.getUnlocalizedName());
+		
+		CollectorMK1 = new BlockCollectorMK1();
+		//GameRegistry.registerBlock(CollectorMK1, CollectorMK1.getUnlocalizedName());
 		
 		
 		relayMK1 = new BlockRelayMK1();
@@ -55,8 +64,9 @@ public class PEBlocks {
 		GameRegistry.registerTileEntity(TileRelayMK2.class, relayMK2.getUnlocalizedName());
 		GameRegistry.registerTileEntity(TileRelayMK3.class, relayMK3.getUnlocalizedName());
 		GameRegistry.registerTileEntity(TileCondenser.class, energyCondenser.getUnlocalizedName());
+		GameRegistry.registerTileEntity(TileCollectorCore.class, CollectorCore.getUnlocalizedName());
 
-
+		
 
 	}
 

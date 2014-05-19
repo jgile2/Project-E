@@ -27,6 +27,11 @@ public class GuiHandler implements IGuiHandler {
 		if (entity instanceof TileEnergyCollectorMK3) {
 			return new ContainerEnergyCollectorMK3(player.inventory, (TileEnergyCollectorMK3) entity);
 		}
+		
+		if (entity instanceof TileCollectorCore) {
+			return new ContainerEnergyCollectorMK3(player.inventory, (TileEnergyCollectorMK3) entity);
+		}
+
 		if (entity instanceof TileCondenser) {
 			return new ContainerCondenser(player.inventory, (TileCondenser) entity);
 		}
@@ -62,6 +67,9 @@ public class GuiHandler implements IGuiHandler {
 			return new GuiEnergyCollectorMK2(player.inventory, (TileEnergyCollectorMK2) entity);
 		}
 		if (entity instanceof TileEnergyCollectorMK3) {
+			return new GuiEnergyCollectorMK3(player.inventory, (TileEnergyCollectorMK3) entity);
+		}
+		if (entity instanceof TileCollectorCore) {
 			return new GuiEnergyCollectorMK3(player.inventory, (TileEnergyCollectorMK3) entity);
 		}
 		if (entity instanceof TileCondenser) {

@@ -30,12 +30,12 @@ public class VolcaniteTossEvent {
 	public void toss(ItemTossEvent event) {
 		list = new LinkedList<EntityItem>();
 		itemEntity = event.entityItem;
-		EntityPlayer player = Minecraft.getMinecraft().thePlayer;
+		//EntityPlayer player = Minecraft.getMinecraft().thePlayer;
 
 		ItemStack itemStack = itemEntity.getEntityItem();
 
 		if (itemStack.getItem() == PEItems.Volcanite) {
-			player.addChatMessage(new ChatComponentText("Why would you chuck me you idiot"));
+			//player.addChatMessage(new ChatComponentText("Why would you chuck me you idiot"));
 			// double xCoord = itemEntity.posX;
 			// double yCoord = itemEntity.posY;
 			// double zCoord = itemEntity.posZ;

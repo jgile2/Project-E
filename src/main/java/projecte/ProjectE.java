@@ -72,8 +72,7 @@ public class ProjectE {
 
 		}
 		MinecraftForge.EVENT_BUS.register(new VolcaniteTossEvent());
-		FMLCommonHandler.instance().bus().register(new VolcaniteTossEvent());
-		MinecraftForge.EVENT_BUS.register(new BucketFillEvent());
+		//FMLCommonHandler.instance().bus().register(new VolcaniteTossEvent());
 	//	MinecraftForge.EVENT_BUS.register(new KeyHandler());
 		
 		GameRegistry.registerFuelHandler(new FurnaceFuelHandler());
