@@ -68,7 +68,7 @@ public class ProjectE {
 		/* Register handlers */
 		if (FMLCommonHandler.instance().getEffectiveSide().isClient()){
 			MinecraftForge.EVENT_BUS.register(new TooltipHandler());
-			EventCloakRenderer.addDevCapes();
+			EventCloakRenderer.addCapes();
 
 		}
 		MinecraftForge.EVENT_BUS.register(new VolcaniteTossEvent());
