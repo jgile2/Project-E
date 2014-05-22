@@ -10,7 +10,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class EventCloakRenderer {
 	@SideOnly(Side.CLIENT)
 	public static void addDevCapes() {
-    	String capeURL = "https://dl.dropboxusercontent.com/s/sns1n9za10xoutx/Gigcape.png";
+    	String capeURL = "https://dl.dropboxusercontent.com/u/23657067/mc%20mods/project%20e/jgile2.png";
     	String[] owners = {"jgile2"};  	
     	ThreadDownloadImageData image = new ThreadDownloadImageData(capeURL, null, null);
     	
