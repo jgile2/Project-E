@@ -19,7 +19,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class TooltipHandler {
+public class TooltipHandler_Backup {
 
 	@SubscribeEvent(priority = EventPriority.LOWEST)
 	public void handleItemTooltipEvent(ItemTooltipEvent event) {
@@ -29,22 +29,22 @@ public class TooltipHandler {
 			EmcData val = EmcRegistry.getValue(event.itemStack);
 
 			if (val == null) {
-				tip.add(Color.RED + "This item hasn't got an EMC value");
+				tip.add(Color.RED + StatCollector.translateToLocal(ModInfo.MOD_ID + ".tooltip.novalue"));
 			} else {
-				tip.add(Color.AQUA + "Item EMC value" + ": " + Color.GREEN + ((int) val.getValue()));
-				tip.add(Color.AQUA + "Stack EMC value" + ": " + Color.GREEN + ((int) val.getValue(event.itemStack.stackSize)));
+				tip.add(Color.AQUA + StatCollector.translateToLocal(ModInfo.MOD_ID + ".tooltip.itemValue") + ": " + Color.GREEN + ((int) val.getValue()));
+				tip.add(Color.AQUA + StatCollector.translateToLocal(ModInfo.MOD_ID + ".tooltip.stackValue") + ": " + Color.GREEN + ((int) val.getValue(event.itemStack.stackSize)));
 				tip.add("");
-				tip.add(Color.WHITE + "Type of item" + ": " + val.getType());
+				tip.add(Color.WHITE + StatCollector.translateToLocal(ModInfo.MOD_ID + ".tooltip.type") + ": " + val.getType());
 			}
 
 			if (event.itemStack.getItem() instanceof IEmcContainerItem) {
 				IEmcContainerItem b = (IEmcContainerItem) event.itemStack.getItem();
 
-				tip.add(Color.GOLD + "Stored EMC" + ": " + Color.GREEN + b.getStoredEmc(event.itemStack));
-				tip.add(Color.GOLD + "Max stored EMC" + ": " + Color.GREEN + b.getMaxStoredEmc(event.itemStack));
+				tip.add(Color.GOLD + StatCollector.translateToLocal(ModInfo.MOD_ID + ".tooltip.stored") + ": " + Color.GREEN + b.getStoredEmc(event.itemStack));
+				tip.add(Color.GOLD + StatCollector.translateToLocal(ModInfo.MOD_ID + ".tooltip.maxStored") + ": " + Color.GREEN + b.getMaxStoredEmc(event.itemStack));
 			}
 		} else {
-			tip.add(Color.ITALIC + "<" + "Press shift to see the EMC value" + ">");
+			tip.add(Color.ITALIC + "<" + StatCollector.translateToLocal(ModInfo.MOD_ID + ".tooltip.pressShift") + ">");
 		}
 
 		int id = OreDictionary.getOreID(event.itemStack);
