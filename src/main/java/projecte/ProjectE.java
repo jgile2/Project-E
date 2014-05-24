@@ -67,17 +67,17 @@ public class ProjectE {
 
 		/* Register handlers */
 		if (FMLCommonHandler.instance().getEffectiveSide().isClient()){
-<<<<<<< HEAD
+
 			MinecraftForge.EVENT_BUS.register(new TooltipHandler());
 			EventCloakRenderer.addCapes();
-=======
+
             FMLCommonHandler.instance().bus().register(new TooltipHandler());
 			/*
 			 * Disabled due to a different event
 			 * MinecraftForge.EVENT_BUS.register(new TooltipHandler());
 			 */
-			EventCloakRenderer.addDevCapes();
->>>>>>> 1afba5082b07a3c612e5a0922ea6991e1799ff4e
+			EventCloakRenderer.addCapes();
+
 
 		}
 		MinecraftForge.EVENT_BUS.register(new VolcaniteTossEvent());
