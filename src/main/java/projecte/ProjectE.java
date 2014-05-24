@@ -1,7 +1,16 @@
 package projecte;
 
-import java.util.logging.Logger;
-
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.Mod;
+import cpw.mods.fml.common.Mod.EventHandler;
+import cpw.mods.fml.common.Mod.Instance;
+import cpw.mods.fml.common.SidedProxy;
+import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLLoadCompleteEvent;
+import cpw.mods.fml.common.event.FMLPostInitializationEvent;
+import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.network.NetworkRegistry;
+import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraftforge.common.MinecraftForge;
 import projecte.api.emc.EmcRegistry;
@@ -17,17 +26,8 @@ import projecte.packet.PacketManager;
 import projecte.proxy.CommonProxy;
 import projecte.util.CreativeTab;
 import projecte.util.OredictUtil;
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.Mod;
-import cpw.mods.fml.common.Mod.EventHandler;
-import cpw.mods.fml.common.Mod.Instance;
-import cpw.mods.fml.common.SidedProxy;
-import cpw.mods.fml.common.event.FMLInitializationEvent;
-import cpw.mods.fml.common.event.FMLLoadCompleteEvent;
-import cpw.mods.fml.common.event.FMLPostInitializationEvent;
-import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.network.NetworkRegistry;
-import cpw.mods.fml.common.registry.GameRegistry;
+
+import java.util.logging.Logger;
 
 @Mod(modid = ModInfo.MOD_ID, name = ModInfo.MOD_NAME, version = ModInfo.MOD_VERSION, useMetadata = false)
 public class ProjectE {
@@ -67,8 +67,17 @@ public class ProjectE {
 
 		/* Register handlers */
 		if (FMLCommonHandler.instance().getEffectiveSide().isClient()){
+<<<<<<< HEAD
 			MinecraftForge.EVENT_BUS.register(new TooltipHandler());
 			EventCloakRenderer.addCapes();
+=======
+            FMLCommonHandler.instance().bus().register(new TooltipHandler());
+			/*
+			 * Disabled due to a different event
+			 * MinecraftForge.EVENT_BUS.register(new TooltipHandler());
+			 */
+			EventCloakRenderer.addDevCapes();
+>>>>>>> 1afba5082b07a3c612e5a0922ea6991e1799ff4e
 
 		}
 		MinecraftForge.EVENT_BUS.register(new VolcaniteTossEvent());
