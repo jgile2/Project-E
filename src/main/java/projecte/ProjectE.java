@@ -1,6 +1,8 @@
 package projecte;
 
+import codechicken.nei.guihook.GuiContainerManager;
 import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -15,13 +17,13 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraftforge.common.MinecraftForge;
 import projecte.api.emc.EmcRegistry;
 import projecte.crafting.PhilosopherStoneCraftingHandler;
-import projecte.event.BucketFillEvent;
 import projecte.event.CraftingEvent;
 import projecte.event.EventCloakRenderer;
 import projecte.event.VolcaniteTossEvent;
 import projecte.gui.GuiHandler;
 import projecte.handlers.FurnaceFuelHandler;
 import projecte.handlers.TooltipHandler;
+import projecte.handlers.TooltipHandlerNEI;
 import projecte.packet.PacketManager;
 import projecte.proxy.CommonProxy;
 import projecte.util.CreativeTab;
@@ -67,16 +69,26 @@ public class ProjectE {
 
 		/* Register handlers */
 		if (FMLCommonHandler.instance().getEffectiveSide().isClient()){
-            FMLCommonHandler.instance().bus().register(new TooltipHandler());
-			/*
+
+			MinecraftForge.EVENT_BUS.register(new TooltipHandler());
+			EventCloakRenderer.addCapes();
+
+            //If NEI is loaded, it will use NEI's system instead
+            if(Loader.isModLoaded("NotEnoughItems"))
+                GuiContainerManager.addTooltipHandler(new TooltipHandlerNEI());
+            else
+                FMLCommonHandler.instance().bus().register(new TooltipHandler());
+
+            /*
 			 * Disabled due to a different event
 			 * MinecraftForge.EVENT_BUS.register(new TooltipHandler());
 			 */
-			EventCloakRenderer.addDevCapes();
+			EventCloakRenderer.addCapes();
+
 
 		}
 		MinecraftForge.EVENT_BUS.register(new VolcaniteTossEvent());
-		MinecraftForge.EVENT_BUS.register(new BucketFillEvent());
+		//FMLCommonHandler.instance().bus().register(new VolcaniteTossEvent());
 	//	MinecraftForge.EVENT_BUS.register(new KeyHandler());
 		
 		GameRegistry.registerFuelHandler(new FurnaceFuelHandler());
@@ -84,7 +96,7 @@ public class ProjectE {
 		
 		/* Register recipes */
 		proxy.addRecipes();
-
+		proxy.registerTiles();
 		/* Register GUI handler */
 		NetworkRegistry.INSTANCE.registerGuiHandler(inst, new GuiHandler());
 	}
