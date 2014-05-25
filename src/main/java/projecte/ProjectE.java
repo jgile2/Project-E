@@ -1,6 +1,8 @@
 package projecte;
 
+import codechicken.nei.guihook.GuiContainerManager;
 import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -15,13 +17,13 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraftforge.common.MinecraftForge;
 import projecte.api.emc.EmcRegistry;
 import projecte.crafting.PhilosopherStoneCraftingHandler;
-import projecte.event.BucketFillEvent;
 import projecte.event.CraftingEvent;
 import projecte.event.EventCloakRenderer;
 import projecte.event.VolcaniteTossEvent;
 import projecte.gui.GuiHandler;
 import projecte.handlers.FurnaceFuelHandler;
 import projecte.handlers.TooltipHandler;
+import projecte.handlers.TooltipHandlerNEI;
 import projecte.packet.PacketManager;
 import projecte.proxy.CommonProxy;
 import projecte.util.CreativeTab;
@@ -71,8 +73,13 @@ public class ProjectE {
 			MinecraftForge.EVENT_BUS.register(new TooltipHandler());
 			EventCloakRenderer.addCapes();
 
-            FMLCommonHandler.instance().bus().register(new TooltipHandler());
-			/*
+            //If NEI is loaded, it will use NEI's system instead
+            if(Loader.isModLoaded("NotEnoughItems"))
+                GuiContainerManager.addTooltipHandler(new TooltipHandlerNEI());
+            else
+                FMLCommonHandler.instance().bus().register(new TooltipHandler());
+
+            /*
 			 * Disabled due to a different event
 			 * MinecraftForge.EVENT_BUS.register(new TooltipHandler());
 			 */

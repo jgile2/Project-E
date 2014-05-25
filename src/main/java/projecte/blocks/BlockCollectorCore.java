@@ -1,10 +1,5 @@
 package projecte.blocks;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-import projecte.ModInfo;
-import projecte.tile.TileCollectorCore;
-import projecte.tile.TileEnergyCollectorMK3;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
@@ -15,6 +10,10 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
+import projecte.ModInfo;
+import projecte.tile.TileCollectorCore;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockCollectorCore extends BlockContainer{
 
