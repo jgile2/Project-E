@@ -1,0 +1,37 @@
+itemGroup.projecte=Project-E
+item.projecte.philosophersStone.name=Philosophers Stone
+item.projecte.alchemicalCoal.name=Alchemistische Kool
+item.projecte.kleinStarEin.name=Klein Star Ein
+item.projecte.kleinStarZwei.name=Klein Star Zwei
+item.projecte.kleinStarDrei.name=Klein Star Drei
+item.projecte.kleinStarVier.name=Klein Star Vier
+item.projecte.kleinStarSphere.name=Klein Star Sphere
+item.projecte.kleinStarOmega.name=Klein Star Omega
+item.projecte.BucketLiquidEMC.name=Vloeibaar EMC emmer
+item.projecte.destructionCatalyst.name=Destructie Catalyst
+item.projecte.alchemyBag.name=Alchemy Bag (WIP)
+item.projecte.FlyingRing.name=Vliegring
+item.projecte.Evertide.name=Evertide Amulet
+item.projecte.Volcanite.name=Volcanite Amulet
+
+
+
+tile.projecte.liquidEmc.name=Vloeibare EMC
+tile.projecte.relayMK1.name=Anti-Materie Relais MK1
+tile.projecte.relayMK2.name=Anti-Materie Relais MK2
+tile.projecte.relayMK3.name=Anti-Materie Relais MK3
+tile.projecte.energyCondensor.name=Energie Condensor
+tile.projecte.energyCollectorMK1.name=Energie Verzamelaar MK1
+tile.projecte.energyCollectorMK2.name=Energie Verzamelaar MK2
+tile.projecte.energyCollectorMK3.name=Energie Verzamelaar MK3
+
+
+projecte.tooltip.pressShift=druk op shift om de EMC waarde te weergeven
+projecte.tooltip.stackValue=Stack EMC waarde
+projecte.tooltip.itemValue=Item EMC waarde
+projecte.tooltip.novalue=Dit object heeft geen EMC waarde!
+projecte.tooltip.type=Type van het object
+projecte.tooltip.stored=Opgeslagen EMC
+projecte.tooltip.maxStored=Maximale opslag EMC
+
+projecte.compat.nei.name=Project-E Transmutatie
