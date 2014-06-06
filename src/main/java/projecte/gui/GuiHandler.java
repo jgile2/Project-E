@@ -45,6 +45,10 @@ public class GuiHandler implements IGuiHandler {
 		if (entity instanceof TileRelayMK3) {
 			return new ContainerRelayMK3(player.inventory, (TileRelayMK3) entity);
 		}
+		
+		if (entity instanceof TileConverter) {
+			return new ContainerConverter(player, (TileConverter) entity);
+		}
         InventoryPouch inv = new InventoryPouch();
         inv.load(player.inventory);
         
@@ -83,6 +87,9 @@ public class GuiHandler implements IGuiHandler {
 		}
 		if (entity instanceof TileRelayMK3) {
 			return new GuiRelayMK3(player.inventory, (TileRelayMK3) entity);
+		}
+		if (entity instanceof TileConverter) {
+			return new GuiConverter(player, (TileConverter) entity);
 		}
         InventoryPouch inv = new InventoryPouch();
         inv.load(player.inventory);

@@ -11,6 +11,7 @@ import org.lwjgl.opengl.GL11;
 import projecte.ModInfo;
 import projecte.api.emc.EmcData;
 import projecte.api.emc.EmcRegistry;
+import projecte.blocks.PEBlocks;
 import projecte.container.ContainerCondenser;
 import projecte.tile.TileCondenser;
 
@@ -33,6 +34,7 @@ public class GuiCondenser extends GuiContainer {
 		 * String name = StatCollector
 		 * .translateToLocal("container.EnergyCollectMK1");
 		 */
+	//	drawTexturedModelRectFromIcon(guiLeft-20, guiTop, PEBlocks.blockFluidEMC.getIcon(1, 0), 16, 50);
 
 		// Not needed because we have the item and the player can shift hover to see the information
 		// fontRendererObj.drawString(tile.getEmcStored() + " EMC", 175, 10, 4210752);
@@ -41,7 +43,6 @@ public class GuiCondenser extends GuiContainer {
 		// this.fontRendererObj.getStringWidth(name) / 2, 6, 4210752);
 		// this.fontRendererObj.drawString(StatCollector.translateToLocal("container.inventory"),
 		// 8, this.ySize - 96, 4210752);
-
 	}
 
 	@Override

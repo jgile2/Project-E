@@ -13,7 +13,7 @@ import projecte.fluid.PEFluids;
 
 public class EmcContainerTile extends TileEntity implements IFluidHandler {
 
-	private FluidTank tank = new FluidTank(1000);
+	public FluidTank tank = new FluidTank(1000);
 
 	protected int maxEmcInput = 0;
 	protected int maxEmcOutput = 0;
@@ -49,6 +49,7 @@ public class EmcContainerTile extends TileEntity implements IFluidHandler {
 	
 	public void setEmcStored(int amt){
 		tank.setFluid(new FluidStack(PEFluids.liquidEMC, Math.min(amt, getMaxEmcStored())));
+	
 	}
 
 	@Override

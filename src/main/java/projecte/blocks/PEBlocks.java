@@ -10,6 +10,8 @@ public class PEBlocks {
 	public static Block energyCollectorMK2;
 	public static Block energyCollectorMK3;
 	public static Block CollectorMK1;
+	public static Block Converter;
+
 
 	public static Block CollectorCore;
 	public static Block relayMK1;
@@ -35,6 +37,8 @@ public class PEBlocks {
 		CollectorMK1 = new BlockCollectorMK1();
 		//GameRegistry.registerBlock(CollectorMK1, CollectorMK1.getUnlocalizedName());
 		
+		Converter = new BlockConverter();
+		GameRegistry.registerBlock(Converter, Converter.getUnlocalizedName());
 		
 		relayMK1 = new BlockRelayMK1();
 		//GameRegistry.registerBlock(relayMK1, "RelayMK1");
@@ -65,7 +69,7 @@ public class PEBlocks {
 		GameRegistry.registerTileEntity(TileRelayMK3.class, relayMK3.getUnlocalizedName());
 		GameRegistry.registerTileEntity(TileCondenser.class, energyCondenser.getUnlocalizedName());
 		GameRegistry.registerTileEntity(TileCollectorCore.class, CollectorCore.getUnlocalizedName());
-
+		GameRegistry.registerTileEntity(TileConverter.class, Converter.getUnlocalizedName());
 		
 
 	}
