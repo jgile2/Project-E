@@ -93,12 +93,12 @@ public class TooltipHandler {
 			tip.add(Color.GOLD + StatCollector.translateToLocal(ModInfo.MOD_ID + ".tooltip.stored") + ": " + Color.GREEN + b.getStoredEmc(stack));
 			tip.add(Color.GOLD + StatCollector.translateToLocal(ModInfo.MOD_ID + ".tooltip.maxStored") + ": " + Color.GREEN + b.getMaxStoredEmc(stack));
 		}
-		int id = OreDictionary.getOreID(stack);
-		String n = OreDictionary.getOreName(id);
-
-		if (id != -1) {
-			tip.add(Color.LIGHT_PURPLE + "[DEBUG] Oredict name: " + n);
-		}
+//		int id = OreDictionary.getOreID(stack);
+//		String n = OreDictionary.getOreName(id);
+//
+//		if (id != -1) {
+//			tip.add(Color.LIGHT_PURPLE + "[DEBUG] Oredict name: " + n);
+//		}
 		return tip;
 	}
 }
