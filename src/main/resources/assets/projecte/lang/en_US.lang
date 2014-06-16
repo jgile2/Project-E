@@ -17,6 +17,9 @@ item.projecte.Evertide.name=Evertide Amulet
 item.projecte.Volcanite.name=Volcanite Amulet
 item.projecte.darkMatter.name=Dark Matter
 item.projecte.ring.name=Iron Band
+item.projecte.singularity.name=Singularity
+item.projecte.antiMatter.name=Anti Matter
+
 
 
 tile.projecte.liquidEmc.name=Liquid EMC
@@ -28,6 +31,8 @@ tile.projecte.energyCollectorMK1.name=Energy Collector MK1
 tile.projecte.energyCollectorMK2.name=Energy Collector MK2
 tile.projecte.energyCollectorMK3.name=Energy Collector MK3
 tile.projecte.netherStar.name=Nether Star Block
+tile.projecte.converter.name=Converter
+
 
 
 projecte.tooltip.pressShift=Press shift to see the EMC value

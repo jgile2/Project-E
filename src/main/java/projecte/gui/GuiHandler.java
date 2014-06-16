@@ -11,11 +11,11 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class GuiHandler implements IGuiHandler {
-
+	public EntityPlayer player;
 	@Override
 	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
 		TileEntity entity = world.getTileEntity(x, y, z);
-
+		this.player =player;
 		if (entity instanceof TileEnergyCollectorMK1) {
 			return new ContainerEnergyCollectorMK1(player.inventory, (TileEnergyCollectorMK1) entity);
 		}

@@ -4,7 +4,7 @@ import cpw.mods.fml.common.FMLCommonHandler;
 import projecte.api.emc.EmcData;
 import projecte.api.emc.EmcRegistry;
 import projecte.api.tile.EmcContainerTile;
-import projecte.packet.PacketConverter;
+import projecte.packet.PacketKey;
 import projecte.packet.PacketManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;

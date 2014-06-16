@@ -8,30 +8,29 @@ import projecte.items.PEItems;
 
 public class SlotBag extends Slot {
 	ItemStack item;
-	
 
 	public SlotBag(ItemStack item, IInventory par1iInventory, int id, int x, int y) {
 		super(par1iInventory, id, x, y);
 		this.item = item;
-		
-		
-	}
-	
-	
-//	@Override
-//	public boolean isItemValid(ItemStack itemstack) {
-//		return itemstack.getItem() != PEItems.Pouch;
-//
-//	}
-//	
-	
-	@Override
-	public boolean canTakeStack(EntityPlayer par1EntityPlayer) {
-		if(this.getStack().getItem()==PEItems.Pouch){
-			return false;
-		}
-		return true;
+
 	}
 
+	// @Override
+	// public boolean isItemValid(ItemStack itemstack) {
+	// return itemstack.getItem() != PEItems.Pouch;
+	//
+	// }
+	//
+
+	@Override
+	public boolean canTakeStack(EntityPlayer par1EntityPlayer) {
+		if (this.getStack() != null) {
+			if (this.getStack().getItem() == PEItems.Pouch) {
+				return false;
+			}
+		}
+		return true;
+
+	}
 
 }

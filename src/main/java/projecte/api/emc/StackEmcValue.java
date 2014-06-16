@@ -8,7 +8,7 @@ import net.minecraft.item.ItemStack;
 import projecte.ProjectE;
 import projecte.util.ModUtils;
 
-public class StackEmcValue {
+public class StackEmcValue implements IEmcValue {
 
 	private ItemStack item;
 	private EmcValueType type;
@@ -68,5 +68,11 @@ public class StackEmcValue {
 	protected void setType(EmcValueType type) {
 		this.type = type;
 	}
+
+    @Override
+    public EmcValue getValue() {
+        
+        return new EmcValue(EmcValueSource.SPECIFIC, getAverage());
+    }
 
 }

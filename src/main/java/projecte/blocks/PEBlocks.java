@@ -2,6 +2,7 @@ package projecte.blocks;
 
 import net.minecraft.block.Block;
 import projecte.blocks.fluid.BlockLiquidEMC;
+import projecte.blocks.pipes.BlockPipe;
 import projecte.tile.*;
 import cpw.mods.fml.common.registry.GameRegistry;
 
@@ -20,6 +21,8 @@ public class PEBlocks {
 	public static Block energyCondenser;
 	public static Block netherStar;
 	public static Block blockFluidEMC;
+	
+	public static Block pipe;
 
 	public static void registerBlocks() {
 		energyCollectorMK1 = new BlockEnergyCollectorMK1();
@@ -58,6 +61,9 @@ public class PEBlocks {
 		blockFluidEMC = new BlockLiquidEMC();
 		GameRegistry.registerBlock(blockFluidEMC, "LiquidEMC");
 		
+		pipe = new BlockPipe();
+		GameRegistry.registerBlock(pipe, pipe.getUnlocalizedName());
+		
 	}
 	
 	public static void registerTiles(){
@@ -70,6 +76,7 @@ public class PEBlocks {
 		GameRegistry.registerTileEntity(TileCondenser.class, energyCondenser.getUnlocalizedName());
 		GameRegistry.registerTileEntity(TileCollectorCore.class, CollectorCore.getUnlocalizedName());
 		GameRegistry.registerTileEntity(TileConverter.class, Converter.getUnlocalizedName());
+		GameRegistry.registerTileEntity(TilePipe.class, pipe.getUnlocalizedName());
 		
 
 	}

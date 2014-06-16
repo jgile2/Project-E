@@ -27,7 +27,7 @@ archivesBaseName = "Project-E"
 def actualVersion = version
 
 minecraft {
-	version = "1.7.2-10.12.0.1057"
+	version = "1.7.2-10.12.1.1112"
 	replace "@VERSION@", "${project.version}.${System.env.BUILD_NUMBER}"
 }
 

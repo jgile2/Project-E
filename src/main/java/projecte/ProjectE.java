@@ -11,6 +11,7 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLLoadCompleteEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.creativetab.CreativeTabs;
@@ -48,7 +49,6 @@ public class ProjectE {
 	public void preInit(FMLPreInitializationEvent event) {
 		/* Register vanilla oredict names */
 		OredictUtil.registerVanillaOredict();
-		PacketManager.init();
 		/* Register items and blocks and fluids */
 		proxy.registerFluids();
 		proxy.registerBlocks();
@@ -63,6 +63,7 @@ public class ProjectE {
 
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
+		PacketManager.init();
 
 		/* Register events */
 		FMLCommonHandler.instance().bus().register(new CraftingEvent());
@@ -103,12 +104,13 @@ public class ProjectE {
 
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event) {
-		EmcRegistry.onReachPostInit();
+		EmcRegistry.postInit();
 	}
 
 	@EventHandler
 	public void onFinishLoading(FMLLoadCompleteEvent event) {
 		// FIXME generate recipes
 	}
+
 
 }

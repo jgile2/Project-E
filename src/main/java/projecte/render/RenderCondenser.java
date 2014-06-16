@@ -13,6 +13,7 @@ import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
+
 import projecte.ModInfo;
 import projecte.items.PEItems;
 import projecte.models.ModelCondensor;
@@ -89,6 +90,10 @@ public class RenderCondenser extends TileEntitySpecialRenderer {
 				entityitem.getEntityItem().stackSize = 1;
 				entityitem.hoverStart = 0.0F;
 
+				double divider = 12;
+				double rotation = (System.currentTimeMillis() % (360 * divider)) / divider;
+				GL11.glRotated(rotation, 0, 1, 0);
+				
 				RenderItem.renderInFrame = true;
 				RenderManager.instance.renderEntityWithPosYaw(entityitem, 0.0D, 1.0D, 0.0D, 1.0F, 0.0F);
 				RenderItem.renderInFrame = false;

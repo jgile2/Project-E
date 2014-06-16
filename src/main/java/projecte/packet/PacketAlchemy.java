@@ -71,7 +71,7 @@ public class PacketAlchemy extends PacketBase {
 	}
 
 	@Override
-	public void actionServer(World world, EntityPlayerMP player) {
+	public void actionServer(World world, EntityPlayer player) {
 		actionCommon(player);
 	}
 

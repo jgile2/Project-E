@@ -18,5 +18,5 @@ public abstract class PacketBase {
 	@SideOnly(Side.CLIENT)
 	public abstract void actionClient(World world, EntityPlayer player);
 
-	public abstract void actionServer(World world, EntityPlayerMP player);
+	public abstract void actionServer(World world, EntityPlayer player);
 }

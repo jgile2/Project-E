@@ -36,7 +36,7 @@ public class PacketVolcaniteTossed extends PacketBase{
 	}
 
 	@Override
-	public void actionServer(World world, EntityPlayerMP player) {
+	public void actionServer(World world, EntityPlayer player) {
 		// TODO Auto-generated method stub
 		
 	}

@@ -1,5 +1,7 @@
 package projecte.items;
 
+import projecte.ModInfo;
+import projecte.ProjectE;
 import projecte.fluid.PEFluids;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -28,6 +30,9 @@ public class PEItems {
 	public static Item Pouch;
 	public static Item DarkMatter;
 	public static Item Ring;
+	public static Item AntiMatter;
+	public static Item Singularity;
+	public static Item TeleportRing;
 
 
 
@@ -60,7 +65,7 @@ public class PEItems {
 		DestructionCatalyst = new ItemDestructionCatalyst();
 		GameRegistry.registerItem(DestructionCatalyst, DestructionCatalyst.getUnlocalizedName());
 		
-		FlyingRing = new ItemSwiftwolfRing(false);
+		FlyingRing = new ItemFlyingRing(false);
 		GameRegistry.registerItem(FlyingRing, FlyingRing.getUnlocalizedName());
 		
 		Evertide = new ItemEvertide();
@@ -75,8 +80,17 @@ public class PEItems {
 		DarkMatter = new ItemDarkMatter();
 		GameRegistry.registerItem(DarkMatter, DarkMatter.getUnlocalizedName());
 		
+		AntiMatter = new Item().setUnlocalizedName(ModInfo.MOD_ID + ".antiMatter").setTextureName(ModInfo.MOD_ID + ":antiMatter").setCreativeTab(ProjectE.tab);
+		GameRegistry.registerItem(AntiMatter, AntiMatter.getUnlocalizedName());
+		
+		Singularity = new Item().setUnlocalizedName(ModInfo.MOD_ID + ".singularity").setTextureName(ModInfo.MOD_ID + ":singularity").setCreativeTab(ProjectE.tab);
+		GameRegistry.registerItem(Singularity, Singularity.getUnlocalizedName());
+		
 		Ring = new ItemRing();
 		GameRegistry.registerItem(Ring, Ring.getUnlocalizedName());
+		
+		TeleportRing = new ItemRingTeleport();
+		GameRegistry.registerItem(TeleportRing, TeleportRing.getUnlocalizedName());
 
 		Test = new ItemTest();
 		GameRegistry.registerItem(Test, Test.getUnlocalizedName());

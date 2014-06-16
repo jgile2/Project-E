@@ -274,8 +274,8 @@ public class TileCondenser extends EmcContainerTile implements ISidedInventory {
 		}
 
 		if (FMLCommonHandler.instance().getEffectiveSide().isServer()) {
-			if (canConvert())
-				doConversion();
+//			if (canConvert())
+//				doConversion();
 		}
 	}
 

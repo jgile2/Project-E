@@ -1,8 +1,11 @@
 package projecte.packet;
 
+import static cpw.mods.fml.relauncher.Side.CLIENT;
+import static cpw.mods.fml.relauncher.Side.SERVER;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandler.Sharable;
 import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.SimpleChannelInboundHandler;
 
 import java.lang.reflect.Constructor;
 import java.util.EnumMap;
@@ -12,13 +15,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.network.NetHandlerPlayServer;
 import net.minecraft.network.Packet;
-import net.minecraft.world.World;
 
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
-import projecte.ModInfo;
 
 import com.google.common.collect.Maps;
 import com.google.common.io.ByteArrayDataInput;
@@ -34,126 +33,162 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 @Sharable
-public class PacketManager extends FMLIndexedMessageToMessageCodec<PacketBase> {
+public class PacketManager
+{
+    private static final EnumMap<Side, FMLEmbeddedChannel> channels = Maps.newEnumMap(Side.class);
 
-	private static final Logger LOGGER = LogManager.getLogger();
-	private static final PacketManager INSTANCE = new PacketManager();
-	private static final EnumMap<Side, FMLEmbeddedChannel> channels = Maps.newEnumMap(Side.class);
+    public static void init()
+    {
+        if (!channels.isEmpty()) // avoid duplicate inits..
+            return;
 
-	public static void init() {
-		if (!channels.isEmpty()) // avoid duplicate inits..
-			return;
+        Codec codec = new Codec();
 
-		//INSTANCE.addDiscriminator(0, PacketAlchemy.class);
-		//INSTANCE.addDiscriminator(0, PacketVolcaniteTossed.class);
-		INSTANCE.addDiscriminator(1, PacketConverter.class);
-		channels.putAll(NetworkRegistry.INSTANCE.newChannel(ModInfo.MOD_ID + 1, INSTANCE));
-	}
+       // codec.addDiscriminator(0, PacketCamo.class);
+       // codec.addDiscriminator(1, PacketShowToggle.class);
+        codec.addDiscriminator(2, PacketKey.class);
+        //codec.addDiscriminator(3, PacketSyncOwnership.class);
+        //codec.addDiscriminator(4, PacketChangeOwnership.class);
 
-	// IO METHODS
+        channels.putAll(NetworkRegistry.INSTANCE.newChannel("projecte13", codec, new HandlerServer()));
 
-	@Override
-	public void encodeInto(ChannelHandlerContext ctx, PacketBase packet, ByteBuf target) throws Exception {
-		ByteArrayDataOutput output = ByteStreams.newDataOutput();
-		packet.encode(output);
-		target.writeBytes(output.toByteArray());
-	}
+        // add handlers
+        if (FMLCommonHandler.instance().getSide().isClient())
+        {
+            // for the client
+            FMLEmbeddedChannel channel = channels.get(Side.CLIENT);
+            String codecName = channel.findChannelHandlerNameForType(Codec.class);
+            channel.pipeline().addAfter(codecName, "ClientHandler", new HandlerClient());
+        }
+    }
 
-	@Override
-	public void decodeInto(ChannelHandlerContext ctx, ByteBuf source, PacketBase packet) {
-		ByteArrayDataInput input = ByteStreams.newDataInput(source.array());
-		input.skipBytes(1); // skip the packet identifier byte
-		packet.decode(input);
+    // UTIL SENDING METHODS
 
-		if (FMLCommonHandler.instance().getEffectiveSide().isClient()) {
-			actionClient(packet);
-		} else {
-			actionServer(ctx, packet);
-		}
-	}
+    public static void sendToServer(PacketBase packet)
+    {
+        channels.get(CLIENT).attr(FMLOutboundHandler.FML_MESSAGETARGET).set(FMLOutboundHandler.OutboundTarget.TOSERVER);
+        channels.get(CLIENT).writeAndFlush(packet);
+    }
 
-	@SideOnly(Side.CLIENT)
-	private void actionClient(PacketBase packet) {
-		Minecraft mc = Minecraft.getMinecraft();
-		packet.actionClient(mc.theWorld, mc.thePlayer);
-	}
+    public static void sendToPlayer(PacketBase packet, EntityPlayer player)
+    {
+        channels.get(SERVER).attr(FMLOutboundHandler.FML_MESSAGETARGET).set(FMLOutboundHandler.OutboundTarget.PLAYER);
+        channels.get(SERVER).attr(FMLOutboundHandler.FML_MESSAGETARGETARGS).set(player);
+        channels.get(SERVER).writeAndFlush(packet);
+    }
 
-	private void actionServer(ChannelHandlerContext ctx, PacketBase packet) {
-		EntityPlayerMP player = ((NetHandlerPlayServer) ctx.channel().attr(NetworkRegistry.NET_HANDLER).get()).playerEntity;
-		packet.actionServer(player.worldObj, player);
-	}
+    public static void sendToAllAround(PacketBase packet, NetworkRegistry.TargetPoint point)
+    {
+        channels.get(SERVER).attr(FMLOutboundHandler.FML_MESSAGETARGET).set(FMLOutboundHandler.OutboundTarget.ALLAROUNDPOINT);
+        channels.get(SERVER).attr(FMLOutboundHandler.FML_MESSAGETARGETARGS).set(point);
+        channels.get(SERVER).writeAndFlush(packet);
+    }
 
-	// UTIL SENDING METHODS
+    public static void sendToDimension(PacketBase packet, int dimension)
+    {
+        channels.get(SERVER).attr(FMLOutboundHandler.FML_MESSAGETARGET).set(FMLOutboundHandler.OutboundTarget.DIMENSION);
+        channels.get(SERVER).attr(FMLOutboundHandler.FML_MESSAGETARGETARGS).set(dimension);
+        channels.get(SERVER).writeAndFlush(packet);
+    }
 
-	public static void sendToServer(PacketBase packet) {
-		channels.get(Side.CLIENT).attr(FMLOutboundHandler.FML_MESSAGETARGET).set(FMLOutboundHandler.OutboundTarget.TOSERVER);
-		channels.get(Side.CLIENT).writeAndFlush(packet);
-	}
+    public static void sendToAll(PacketBase packet)
+    {
+        channels.get(SERVER).attr(FMLOutboundHandler.FML_MESSAGETARGET).set(FMLOutboundHandler.OutboundTarget.ALL);
+        channels.get(SERVER).writeAndFlush(packet);
+    }
 
-	public static void sendToPlayer(PacketBase packet, EntityPlayer player) {
-		channels.get(Side.SERVER).attr(FMLOutboundHandler.FML_MESSAGETARGET).set(FMLOutboundHandler.OutboundTarget.PLAYER);
-		channels.get(Side.SERVER).attr(FMLOutboundHandler.FML_MESSAGETARGETARGS).set(player);
-		channels.get(Side.SERVER).writeAndFlush(packet);
-	}
+    public static Packet toMcPacket(PacketBase packet)
+    {
+        return channels.get(FMLCommonHandler.instance().getEffectiveSide()).generatePacketFrom(packet);
+    }
 
-	public static void sendToAllAround(PacketBase packet, NetworkRegistry.TargetPoint point) {
-		channels.get(Side.SERVER).attr(FMLOutboundHandler.FML_MESSAGETARGET).set(FMLOutboundHandler.OutboundTarget.ALLAROUNDPOINT);
-		channels.get(Side.SERVER).attr(FMLOutboundHandler.FML_MESSAGETARGETARGS).set(point);
-		channels.get(Side.SERVER).writeAndFlush(packet);
-	}
+    /**
+     * @author abrarsyed
+     *         This class converts FMLMessage to PacketBase for my system to handle.
+     */
+    private static final class Codec extends FMLIndexedMessageToMessageCodec<PacketBase>
+    {
+        @Override
+        public void encodeInto(ChannelHandlerContext ctx, PacketBase packet, ByteBuf target) throws Exception
+        {
+            ByteArrayDataOutput output = ByteStreams.newDataOutput();
+            packet.encode(output);
+            target.writeBytes(output.toByteArray());
+        }
 
-	public static void sendToDimension(PacketBase packet, int dimension) {
-		channels.get(Side.SERVER).attr(FMLOutboundHandler.FML_MESSAGETARGET).set(FMLOutboundHandler.OutboundTarget.DIMENSION);
-		channels.get(Side.SERVER).attr(FMLOutboundHandler.FML_MESSAGETARGETARGS).set(dimension);
-		channels.get(Side.SERVER).writeAndFlush(packet);
-	}
+        @Override
+        public void decodeInto(ChannelHandlerContext ctx, ByteBuf source, PacketBase packet)
+        {
+            ByteArrayDataInput input = ByteStreams.newDataInput(source.array());
+            input.skipBytes(1); // skip the packet identifier byte
+            packet.decode(input);
+        }
 
-	public static void sendToWorld(PacketBase packet, World world) {
-		sendToDimension(packet, world.provider.dimensionId);
-	}
+        @Override
+        public FMLIndexedMessageToMessageCodec<PacketBase> addDiscriminator(int discriminator, Class<? extends PacketBase> type)
+        {
+            // double check it has an empty constructor. or fail early.
+            // This is to guard myself against my own stupidity.
 
-	public static void sendToAll(PacketBase packet) {
-		channels.get(Side.SERVER).attr(FMLOutboundHandler.FML_MESSAGETARGET).set(FMLOutboundHandler.OutboundTarget.ALL);
-		channels.get(Side.SERVER).writeAndFlush(packet);
-	}
+            if (!hasEmptyContructor(type))
+            {
+                LogManager.getLogger().log(Level.FATAL, type.getName() + "does not have an empty constructor!");
+            }
 
-	public static Packet toMcPacket(PacketBase packet) {
-		return channels.get(FMLCommonHandler.instance().getEffectiveSide()).generatePacketFrom(packet);
-	}
+            return super.addDiscriminator(discriminator, type);
+        }
 
-	// OTHER METHODS
+        @SuppressWarnings("rawtypes")
+        private static boolean hasEmptyContructor(Class type)
+        {
+            try
+            {
+                for (Constructor c : type.getConstructors())
+                {
+                    if (c.getParameterTypes().length == 0)
+                    {
+                        return true;
+                    }
+                }
+            }
+            catch (SecurityException e)
+            {
+                // really?
+            }
 
-	@Override
-	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
-		LOGGER.log(Level.ERROR, "Error in packet handling!", cause);
-		ctx.fireExceptionCaught(cause); // for the other handlers.
-	}
+            return false;
+        }
+    }
 
-	@Override
-	public FMLIndexedMessageToMessageCodec<PacketBase> addDiscriminator(int discriminator, Class<? extends PacketBase> type) {
-		// double check it has an empty constructor. or fail early.
-		// This is to gaurd myself against my own stupidity.
+    @Sharable
+    @SideOnly(Side.CLIENT)
+    private static final class HandlerClient extends SimpleChannelInboundHandler<PacketBase>
+    {
+        @Override
+        protected void channelRead0(ChannelHandlerContext ctx, PacketBase packet) throws Exception
+        {
+            Minecraft mc = Minecraft.getMinecraft();
+            packet.actionClient(mc.theWorld, mc.thePlayer);
 
-		if (!hasEmptyContructor(type)) {
-			LOGGER.log(Level.FATAL, type.getName() + "does not have an empty constructor!");
-		}
+        }
+    }
 
-		return super.addDiscriminator(discriminator, type);
-	}
-
-	@SuppressWarnings("rawtypes")
-	private static boolean hasEmptyContructor(Class type) {
-		try {
-			for (Constructor c : type.getConstructors()) {
-				if (c.getParameterTypes().length == 0) {
-					return true;
-				}
-			}
-		} catch (SecurityException e) {
-			// really?
-		}
-
-		return false;
-	}
+    @Sharable
+    private static final class HandlerServer extends SimpleChannelInboundHandler<PacketBase>
+    {
+        @Override
+        protected void channelRead0(ChannelHandlerContext ctx, PacketBase packet) throws Exception
+        {
+            if (FMLCommonHandler.instance().getEffectiveSide().isClient())
+            {
+                // nothing on the client thread
+                return;
+            }
+            
+            EntityPlayerMP player = ((NetHandlerPlayServer) ctx.channel().attr(NetworkRegistry.NET_HANDLER).get()).playerEntity;
+            packet.actionServer(player.worldObj, player);
+           
+        }
+    }
 
 }

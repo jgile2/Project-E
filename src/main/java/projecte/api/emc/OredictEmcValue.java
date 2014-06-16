@@ -3,7 +3,7 @@ package projecte.api.emc;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 
-public class OredictEmcValue {
+public class OredictEmcValue implements IEmcValue {
 
 	private String name;
 	protected EmcValue value;
