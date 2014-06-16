@@ -251,31 +251,31 @@ public class EmcRegistry {
 		return recipes.toArray(new EmcRecipe[] {});
 	}
 
-	public static EmcRecipe[] getRecipesForItem(ItemStack is) {
-
-		List<EmcRecipe> recipes = new ArrayList<EmcRecipe>();
-
-		for (EmcRecipe r : getAvailableRecipes())
-			if (r.getOutput().isItemEqual(is))
-				recipes.add(r);
-
-		EmcRecipe[] result = values.toArray(new EmcRecipe[] {});
-		values.clear();
-		return result;
-	}
+//	public static EmcRecipe[] getRecipesForItem(ItemStack is) {
+//
+//		List<EmcRecipe> recipes = new ArrayList<EmcRecipe>();
+//
+//		for (EmcRecipe r : getAvailableRecipes())
+//			if (r.getOutput().isItemEqual(is))
+//				recipes.add(r);
+//
+//		EmcRecipe[] result = values.toArray(new EmcRecipe[] {});
+//		values.clear();
+//		return result;
+//	}
 
 	public static void postInit() {
 
 		if (Loader.instance().activeModContainer().getModId().equals(ModInfo.MOD_ID)) {
 			hasReachedPostInit = true;
 			ProjectE.log.log(Level.INFO, "Generating EMC values from recipes!");
-			getValuesForRecipes();
+			//getValuesForRecipes();
 			ProjectE.log.log(Level.INFO, "Finished generating EMC values.");
 			ProjectE.log.log(Level.INFO, "Assigning EMC values. This can take a bit so don't worry if your log stops here for a while.");
 			assignValues();
 			ProjectE.log.log(Level.INFO, "Finished assigning EMC values.");
 			ProjectE.log.log(Level.INFO, "Generating recipes. This can also take a bit.");
-			generateRecipes();
+			//generateRecipes();
 			ProjectE.log.log(Level.INFO, "Finished generating recipes. Generated: " + recipes.size());
 		}
 	}
@@ -336,59 +336,59 @@ public class EmcRegistry {
 		return new EmcData(is, type, d);
 	}
 
-	private static void generateRecipes() {
+//	private static void generateRecipes() {
+//
+//		ItemStack[] items = getItemsWithValue(true);
+//
+//		for (ItemStack is : items) {
+//			EmcData val = getValue(is);
+//			EmcData[] less = getItemsWithLessValue(val.getValue());
+//			for (EmcData d : less) {
+//				double v = 0;
+//				for (int i = 0; i < 9; i++) {
+//					v += d.getValue();
+//					if (v == val.getValue()) {
+//						ItemStack[] input = new ItemStack[i + 1];
+//						for (int j = 0; j < input.length; j++)
+//							input[j] = d.getItem().copy();
+//						recipes.add(new EmcRecipe(is.copy(), input));
+//						break;
+//					}
+//				}
+//			}
+//		}
+//	}
 
-		ItemStack[] items = getItemsWithValue(true);
+//	private static void getValuesForRecipes() {
+//
+//		for (Object o : CraftingManager.getInstance().getRecipeList()) {
+//			IRecipe r = (IRecipe) o;
+//			if (r == null)
+//				continue;
+//
+//			List<ItemStack> input = RecipeHelper.getRecipeInputs(r);
+//			ItemStack output = r.getRecipeOutput();
+//
+//			if (output == null)
+//				continue;
+//			if (input.isEmpty())
+//				continue;
+//
+//			boolean allNull = true;
+//			for (ItemStack is : input) {
+//				if (is != null) {
+//					allNull = false;
+//					break;
+//				}
+//			}
+//			if (allNull)
+//				continue;
+//
+//			RecipeEmcValue val = new RecipeEmcValue(input.toArray(new ItemStack[input.size()]), output);
+//			recipeValues.add(val);
+//		}
 
-		for (ItemStack is : items) {
-			EmcData val = getValue(is);
-			EmcData[] less = getItemsWithLessValue(val.getValue());
-			for (EmcData d : less) {
-				double v = 0;
-				for (int i = 0; i < 9; i++) {
-					v += d.getValue();
-					if (v == val.getValue()) {
-						ItemStack[] input = new ItemStack[i + 1];
-						for (int j = 0; j < input.length; j++)
-							input[j] = d.getItem().copy();
-						recipes.add(new EmcRecipe(is.copy(), input));
-						break;
-					}
-				}
-			}
-		}
-	}
-
-	private static void getValuesForRecipes() {
-
-		for (Object o : CraftingManager.getInstance().getRecipeList()) {
-			IRecipe r = (IRecipe) o;
-			if (r == null)
-				continue;
-
-			List<ItemStack> input = RecipeHelper.getRecipeInputs(r);
-			ItemStack output = r.getRecipeOutput();
-
-			if (output == null)
-				continue;
-			if (input.isEmpty())
-				continue;
-
-			boolean allNull = true;
-			for (ItemStack is : input) {
-				if (is != null) {
-					allNull = false;
-					break;
-				}
-			}
-			if (allNull)
-				continue;
-
-			RecipeEmcValue val = new RecipeEmcValue(input.toArray(new ItemStack[input.size()]), output);
-			recipeValues.add(val);
-		}
-
-	}
+	//}
 
 	private static boolean registeredDefault = false;
 
