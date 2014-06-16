@@ -294,7 +294,7 @@ public class EmcRegistry {
 		EmcValueType type = null;
 
 		StackEmcValue isVal = getStackValueForItem(is);
-		values.addAll(isVal.getValues());
+		//values.addAll(isVal.getValues());
 		type = isVal.getType();
 
 		List<OredictEmcValue> oredictValues = getOredictValuesForStack(is);
