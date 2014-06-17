@@ -14,6 +14,8 @@ import projecte.ProjectE;
 import baubles.api.BaubleType;
 import baubles.api.IBauble;
 import cpw.mods.fml.common.Optional;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 @Optional.Interface(iface = "baubles.api.IBauble", modid = Dep.BAUBLES)
 public class ItemFlyingRing extends Item implements IBauble {
@@ -40,18 +42,32 @@ public class ItemFlyingRing extends Item implements IBauble {
 		EntityPlayer player = (EntityPlayer) entity;
 		if (enabled) {
 			player.capabilities.allowFlying = true;
-			itemIcon = inactive;
+			//itemIcon = inactive;
 			System.out.println("enabled");
 
 		} else if (!enabled) {
 			player.capabilities.allowFlying = false;
 			player.capabilities.isFlying = false;
-			itemIcon = active;
+			//itemIcon = active;
 			System.out.println("disabled");
 
 		}
 		super.onUpdate(is, world, entity, par4, par5);
 	}
+//	@SideOnly(Side.CLIENT)
+//	public void updateIcon(boolean enabled){
+//		if(enabled){
+//			itemIcon = inactive;
+//
+//		}else if (!enabled){
+//			itemIcon = active;
+//
+//		}
+//	}
+	
+	
+	
+	
 
 	// @Override
 	// public ItemStack onItemRightClick(ItemStack is, World world, EntityPlayer
@@ -112,11 +128,11 @@ public class ItemFlyingRing extends Item implements IBauble {
 		EntityPlayer player = (EntityPlayer) entity;
 		if (enabled) {
 			player.capabilities.allowFlying = true;
-			itemIcon = active;
+			//itemIcon = active;
 		} else if (!enabled) {
 			player.capabilities.allowFlying = false;
 			player.capabilities.isFlying = false;
-			itemIcon = inactive;
+			//itemIcon = inactive;
 
 		}
 

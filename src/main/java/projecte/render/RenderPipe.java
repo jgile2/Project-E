@@ -7,12 +7,14 @@ import projecte.ModInfo;
 import projecte.blocks.PEBlocks;
 import projecte.models.ModelPipe;
 import projecte.tile.TilePipe;
+import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import net.minecraftforge.fluids.IFluidHandler;
 
 public class RenderPipe extends TileEntitySpecialRenderer {
 	private static final ResourceLocation texture = new ResourceLocation(ModInfo.MOD_ID, "textures/blocks/pipe.png");
@@ -43,23 +45,40 @@ public class RenderPipe extends TileEntitySpecialRenderer {
 		 int yCoord = te.yCoord;
 		 int zCoord = te.zCoord;
 		// System.out.println(xCoord+", "+yCoord+", "+zCoord);
-		 if(world.getBlock(xCoord, yCoord+1, zCoord)==PEBlocks.pipe){
+		 Block block =world.getBlock(xCoord, yCoord+1, zCoord);
+		 TileEntity blocktile =world.getTileEntity(xCoord, yCoord+1, zCoord);
+		 if(block==PEBlocks.pipe||blocktile instanceof IFluidHandler){
 			 model.down.render(0.625F);
 			 
 		 }
-		 if(world.getBlock(xCoord, yCoord-1, zCoord)==PEBlocks.pipe){
+		 Block block1 =world.getBlock(xCoord, yCoord-1, zCoord);
+		 TileEntity blocktile1 =world.getTileEntity(xCoord, yCoord-1, zCoord);
+		 if(block1==PEBlocks.pipe||blocktile1 instanceof IFluidHandler){
 			 model.up.render(0.625F);
 		 }
-		 if(world.getBlock(xCoord+1, yCoord, zCoord)==PEBlocks.pipe){
+		 
+		 Block block2 =world.getBlock(xCoord+1, yCoord, zCoord);
+		 TileEntity blocktile2 =world.getTileEntity(xCoord+1, yCoord, zCoord);
+		 if(block2==PEBlocks.pipe||blocktile2 instanceof IFluidHandler){
 			 model.east.render(0.625F);
 		 }
-		 if(world.getBlock(xCoord-1, yCoord, zCoord)==PEBlocks.pipe){
+		 
+		 Block block3 =world.getBlock(xCoord-1, yCoord, zCoord);
+		 TileEntity blocktile3 =world.getTileEntity(xCoord-1, yCoord, zCoord);
+		 if(block3==PEBlocks.pipe||blocktile3 instanceof IFluidHandler){
 			 model.west.render(0.625F);
 		 }
-		 if(world.getBlock(xCoord, yCoord, zCoord+1)==PEBlocks.pipe){
+		 
+		 Block block4 =world.getBlock(xCoord, yCoord, zCoord+1);
+		 TileEntity blocktile4 =world.getTileEntity(xCoord, yCoord, zCoord+1);
+
+		 if(block4==PEBlocks.pipe||blocktile4 instanceof IFluidHandler){
 			 model.north.render(0.625F);
 		 }
-		 if(world.getBlock(xCoord, yCoord, zCoord-1)==PEBlocks.pipe){
+		 
+		 Block block5 =world.getBlock(xCoord, yCoord, zCoord-1);
+		 TileEntity blocktile5 =world.getTileEntity(xCoord, yCoord, zCoord-1);
+		 if(block5==PEBlocks.pipe ||blocktile5 instanceof IFluidHandler){
 			 model.south.render(0.625F);
 		 }
 		 

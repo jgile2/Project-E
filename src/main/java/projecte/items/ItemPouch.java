@@ -16,6 +16,7 @@ import org.apache.logging.log4j.LogManager;
 
 import projecte.ModInfo;
 import projecte.ProjectE;
+import projecte.util.GuiIds;
 
 
 import cpw.mods.fml.common.FMLCommonHandler;
@@ -38,7 +39,7 @@ public class ItemPouch extends Item
     @Override
     public ItemStack onItemRightClick(ItemStack par1ItemStack, World world, EntityPlayer player)
     {
-        player.openGui(ProjectE.inst, 5, world, player.inventory.currentItem, 0, 0);
+        player.openGui(ProjectE.inst, GuiIds.Pouch, world, player.inventory.currentItem, 0, 0);
         return super.onItemRightClick(par1ItemStack, world, player);
     }
     

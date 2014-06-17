@@ -3,9 +3,27 @@ package projecte.gui;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-import projecte.container.*;
+import projecte.container.ContainerCondenser;
+import projecte.container.ContainerConverter;
+import projecte.container.ContainerEnergyCollectorMK1;
+import projecte.container.ContainerEnergyCollectorMK2;
+import projecte.container.ContainerEnergyCollectorMK3;
+import projecte.container.ContainerPouch;
+import projecte.container.ContainerRelayMK1;
+import projecte.container.ContainerRelayMK2;
+import projecte.container.ContainerRelayMK3;
+import projecte.items.InventoryManual;
 import projecte.items.InventoryPouch;
-import projecte.tile.*;
+import projecte.tile.TileCollectorCore;
+import projecte.tile.TileCondenser;
+import projecte.tile.TileConverter;
+import projecte.tile.TileEnergyCollectorMK1;
+import projecte.tile.TileEnergyCollectorMK2;
+import projecte.tile.TileEnergyCollectorMK3;
+import projecte.tile.TileRelayMK1;
+import projecte.tile.TileRelayMK2;
+import projecte.tile.TileRelayMK3;
+import projecte.util.GuiIds;
 import cpw.mods.fml.common.network.IGuiHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -49,12 +67,16 @@ public class GuiHandler implements IGuiHandler {
 		if (entity instanceof TileConverter) {
 			return new ContainerConverter(player, (TileConverter) entity);
 		}
-        InventoryPouch inv = new InventoryPouch();
-        inv.load(player.inventory);
+        InventoryPouch invpouch = new InventoryPouch();
+        invpouch.load(player.inventory);
         
-		if (ID==5) {
-			return new ContainerPouch(inv,player);
+		if (ID==GuiIds.Pouch) {
+			return new ContainerPouch(invpouch,player);
 		}
+		
+        InventoryManual invmanual = new InventoryManual();
+
+		
 
 		return null;
 	}
@@ -93,8 +115,12 @@ public class GuiHandler implements IGuiHandler {
 		}
         InventoryPouch inv = new InventoryPouch();
         inv.load(player.inventory);
-		if (ID==5) {
+		if (ID==GuiIds.Pouch) {
 			return new GuiPouch(inv,player);
+		}
+		InventoryManual invmanual = new InventoryManual();
+		if (ID==GuiIds.Manual) {
+			return new GuiManual();
 		}
 		return null;
 	}

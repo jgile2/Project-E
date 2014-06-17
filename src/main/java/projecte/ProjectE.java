@@ -1,5 +1,6 @@
 package projecte;
 
+import codechicken.nei.NEIActions;
 import codechicken.nei.guihook.GuiContainerManager;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Loader;
@@ -15,9 +16,16 @@ import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.oredict.RecipeSorter;
 import projecte.api.emc.EmcRegistry;
+import projecte.compat.nei.NEIIntergration;
+import projecte.compat.nei.ShapedPERecipeHandler;
 import projecte.crafting.PhilosopherStoneCraftingHandler;
+import projecte.crafting.ShapedPERecipe;
 import projecte.event.CraftingEvent;
 import projecte.event.EventCloakRenderer;
 import projecte.event.VolcaniteTossEvent;
@@ -25,6 +33,7 @@ import projecte.gui.GuiHandler;
 import projecte.handlers.FurnaceFuelHandler;
 import projecte.handlers.TooltipHandler;
 import projecte.handlers.TooltipHandlerNEI;
+import projecte.items.PEItems;
 import projecte.packet.PacketManager;
 import projecte.proxy.CommonProxy;
 import projecte.util.CreativeTab;
@@ -47,6 +56,9 @@ public class ProjectE {
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
+		RecipeSorter.register("ShapedPE", ShapedPERecipe.class, RecipeSorter.Category.SHAPED, "");
+		NEIIntergration nei = new NEIIntergration();
+		nei.loadConfig();
 		/* Register vanilla oredict names */
 		OredictUtil.registerVanillaOredict();
 		/* Register items and blocks and fluids */
@@ -88,13 +100,13 @@ public class ProjectE {
 
 
 		}
+		
 		MinecraftForge.EVENT_BUS.register(new VolcaniteTossEvent());
 		//FMLCommonHandler.instance().bus().register(new VolcaniteTossEvent());
 	//	MinecraftForge.EVENT_BUS.register(new KeyHandler());
 		
 		GameRegistry.registerFuelHandler(new FurnaceFuelHandler());
 		GameRegistry.addRecipe(PhilosopherStoneCraftingHandler.inst);
-		
 		/* Register recipes */
 		proxy.addRecipes();
 		proxy.registerTiles();

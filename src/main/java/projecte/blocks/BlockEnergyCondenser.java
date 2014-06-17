@@ -42,6 +42,7 @@ public class BlockEnergyCondenser extends BlockContainer {
 	public void registerBlockIcons(IIconRegister icon) {
 		this.blockIcon = icon.registerIcon(ModInfo.MOD_ID + ":energyCondensor_side");
 	}
+	
 
 	public boolean isOpaqueCube() {
 		return false;

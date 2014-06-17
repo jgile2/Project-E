@@ -62,6 +62,7 @@ public class PacketKey extends PacketBase {
 
 	public void actionBoth(EntityPlayer player) {
 		System.out.println("being both");
+		
 
 		System.out.println(up);
 		InventoryPlayer inventory = player.inventory;

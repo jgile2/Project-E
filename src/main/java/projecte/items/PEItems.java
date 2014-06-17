@@ -33,6 +33,7 @@ public class PEItems {
 	public static Item AntiMatter;
 	public static Item Singularity;
 	public static Item TeleportRing;
+	public static Item Manual;
 
 
 
@@ -92,6 +93,9 @@ public class PEItems {
 		TeleportRing = new ItemRingTeleport();
 		GameRegistry.registerItem(TeleportRing, TeleportRing.getUnlocalizedName());
 
+		Manual = new ItemManual();
+		GameRegistry.registerItem(Manual, Manual.getUnlocalizedName());	
+		
 		Test = new ItemTest();
 		GameRegistry.registerItem(Test, Test.getUnlocalizedName());
 		

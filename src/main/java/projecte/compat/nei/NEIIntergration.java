@@ -8,7 +8,6 @@ import projecte.ModInfo;
 import projecte.ProjectE;
 import codechicken.nei.api.API;
 import codechicken.nei.api.IConfigureNEI;
-import codechicken.nei.recipe.IUsageHandler;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Loader;
 
@@ -20,8 +19,9 @@ public class NEIIntergration implements IConfigureNEI{
 		}
 		try {
 			//PhilosopherStoneRecipeHandler philosopherStone = new PhilosopherStoneRecipeHandler();
-			//API.registerRecipeHandler(philosopherStone);
-			//API.registerUsageHandler(philosopherStone);
+			API.registerRecipeHandler(new ShapedPERecipeHandler());
+			API.registerUsageHandler(new ShapedPERecipeHandler());
+			ProjectE.log.log(Level.INFO, "Loaded NEI compatibility.");
 		} catch (Exception e) {
 			ProjectE.log.log(Level.INFO, "Could not load NEI compatibility.");
 		}

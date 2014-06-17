@@ -274,13 +274,14 @@ public class TileCondenser extends EmcContainerTile implements ISidedInventory {
 		}
 
 		if (FMLCommonHandler.instance().getEffectiveSide().isServer()) {
-//			if (canConvert())
-//				doConversion();
+			if (canConvert())
+				doConversion();
 		}
 	}
 
 	private boolean canConvert() {
 		return getStackInSlot(items.length - 1) != null && getStackInSlot(items.length - 1).getItem() == PEItems.philosophersStone;
+		
 	}
 
 	public void doConversion() {

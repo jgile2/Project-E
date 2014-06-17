@@ -45,7 +45,7 @@ public class PacketManager
         Codec codec = new Codec();
 
        // codec.addDiscriminator(0, PacketCamo.class);
-       // codec.addDiscriminator(1, PacketShowToggle.class);
+        codec.addDiscriminator(1, PacketTeleportRing.class);
         codec.addDiscriminator(2, PacketKey.class);
         //codec.addDiscriminator(3, PacketSyncOwnership.class);
         //codec.addDiscriminator(4, PacketChangeOwnership.class);
