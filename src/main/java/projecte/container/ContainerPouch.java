@@ -78,13 +78,4 @@ public class ContainerPouch extends Container {
 		return itemstack;
 	}
 
-	@Override
-	protected boolean mergeItemStack(ItemStack par1ItemStack, int par2, int par3, boolean par4) {
-		return false;
-	}
-
-	
-	
-	
-
 }

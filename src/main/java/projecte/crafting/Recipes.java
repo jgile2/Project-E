@@ -4,6 +4,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import projecte.blocks.PEBlocks;
+import projecte.compat.nei.InfoData;
 import projecte.items.PEItems;
 import projecte.util.PERegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -21,6 +22,7 @@ public class Recipes {
 	}
 
 	public static void registerShapedRecipes() {
+		
 		PERegistry.registerShapedPERecipe(new ItemStack(PEItems.philosophersStone), false, new Object[] { "GRG", "RDR", "GRG", 'R', new ItemStack(Blocks.redstone_block), 'G', new ItemStack(Items.nether_star), 'D', new ItemStack(Blocks.diamond_block) });
 
 		PERegistry.registerShapedPERecipe(new ItemStack(PEItems.philosophersStone), false, new Object[] { "RGR", "GDG", "RGR", 'R', Blocks.redstone_block, 'G', Items.nether_star, 'D', Blocks.diamond_block });

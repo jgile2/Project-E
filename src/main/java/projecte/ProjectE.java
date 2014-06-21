@@ -24,6 +24,7 @@ import net.minecraftforge.oredict.RecipeSorter;
 import projecte.api.emc.EmcRegistry;
 import projecte.compat.nei.NEIIntergration;
 import projecte.compat.nei.ShapedPERecipeHandler;
+import projecte.crafting.Info;
 import projecte.crafting.PhilosopherStoneCraftingHandler;
 import projecte.crafting.ShapedPERecipe;
 import projecte.event.CraftingEvent;
@@ -109,6 +110,7 @@ public class ProjectE {
 		GameRegistry.addRecipe(PhilosopherStoneCraftingHandler.inst);
 		/* Register recipes */
 		proxy.addRecipes();
+		Info.addInfo();
 		proxy.registerTiles();
 		/* Register GUI handler */
 		NetworkRegistry.INSTANCE.registerGuiHandler(inst, new GuiHandler());

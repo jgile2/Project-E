@@ -19,7 +19,8 @@ item.projecte.darkMatter.name=Dark Matter
 item.projecte.ring.name=Iron Band
 item.projecte.singularity.name=Singularity
 item.projecte.antiMatter.name=Anti Matter
-
+item.projecte.teleport.name=Teleport Ring
+item.projecte.manual.name=Project E Manual
 
 
 tile.projecte.liquidEmc.name=Liquid EMC
@@ -32,6 +33,7 @@ tile.projecte.energyCollectorMK2.name=Energy Collector MK2
 tile.projecte.energyCollectorMK3.name=Energy Collector MK3
 tile.projecte.netherStar.name=Nether Star Block
 tile.projecte.converter.name=Converter
+tile.projecte.pipe.name=EMC Pipe
 
 
 
