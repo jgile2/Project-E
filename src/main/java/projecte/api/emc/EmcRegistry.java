@@ -250,13 +250,13 @@ public class EmcRegistry {
         if (Loader.instance().activeModContainer().getModId().equals(ModInfo.MOD_ID)) {
             hasReachedPostInit = true;
             ProjectE.log.log(Level.INFO, "Generating EMC values from recipes!");
-            getValuesForRecipes();
+           // getValuesForRecipes();
             ProjectE.log.log(Level.INFO, "Finished generating EMC values.");
             ProjectE.log.log(Level.INFO, "Assigning EMC values. This can take a bit so don't worry if your log stops here for a while.");
             assignValues();
             ProjectE.log.log(Level.INFO, "Finished assigning EMC values.");
             ProjectE.log.log(Level.INFO, "Generating recipes. This can also take a bit.");
-            generateRecipes();
+            //generateRecipes();
             ProjectE.log.log(Level.INFO, "Finished generating recipes. Generated: " + recipes.size());
         }
     }
