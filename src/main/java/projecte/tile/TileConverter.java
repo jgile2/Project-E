@@ -1,7 +1,6 @@
 package projecte.tile;
 
 import cpw.mods.fml.common.FMLCommonHandler;
-import projecte.api.emc.EmcData;
 import projecte.api.emc.EmcRegistry;
 import projecte.api.tile.EmcContainerTile;
 import projecte.packet.PacketKey;
@@ -186,8 +185,8 @@ public class TileConverter extends EmcContainerTile implements ISidedInventory {
 			for (int i = 0; i < items.length; i++) {
 				if (items[i] != null) {
 					ItemStack stack = items[i];
-					EmcData val = EmcRegistry.getValue(stack);
-					int value = (int) val.getValue();
+					double val = EmcRegistry.inst().getValue(stack);
+					int value = (int) val;
 					this.setEmcStored(this.getEmcStored() + value);
 					if (items[i].stackSize <= 1) {
 						items[i] = null;

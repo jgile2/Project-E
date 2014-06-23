@@ -58,19 +58,19 @@ public class RenderCondenser extends TileEntitySpecialRenderer {
 		float f22 = te.prevLidAngle + (te.lidAngle - te.prevLidAngle) * frame;
 
 		// Rotation
-		 {
-		 model.TopLeft.rotateAngleZ = -(f11 * (float) Math.PI / 2.0F);
-		 model.Latch.rotateAngleZ = -(f11 * (float) Math.PI / 2.0F);
-		
-		 model.TopRight.rotateAngleZ = +(f22 * (float) Math.PI / 2.0F);
-		 }
+//		 {
+//		 model.TopLeft.rotateAngleZ = -(f11 * (float) Math.PI / 2.0F);
+//		 model.Latch.rotateAngleZ = -(f11 * (float) Math.PI / 2.0F);
+//		
+//		 model.TopRight.rotateAngleZ = +(f22 * (float) Math.PI / 2.0F);
+//		 }
 
 		// Test rotation
-		//{
-//			model.TopLeft.rotateAngleZ = 5;
-//			model.Latch.rotateAngleZ = 5;
-//			model.TopRight.rotateAngleZ = -5;
-//		}
+		{
+			model.TopLeft.rotateAngleZ = 5;
+			model.Latch.rotateAngleZ = 5;
+			model.TopRight.rotateAngleZ = -5;
+		}
 
 		model.renderAll();
 		model.render((Entity) null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.0625F);

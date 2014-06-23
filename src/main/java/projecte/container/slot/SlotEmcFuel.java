@@ -1,7 +1,7 @@
 package projecte.container.slot;
 
 import net.minecraft.inventory.IInventory;
-import projecte.api.emc.EmcValueType;
+import projecte.api.emc.EmcStackType;
 
 public class SlotEmcFuel extends SlotEmc {
 
@@ -10,8 +10,8 @@ public class SlotEmcFuel extends SlotEmc {
 	}
 
 	@Override
-	public EmcValueType getRequiredType() {
-		return EmcValueType.FUEL;
+	public EmcStackType getRequiredType() {
+		return EmcStackType.FUEL;
 	}
 
 }
