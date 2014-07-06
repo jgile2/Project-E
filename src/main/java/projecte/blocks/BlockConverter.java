@@ -3,6 +3,7 @@ package projecte.blocks;
 import projecte.ModInfo;
 import projecte.ProjectE;
 import projecte.tile.TileConverter;
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.network.internal.FMLNetworkHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -10,6 +11,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -127,4 +129,6 @@ public class BlockConverter extends BlockContainer {
 	public TileEntity createNewTileEntity(World var1, int var2) {
 		return new TileConverter();
 	}
+	
+
 }

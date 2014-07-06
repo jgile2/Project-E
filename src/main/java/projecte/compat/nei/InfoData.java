@@ -45,7 +45,7 @@ public class InfoData
 	  if(item.getItem() ==this.item.getItem()){
 			return true;
 		}
-		System.out.println("item does not match");
+		//System.out.println("item does not match");
 		return false;
   }
 }

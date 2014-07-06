@@ -125,7 +125,7 @@ public class EmcRegistry {
     
     public void postInit() {
     
-        loadValuesFromRecipes();
+        //loadValuesFromRecipes();
         calculateValues();
     }
     

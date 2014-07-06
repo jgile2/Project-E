@@ -17,7 +17,7 @@ public class Recipes {
 		GameRegistry.addShapelessRecipe(new ItemStack(PEItems.KleinStarDrei), PEItems.KleinStarZwei, PEItems.KleinStarZwei, PEItems.KleinStarZwei, PEItems.KleinStarZwei);
 		GameRegistry.addShapelessRecipe(new ItemStack(PEItems.KleinStarVier), PEItems.KleinStarDrei, PEItems.KleinStarDrei, PEItems.KleinStarDrei, PEItems.KleinStarDrei);
 		GameRegistry.addShapelessRecipe(new ItemStack(PEItems.KleinStarSphere), PEItems.KleinStarVier, PEItems.KleinStarVier, PEItems.KleinStarVier, PEItems.KleinStarVier);
-		GameRegistry.addShapelessRecipe(new ItemStack(PEItems.KleinStarOmega), PEItems.KleinStarOmega, PEItems.KleinStarOmega, PEItems.KleinStarOmega, PEItems.KleinStarOmega);
+		GameRegistry.addShapelessRecipe(new ItemStack(PEItems.KleinStarOmega), PEItems.KleinStarSphere, PEItems.KleinStarSphere, PEItems.KleinStarSphere, PEItems.KleinStarSphere);
 
 	}
 

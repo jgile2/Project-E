@@ -3,13 +3,17 @@ package projecte;
 import java.util.logging.Logger;
 
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.init.Blocks;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.oredict.RecipeSorter;
 import projecte.api.emc.EmcRegistry;
+import projecte.blocks.PEBlocks;
 import projecte.compat.nei.NEIIntergration;
 import projecte.crafting.Info;
 import projecte.crafting.PhilosopherStoneCraftingHandler;
 import projecte.crafting.ShapedPERecipe;
+import projecte.event.ArmorEvent;
 import projecte.event.CraftingEvent;
 import projecte.event.EventCloakRenderer;
 import projecte.event.VolcaniteTossEvent;
@@ -17,10 +21,12 @@ import projecte.gui.GuiHandler;
 import projecte.handlers.FurnaceFuelHandler;
 import projecte.handlers.TooltipHandler;
 import projecte.handlers.TooltipHandlerNEI;
+import projecte.items.armor.PEArmor;
 import projecte.packet.PacketManager;
 import projecte.proxy.CommonProxy;
 import projecte.util.CreativeTab;
 import projecte.util.OredictUtil;
+import codechicken.microblock.BlockMicroMaterial;
 import codechicken.nei.guihook.GuiContainerManager;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Loader;
@@ -61,7 +67,7 @@ public class ProjectE {
         proxy.registerBlocks();
         proxy.registerItems();
         proxy.registerRenders();
-        
+        PEArmor.registerArmor();
         /* Register channels */
         PacketManager.init();
     }
@@ -70,10 +76,11 @@ public class ProjectE {
     public void init(FMLInitializationEvent event) {
     
         PacketManager.init();
-        
+        BlockMicroMaterial.createAndRegister(PEBlocks.netherStar, 1);
+
         /* Register events */
         FMLCommonHandler.instance().bus().register(new CraftingEvent());
-        
+        FMLCommonHandler.instance().bus().register(new ArmorEvent());
         /* Register handlers */
         if (FMLCommonHandler.instance().getEffectiveSide().isClient()) {
             

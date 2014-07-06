@@ -19,7 +19,7 @@ public class ItemRenderPipe implements IItemRenderer{
 	}
 	@Override
 	public boolean shouldUseRenderHelper(ItemRenderType type, ItemStack item, ItemRendererHelper helper) {
-		return false;
+		return true;
 	}
 	@Override
 	public void renderItem(ItemRenderType type, ItemStack item, Object... data) {
@@ -29,23 +29,23 @@ public class ItemRenderPipe implements IItemRenderer{
 		switch(type){
         case ENTITY: {
         	//GL11.glRotatef(90, 0, 0, 1);
-        	renderCondensor(-0.5F, 1F, -0.5F,1);
+            renderPipe(1F, 15F, 1F,0.2F);
             return;
         }
         case EQUIPPED: {
             //GL11.glRotated(180, 0, 1, 0);
             //GL11.glTranslatef(0.5F, 0.0F, 0.0F);
-        	renderCondensor(5F, 10F, 5F,0.1F);
+            renderPipe(5F, 10F, 5F,0.1F);
             return;
         }
         case EQUIPPED_FIRST_PERSON: {
             GL11.glRotated(180, 0, 0, 0);
-        	renderCondensor(-2F, 4F, 5F,0.05F);
+            renderPipe(10F, -10F, -7F,0.05F);
             return;
         }
         case INVENTORY: {
             GL11.glRotated(180, 0, 0, 0);
-        	renderCondensor(-6.5F, 3.5F, 0.0F,1.2F);
+            renderPipe(-0F, 10F, 0.0F,0.15F);
             return;
         }
         default:
@@ -55,7 +55,7 @@ public class ItemRenderPipe implements IItemRenderer{
 		//TileEntityRendererDispatcher.instance.renderTileEntityAt(new TileCondenser(), 0.0D, 0.0D, 0.0D, 0.0);
 	}
 
-	private void renderCondensor(float x, float y, float z,float scale) {
+	private void renderPipe(float x, float y, float z,float scale) {
 
 		FMLClientHandler.instance().getClient().renderEngine.bindTexture(this.texture);
 		GL11.glPushMatrix(); // start

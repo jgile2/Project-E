@@ -186,7 +186,7 @@ public class ShapedPERecipe implements IRecipe {
 		if(input.getItem() ==target.getItem()){
 			return true;
 		}
-		System.out.println("item does not match");
+		//System.out.println("item does not match");
 		return false;
 	}
 

@@ -1,5 +1,6 @@
 package projecte.blocks;
 
+import codechicken.microblock.BlockMicroMaterial;
 import net.minecraft.block.Block;
 import projecte.blocks.fluid.BlockLiquidEMC;
 import projecte.blocks.pipes.BlockPipe;
@@ -12,6 +13,7 @@ public class PEBlocks {
 	public static Block energyCollectorMK3;
 	public static Block CollectorMK1;
 	public static Block Converter;
+	public static Block Customiser;
 
 
 	public static Block CollectorCore;
@@ -21,6 +23,8 @@ public class PEBlocks {
 	public static Block energyCondenser;
 	public static Block netherStar;
 	public static Block blockFluidEMC;
+	
+	
 	
 	public static Block pipe;
 
@@ -64,6 +68,9 @@ public class PEBlocks {
 		pipe = new BlockPipe();
 		GameRegistry.registerBlock(pipe, pipe.getUnlocalizedName());
 		
+		Customiser = new BlockCustomiser();
+		GameRegistry.registerBlock(Customiser, Customiser.getUnlocalizedName());
+		
 	}
 	
 	public static void registerTiles(){
@@ -77,6 +84,7 @@ public class PEBlocks {
 		GameRegistry.registerTileEntity(TileCollectorCore.class, CollectorCore.getUnlocalizedName());
 		GameRegistry.registerTileEntity(TileConverter.class, Converter.getUnlocalizedName());
 		GameRegistry.registerTileEntity(TilePipe.class, pipe.getUnlocalizedName());
+		GameRegistry.registerTileEntity(TileCustomiser.class, Customiser.getUnlocalizedName());
 		
 
 	}

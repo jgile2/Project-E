@@ -48,7 +48,38 @@ public class ContainerCondenser extends Container {
 
 	@Override
 	public ItemStack transferStackInSlot(EntityPlayer player, int i) {
-		return null;
+	    ItemStack itemstack = null;
+        Slot slot = (Slot)this.inventorySlots.get(i);
+
+        if (slot != null && slot.getHasStack())
+        {
+            ItemStack itemstack1 = slot.getStack();
+            itemstack = itemstack1.copy();
+
+            if (i < 7 * 13)
+            {
+                if (!this.mergeItemStack(itemstack1, 7 * 13, this.inventorySlots.size(), true))
+                {
+                    return null;
+                }
+            }
+            else if (!this.mergeItemStack(itemstack1,3, 94, false))
+            {
+                return null;
+            }
+
+            if (itemstack1.stackSize == 0)
+            {
+                slot.putStack((ItemStack)null);
+            }
+            else
+            {
+                slot.onSlotChanged();
+            }
+        }
+
+        return itemstack;
+
 
 	}
 
@@ -122,5 +153,5 @@ public class ContainerCondenser extends Container {
 			this.tile.setEmcStored(par2);
 		}
 	}
-
+	
 }

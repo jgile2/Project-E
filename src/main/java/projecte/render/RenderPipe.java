@@ -32,6 +32,8 @@ public class RenderPipe extends TileEntitySpecialRenderer {
     
         rb.blockAccess = te.getWorldObj();
         
+        
+        
         bindTexture(texture);
         
         GL11.glPushMatrix();

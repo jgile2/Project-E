@@ -49,7 +49,6 @@ public class ItemFlyingRing extends Item implements IBauble {
 			player.capabilities.allowFlying = false;
 			player.capabilities.isFlying = false;
 			//itemIcon = active;
-			System.out.println("disabled");
 
 		}
 		super.onUpdate(is, world, entity, par4, par5);

@@ -22,6 +22,10 @@ item.projecte.antiMatter.name=Anti Matter
 item.projecte.teleport.name=Teleport Ring
 item.projecte.manual.name=Project E Manual
 
+item.projecte.darkArmor.0.name=Dark Matter Helmet
+item.projecte.darkArmor.1.name=Dark Matter Chestplate
+item.projecte.darkArmor.2.name=Dark Matter Leggings
+item.projecte.darkArmor.3.name=Dark Matter Boots
 
 tile.projecte.liquidEmc.name=Liquid EMC
 tile.projecte.relayMK1.name=Anti-Matter Relay MK1 (WIP)
