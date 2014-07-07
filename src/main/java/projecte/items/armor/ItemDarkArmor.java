@@ -46,18 +46,18 @@ public class ItemDarkArmor extends ItemArmor {
 
         // TODO Auto-generated method stub
         if (itemStack.getItem() == PEArmor.chestplateDark) {
-            System.out.println("is chestplate");
+           // System.out.println("is chestplate");
             NBTTagCompound nbt = itemStack.getTagCompound();
             if (nbt == null) {
-                System.out.println("tick nbt is null");
+               // System.out.println("tick nbt is null");
                 // nbt = new NBTTagCompound();
                 // itemStack.setTagCompound(nbt);
             } else {
                 boolean allowFlight = nbt.getBoolean("allowFlight");
-                System.out.println(allowFlight);
+               // System.out.println(allowFlight);
 
                 if (allowFlight) {
-                    System.out.println("is allowing flight");
+                 //   System.out.println("is allowing flight");
                     // player.capabilities.allowFlying = true;
                 }
             }
@@ -92,7 +92,7 @@ public class ItemDarkArmor extends ItemArmor {
 
     @Override
     public IIcon getIcon(ItemStack stack, int pass) {
-        System.out.println("armour type is: " + type);
+       // System.out.println("armour type is: " + type);
         switch (type) {
         case 0:
             return helmet;
@@ -110,7 +110,7 @@ public class ItemDarkArmor extends ItemArmor {
     public static void writeToStack(ItemStack stack, boolean allowFlight) {
         NBTTagCompound nbt = stack.getTagCompound();
         if (nbt == null) {
-            System.out.println("write nbt is null");
+            //System.out.println("write nbt is null");
 
             nbt = new NBTTagCompound();
             stack.setTagCompound(nbt);
