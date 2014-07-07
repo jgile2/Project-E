@@ -207,20 +207,12 @@ public class TileCondenser extends EmcContainerTile implements ISidedInventory {
 
     @Override
     public boolean canInsertItem(int i, ItemStack itemstack, int j) {
-
-        if (i > items.length - 2)
-            return false;
-
-        return true;
+        return false;
     }
 
     @Override
     public boolean canExtractItem(int i, ItemStack itemstack, int j) {
-
-        if (i > items.length - 2)
-            return false;
-
-        return true;
+        return false;
     }
 
     @Override
