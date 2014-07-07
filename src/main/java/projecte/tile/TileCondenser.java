@@ -24,7 +24,7 @@ import projecte.fluid.PEFluids;
 import projecte.items.PEItems;
 import cpw.mods.fml.common.FMLCommonHandler;
 
-public class TileCondenser extends EmcContainerTile implements IInventory {
+public class TileCondenser extends EmcContainerTile implements ISidedInventory {
 
     private ItemStack[] items = new ItemStack[94]; // 91 slots + philosopher
                                                    // stone + reference item +
@@ -457,6 +457,24 @@ public class TileCondenser extends EmcContainerTile implements IInventory {
         if (item != null && item.getItem() instanceof IEmcContainerItem)
             return new FluidTankInfo[] { new FluidTankInfo(new FluidStack(PEFluids.liquidEMC, ((IEmcContainerItem) item.getItem()).getStoredEmc(item)), Math.max(((IEmcContainerItem) item.getItem()).getMaxStoredEmc(item), 1)) };
         return new FluidTankInfo[] { new FluidTankInfo(new FluidStack(PEFluids.liquidEMC, 0), 0) };
+    }
+
+    @Override
+    public int[] getAccessibleSlotsFromSide(int var1) {
+        return new int[]{0,1,2,3,4,5};
+    }
+
+    @Override
+    public boolean canInsertItem(int var1, ItemStack var2, int var3) {
+        return false;
+    }
+
+    @Override
+    public boolean canExtractItem(int var1, ItemStack var2, int var3) {
+        for(int i =3;i<94;i++){
+            return true;
+        }
+        return false;
     }
 
 }
