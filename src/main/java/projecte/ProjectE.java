@@ -82,7 +82,7 @@ public class ProjectE {
 
         /* Register events */
         FMLCommonHandler.instance().bus().register(new CraftingEvent());
-        FMLCommonHandler.instance().bus().register(new ArmorEvent());
+       // FMLCommonHandler.instance().bus().register(new ArmorEvent());
         //FMLCommonHandler.instance().bus().register(new JoinWorld());
         /* Register handlers */
         if (FMLCommonHandler.instance().getEffectiveSide().isClient()) {
