@@ -16,6 +16,7 @@ import projecte.crafting.ShapedPERecipe;
 import projecte.event.ArmorEvent;
 import projecte.event.CraftingEvent;
 import projecte.event.EventCloakRenderer;
+import projecte.event.JoinWorld;
 import projecte.event.VolcaniteTossEvent;
 import projecte.gui.GuiHandler;
 import projecte.handlers.FurnaceFuelHandler;
@@ -68,6 +69,7 @@ public class ProjectE {
         proxy.registerItems();
         proxy.registerRenders();
         PEArmor.registerArmor();
+//        PEArmor.registerRenderer();
         /* Register channels */
         PacketManager.init();
     }
@@ -81,6 +83,7 @@ public class ProjectE {
         /* Register events */
         FMLCommonHandler.instance().bus().register(new CraftingEvent());
         FMLCommonHandler.instance().bus().register(new ArmorEvent());
+        FMLCommonHandler.instance().bus().register(new JoinWorld());
         /* Register handlers */
         if (FMLCommonHandler.instance().getEffectiveSide().isClient()) {
             

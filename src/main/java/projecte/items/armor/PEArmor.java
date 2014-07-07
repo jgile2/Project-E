@@ -2,6 +2,8 @@ package projecte.items.armor;
 
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraftforge.common.util.EnumHelper;
@@ -16,7 +18,7 @@ public class PEArmor {
     public static Item bootsDark;
 
     public static void registerArmor(){
-        RenderingRegistry.addNewArmourRendererPrefix("5");
+        
         armorDark = EnumHelper.addArmorMaterial("dark", 50, new int[]{10,15,12,10}, 30);
         
         helmetDark = new ItemDarkArmor(armorDark, 5,0);
@@ -31,9 +33,9 @@ public class PEArmor {
         bootsDark = new ItemDarkArmor(armorDark, 5,3);
         GameRegistry.registerItem(bootsDark, bootsDark.getUnlocalizedName());
 
-
-        
-
-        
+    }
+    @SideOnly(Side.CLIENT)
+    public static void registerRenderer(){
+        RenderingRegistry.addNewArmourRendererPrefix("5");
     }
 }

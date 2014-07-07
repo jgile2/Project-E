@@ -42,7 +42,7 @@ public class ItemDarkArmor extends ItemArmor {
 
     @Override
     public void onArmorTick(World world, EntityPlayer player, ItemStack itemStack) {
-        System.out.println(FMLCommonHandler.instance().getEffectiveSide());
+       // System.out.println(FMLCommonHandler.instance().getEffectiveSide());
 
         // TODO Auto-generated method stub
         if (itemStack.getItem() == PEArmor.chestplateDark) {

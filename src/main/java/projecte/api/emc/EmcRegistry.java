@@ -65,7 +65,7 @@ public class EmcRegistry {
     
         EmcValueHardcode val = new EmcValueHardcode(value);
         List l = new ArrayList();
-        item.getSubItems(item, null, l);
+        //item.getSubItems(item, null, l);
         for (Object o : l) {
             ItemStack is = (ItemStack) o;
             if (is == null) continue;
@@ -79,7 +79,7 @@ public class EmcRegistry {
         Item item = Item.getItemFromBlock(block);
         EmcValueHardcode val = new EmcValueHardcode(value);
         List l = new ArrayList();
-        item.getSubItems(item, null, l);
+        //item.getSubItems(item, null, l);
         for (Object o : l) {
             ItemStack is = (ItemStack) o;
             if (is == null) continue;
@@ -197,7 +197,8 @@ public class EmcRegistry {
         addHardcodedValue(new ItemStack(Items.ender_pearl), 1024);
         addHardcodedValue(new ItemStack(Items.blaze_rod), 1536);
         addHardcodedValue(new ItemStack(Items.bone), 96);
-        
+        addHardcodedValue(new ItemStack(Items.nether_star), 1000000);
+        addHardcodedValue(new ItemStack(Items.quartz), 256);
         addOredictValue("blockStone", 1);
         
         // Items
