@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -23,7 +24,7 @@ import projecte.fluid.PEFluids;
 import projecte.items.PEItems;
 import cpw.mods.fml.common.FMLCommonHandler;
 
-public class TileCondenser extends EmcContainerTile implements ISidedInventory {
+public class TileCondenser extends EmcContainerTile implements IInventory {
 
     private ItemStack[] items = new ItemStack[94]; // 91 slots + philosopher
                                                    // stone + reference item +
@@ -200,22 +201,6 @@ public class TileCondenser extends EmcContainerTile implements ISidedInventory {
     }
 
     @Override
-    public int[] getAccessibleSlotsFromSide(int var1) {
-
-        return null;
-    }
-
-    @Override
-    public boolean canInsertItem(int i, ItemStack itemstack, int j) {
-        return false;
-    }
-
-    @Override
-    public boolean canExtractItem(int i, ItemStack itemstack, int j) {
-        return false;
-    }
-
-    @Override
     public String getInventoryName() {
 
         return null;
@@ -288,11 +273,12 @@ public class TileCondenser extends EmcContainerTile implements ISidedInventory {
     }
 
     private boolean canConvert() {
-        ItemStack resultItem = getStackInSlot(items.length-2);
+        ItemStack resultItem = getStackInSlot(items.length - 2);
         StackEmcValue val = EmcRegistry.inst().getEmcValue(resultItem);
-
-        return getStackInSlot(items.length - 1) != null && getStackInSlot(items.length - 1).getItem() == PEItems.philosophersStone && val.getValue()>=0;
-
+        if (resultItem != null) {
+            return getStackInSlot(items.length - 1) != null && getStackInSlot(items.length - 1).getItem() == PEItems.philosophersStone && val.getValue() >= 0;
+        }
+        return false;
     }
 
     public void doConversion() {

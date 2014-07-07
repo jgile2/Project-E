@@ -70,10 +70,10 @@ public class PEItems {
 		GameRegistry.registerItem(FlyingRing, FlyingRing.getUnlocalizedName());
 		
 		Evertide = new ItemEvertide();
-		//GameRegistry.registerItem(Evertide, Evertide.getUnlocalizedName());
+		GameRegistry.registerItem(Evertide, Evertide.getUnlocalizedName());
 		
 		Volcanite = new ItemVolcanite();
-		//GameRegistry.registerItem(Volcanite, Volcanite.getUnlocalizedName());
+		GameRegistry.registerItem(Volcanite, Volcanite.getUnlocalizedName());
 		
 		Pouch = new ItemPouch();
 		GameRegistry.registerItem(Pouch, Pouch.getUnlocalizedName());
