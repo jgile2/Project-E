@@ -221,7 +221,7 @@ public class TileCondenser extends EmcContainerTile implements ISidedInventory {
             // this.playersCurrentlyUsingChest = 0;
             float var1 = 5.0F;
             @SuppressWarnings("unchecked")
-            List<EntityPlayer> var2 = worldObj.getEntitiesWithinAABB(EntityPlayer.class, AxisAlignedBB.getAABBPool().getAABB(xCoord - var1, yCoord - var1, zCoord - var1, xCoord + 1 + var1, yCoord + 1 + var1, zCoord + 1 + var1));
+            List<EntityPlayer> var2 = worldObj.getEntitiesWithinAABB(EntityPlayer.class, AxisAlignedBB.getBoundingBox(xCoord - var1, yCoord - var1, zCoord - var1, xCoord + 1 + var1, yCoord + 1 + var1, zCoord + 1 + var1));
             Iterator<EntityPlayer> var3 = var2.iterator();
 
             while (var3.hasNext()) {

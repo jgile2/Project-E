@@ -251,7 +251,7 @@ public class TileEnergyCollector extends EmcContainerTile implements ISidedInven
 			double a = maxEMCPerSecond;
 			a /= 20D;
 			a *= getSunStrength();
-
+			//System.out.println(getSunStrength());
 			tempStored += a;
 
 			if (tempStored >= 1) {
@@ -261,6 +261,8 @@ public class TileEnergyCollector extends EmcContainerTile implements ISidedInven
 
 			tick = tick + 1;
 		}
+		//System.out.println(this.getEmcStored()+", Side is: "+FMLCommonHandler.instance().getEffectiveSide());
+
 	}
 
 }

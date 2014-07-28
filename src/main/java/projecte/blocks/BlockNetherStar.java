@@ -3,7 +3,6 @@ package projecte.blocks;
 import java.io.IOException;
 
 import cpw.mods.fml.common.FMLCommonHandler;
-
 import projecte.ModInfo;
 import projecte.ProjectE;
 import net.minecraft.block.Block;
@@ -11,7 +10,10 @@ import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ChatComponentText;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.common.IPlantable;
+import net.minecraftforge.common.util.ForgeDirection;
 
 public class BlockNetherStar extends Block {
 
@@ -27,5 +29,10 @@ public class BlockNetherStar extends Block {
     public void onFallenUpon(World p_149746_1_, int p_149746_2_, int p_149746_3_, int p_149746_4_, Entity p_149746_5_, float p_149746_6_) {
         System.out.println(FMLCommonHandler.instance().getEffectiveSide());
     }
-
+    
+    @Override
+    public boolean canSustainPlant(IBlockAccess world, int x, int y, int z, ForgeDirection direction, IPlantable plantable) {
+    	return true;
+    }
+    
 }

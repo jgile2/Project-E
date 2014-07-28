@@ -20,7 +20,7 @@ public class EmcRegistry {
     public static EmcRegistry inst() {
     
         if (inst == null) inst = new EmcRegistry();
-        
+        int i;
         return inst;
     }
     

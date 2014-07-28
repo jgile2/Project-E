@@ -39,7 +39,7 @@ public class ItemDarkArmor extends ItemArmor {
         }
         return null;
     }
-
+    
     @Override
     public void onArmorTick(World world, EntityPlayer player, ItemStack itemStack) {
        // System.out.println(FMLCommonHandler.instance().getEffectiveSide());

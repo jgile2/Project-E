@@ -4,12 +4,13 @@ import projecte.blocks.PEBlocks;
 import projecte.crafting.Recipes;
 import projecte.fluid.PEFluids;
 import projecte.items.PEItems;
+import projecte.testing.PETesting;
 
 public class CommonProxy {
 
 	public void registerBlocks() {
 		PEBlocks.registerBlocks();
-
+		PETesting.registerTestBlocks();
 	}
 
 	public void registerItems() {
@@ -33,6 +34,7 @@ public class CommonProxy {
 
 	public void registerTiles() {
 		PEBlocks.registerTiles();
+		PETesting.registerTestTiles();
 	}
 	
 

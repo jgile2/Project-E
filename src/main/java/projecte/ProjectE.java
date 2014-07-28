@@ -17,6 +17,7 @@ import projecte.event.ArmorEvent;
 import projecte.event.CraftingEvent;
 import projecte.event.EventCloakRenderer;
 import projecte.event.JoinWorld;
+import projecte.event.PlayerEventModel;
 import projecte.event.VolcaniteTossEvent;
 import projecte.gui.GuiHandler;
 import projecte.handlers.FurnaceFuelHandler;
@@ -82,6 +83,7 @@ public class ProjectE {
 
         /* Register events */
         FMLCommonHandler.instance().bus().register(new CraftingEvent());
+        MinecraftForge.EVENT_BUS.register(new PlayerEventModel());
        // FMLCommonHandler.instance().bus().register(new ArmorEvent());
         //FMLCommonHandler.instance().bus().register(new JoinWorld());
         /* Register handlers */

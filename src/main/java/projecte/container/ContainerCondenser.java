@@ -88,40 +88,40 @@ public class ContainerCondenser extends Container {
 		this.tile.closeInventory();
 	}
 
-	@Override
-	public boolean mergeItemStack(ItemStack stack, int begin, int end, boolean backwards) {
-
-		int i = backwards ? end - 1 : begin, increment = backwards ? -1 : 1;
-		boolean flag = false;
-		while (stack.stackSize > 0 && i >= begin && i < end) {
-			Slot slot = this.getSlot(i);
-			ItemStack slotStack = slot.getStack();
-			int slotStacklimit = i < tile.getSizeInventory() ? tile.getInventoryStackLimit() : 64;
-			int totalLimit = slotStacklimit < stack.getMaxStackSize() ? slotStacklimit : stack.getMaxStackSize();
-
-			if (slotStack == null) {
-				int transfer = totalLimit < stack.stackSize ? totalLimit : stack.stackSize;
-				ItemStack stackToPut = stack.copy();
-				stackToPut.stackSize = transfer;
-				slot.putStack(stackToPut);
-				slot.onSlotChanged();
-				stack.stackSize -= transfer;
-				flag = true;
-			} else if (slotStack.getItem() == stack.getItem() && (!stack.getHasSubtypes() || stack.getItemDamage() == slotStack.getItemDamage()) && ItemStack.areItemStackTagsEqual(stack, slotStack)) {
-				int maxTransfer = totalLimit - slotStack.stackSize;
-				int transfer = maxTransfer > stack.stackSize ? stack.stackSize : maxTransfer;
-				slotStack.stackSize += transfer;
-				slot.onSlotChanged();
-				stack.stackSize -= transfer;
-				flag = true;
-			}
-
-			i += increment;
-		}
-
-		return flag;
-
-	}
+//	@Override
+//	public boolean mergeItemStack(ItemStack stack, int begin, int end, boolean backwards) {
+//
+//		int i = backwards ? end - 1 : begin, increment = backwards ? -1 : 1;
+//		boolean flag = false;
+//		while (stack.stackSize > 0 && i >= begin && i < end) {
+//			Slot slot = this.getSlot(i);
+//			ItemStack slotStack = slot.getStack();
+//			int slotStacklimit = i < tile.getSizeInventory() ? tile.getInventoryStackLimit() : 64;
+//			int totalLimit = slotStacklimit < stack.getMaxStackSize() ? slotStacklimit : stack.getMaxStackSize();
+//
+//			if (slotStack == null) {
+//				int transfer = totalLimit < stack.stackSize ? totalLimit : stack.stackSize;
+//				ItemStack stackToPut = stack.copy();
+//				stackToPut.stackSize = transfer;
+//				slot.putStack(stackToPut);
+//				slot.onSlotChanged();
+//				stack.stackSize -= transfer;
+//				flag = true;
+//			} else if (slotStack.getItem() == stack.getItem() && (!stack.getHasSubtypes() || stack.getItemDamage() == slotStack.getItemDamage()) && ItemStack.areItemStackTagsEqual(stack, slotStack)) {
+//				int maxTransfer = totalLimit - slotStack.stackSize;
+//				int transfer = maxTransfer > stack.stackSize ? stack.stackSize : maxTransfer;
+//				slotStack.stackSize += transfer;
+//				slot.onSlotChanged();
+//				stack.stackSize -= transfer;
+//				flag = true;
+//			}
+//
+//			i += increment;
+//		}
+//
+//		return flag;
+//
+//	}
 
 	private int buffer = 0;
 

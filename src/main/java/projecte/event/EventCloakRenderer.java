@@ -32,7 +32,7 @@ public class EventCloakRenderer {
 					if (str.contains(":")) {
 						String nick = str.substring(0, str.indexOf(":"));
 						String link = str.substring(str.indexOf(":") + 1);
-						ThreadDownloadImageData image = new ThreadDownloadImageData(link, null, null);
+						ThreadDownloadImageData image = new ThreadDownloadImageData(null,link, null, null);
 
 						Minecraft.getMinecraft().renderEngine.loadTexture(new ResourceLocation("cloaks/" + nick), (ITextureObject) image);
 					} else {

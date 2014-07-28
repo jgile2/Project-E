@@ -38,7 +38,7 @@ public class TooltipHandler {
         try {
             GuiScreen gui = Minecraft.getMinecraft().currentScreen;
             if (GuiScreen.isShiftKeyDown() || GuiScreen.isCtrlKeyDown() && ((gui instanceof GuiContainer))) {
-                ScaledResolution res = new ScaledResolution(mc.gameSettings, mc.displayWidth, mc.displayHeight);
+                ScaledResolution res = new ScaledResolution(mc, mc.displayWidth, mc.displayHeight);
                 int sizeX = res.getScaledWidth();
                 int sizeY = res.getScaledHeight();
                 int mouseX = Mouse.getX() * sizeX / mc.displayWidth;

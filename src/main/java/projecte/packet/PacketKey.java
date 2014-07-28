@@ -66,7 +66,7 @@ public class PacketKey extends PacketBase {
 
 		System.out.println(up);
 		InventoryPlayer inventory = player.inventory;
-		InventoryPlayer inventoryMP = MinecraftServer.getServer().getConfigurationManager().getPlayerForUsername(player.getDisplayName()).inventory;
+		InventoryPlayer inventoryMP = MinecraftServer.getServer().getConfigurationManager().func_152612_a(player.getDisplayName()).inventory;
 
 		if (up) {
 
