@@ -83,7 +83,7 @@ public class ProjectE {
 
         /* Register events */
         FMLCommonHandler.instance().bus().register(new CraftingEvent());
-        MinecraftForge.EVENT_BUS.register(new PlayerEventModel());
+       // MinecraftForge.EVENT_BUS.register(new PlayerEventModel());
        // FMLCommonHandler.instance().bus().register(new ArmorEvent());
         //FMLCommonHandler.instance().bus().register(new JoinWorld());
         /* Register handlers */
